@@ -71,6 +71,7 @@ header img{
 
 #title h2{
     width: 90vw;
+    max-width: 317px;
     margin-bottom: 20px;
 }
 
@@ -130,22 +131,21 @@ main{
     border-radius: 50%;
 }
 
-#about{
+#about > div{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 5vw;
 }
 
-#about h2{
-    margin: 10px;
-}
-
+#about h2,
 #about p{
-    margin: 0 30px 20px 30px;
+    margin: 15px 0;
+    text-align: center;
 }
 
-#about img{
-    width: 90vw;
+#about > div img{
+    width: 100%;
 }
 
 #map{
@@ -167,6 +167,11 @@ main{
     border: 2px solid #3066BE;
     border-radius: 15px;
     margin-bottom: 20px;
+}
+
+#map img,
+#selects{
+    max-width: 462px;
 }
 
 #selects{
@@ -204,7 +209,7 @@ main{
 
 footer{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 10vh;
     background-color: #909DB6;
 }
@@ -231,4 +236,89 @@ footer p{
 
 #social_medias img{
     margin: 0 5px;
+}
+
+@media (min-width: 660px) {
+
+    header{
+        height: 10vh;
+    }
+
+    #btn_register,
+    #btn_login{
+        padding: 10px 15px;
+    }
+
+    #btn_register a,
+    #btn_login a{
+        font-size: 16px;
+    }
+
+    main{
+        align-items: center;
+    }
+
+    main > div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 90%;
+        max-width: 1200px;
+    }
+
+    #selects label,
+    #selects button{
+        max-width: 462px;
+    }
+}
+
+@media (min-width: 1100px) {
+    #about > div > div{
+        display: flex;
+    }
+
+    #about > div > div > div{
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #about > div img{
+        width: 40vw;
+    }
+
+    #about p{
+        max-width: 400px;
+        margin: 20px;
+        font-size: 16px;
+    }
+
+    #map{
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        background-color: #B4C5E4;
+        margin: 30px 0;
+        padding: 0 5vw;
+        justify-content: center;
+    }
+
+    #map img{
+        margin: 30px;
+    }
+
+    footer p{
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1440px) {
+    header > div{
+        max-width: 1296px;
+    }
+
+    #about > div > div {
+        max-width: 1152px;
+    }
 }
