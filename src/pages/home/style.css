@@ -27,11 +27,15 @@ header > div{
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    width: 90%;
+    width: 97%;
 }
 
 header img{
     height: 100%;
+}
+
+#buttons{
+    display: flex;
 }
 
 #btn_register{
@@ -69,7 +73,7 @@ header img{
     background-position: center;
 }
 
-#title h2{
+#title h1{
     width: 90vw;
     max-width: 317px;
     margin-bottom: 20px;
@@ -209,7 +213,7 @@ main{
 
 footer{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     height: 10vh;
     background-color: #909DB6;
 }
@@ -229,19 +233,19 @@ footer p{
     align-items: center;
 }
 
-#social_medias{
-    display: flex;
-    height: 2.5vh;
-}
-
-#social_medias img{
-    margin: 0 5px;
-}
-
 @media (min-width: 660px) {
 
     header{
         height: 10vh;
+    }
+
+    header > div{
+        width: 90%;
+    }
+
+    #title h1{
+        max-width: 390px;
+        font-size: 2rem;
     }
 
     #btn_register,
@@ -251,7 +255,7 @@ footer p{
 
     #btn_register a,
     #btn_login a{
-        font-size: 16px;
+        font-size: 22px;
     }
 
     main{
@@ -315,7 +319,7 @@ footer p{
 
 @media (min-width: 1440px) {
     header > div{
-        max-width: 1296px;
+        max-width: 1896px;
     }
 
     #about > div > div {
