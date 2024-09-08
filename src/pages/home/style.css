@@ -141,6 +141,7 @@ main{
 #analysis p{
     margin-top: 30px;
     font-size: 18px;
+    text-align: justify;
     color: #000000;
 }
 
@@ -168,10 +169,14 @@ main{
     padding: 0 5vw;
 }
 
-#about h2,
-#about p{
+#about h2{
     margin: 15px 0;
     text-align: center;
+}
+
+#about p{
+    margin: 15px 0;
+    text-align: justify;
 }
 
 #about > div img{
