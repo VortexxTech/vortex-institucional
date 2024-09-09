@@ -17,7 +17,7 @@ body * {
 header {
     display: flex;
     justify-content: center;
-    height: 12vh;
+    height: 10vh;
     background-color: #909DB6;
 }
 
@@ -30,7 +30,7 @@ header > div {
 }
 
 header img {
-    height: 100%;
+    height: 70%;
 }
 
 #btn_register {
@@ -196,5 +196,16 @@ a{
 
     .card-login {
         width: 90%;
+    }
+}
+
+@media screen and (min-width: 660px) {
+    #btn_register a,
+    #btn_login a{
+        font-size: 22px;
+    }
+
+    header img{
+        height: 100%;
     }
 }
