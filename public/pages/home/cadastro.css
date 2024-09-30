@@ -209,3 +209,6 @@ a{
         height: 100%;
     }
 }
+#msg{
+    display: none;
+}

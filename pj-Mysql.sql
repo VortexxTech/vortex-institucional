@@ -2,17 +2,15 @@ create database VortexTech;
 
 use VortexTech;
 
-CREATE TABLE Usuario (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nomeCompleto VARCHAR(45) NOT NULL,
-    email VARCHAR(100)  NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    id_localizacao INT,
-    FOREIGN KEY (id_localizacao) REFERENCES Localizacao(id_localizacao)
+create table usuario (
+idUsuario int primary key not null auto_increment,
+nomeCompleto varchar(45) not null,
+email varchar(45) not null,
+senha varchar(45) not null
 );
 
-
 select * from usuario;
+
 
 CREATE TABLE Localizacao (
     id_localizacao INT PRIMARY KEY AUTO_INCREMENT,
@@ -25,7 +23,7 @@ CREATE TABLE Localizacao (
 CREATE TABLE Predio (
     id_predio INT PRIMARY KEY AUTO_INCREMENT,
     numero_pessoas INT NOT NULL,
-    preco_por_metro_quadrado DECIMAL(10, 2) NOT NULL,
+    preco_por_metro_quadrado INT NOT NULL,
     quantidade_quartos INT NOT NULL,
     id_localizacao INT,
     FOREIGN KEY (id_localizacao) REFERENCES Localizacao(id_localizacao)
