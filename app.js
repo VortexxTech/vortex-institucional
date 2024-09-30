@@ -23,9 +23,6 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/religioes", religioesRouter);
-app.use("/score", scoreRouter);
-app.use("/comentarios", comentariosRouter);
 
 
 app.listen(PORTA_APP, function () {
