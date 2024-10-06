@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="./js/sessao.js"></script>
+    <script src="../../js/login.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login|Vortex</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../../css/login.css">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
     
                 
                 <button id="btn_register">
-                    <a href="index.html">Voltar</a>
+                    <a href="../../index.html">Voltar</a>
                 </button>
     
             </div>
@@ -31,7 +31,6 @@
     </header>
    
     <div class="main-login">
-        <img src="/icons8-à-esquerda-dentro-de-um-círculo-30.png" alt="">
 <!-- <div class="left-login">
     <h2>Faça seu login!</h2>
 </div> -->
@@ -46,7 +45,7 @@
         
         <input type="password" name="Senha" placeholder="Usuario" id="ipt_senha">
     </div>
-   <a href="index.html"><button class="btn-login">login</button></a> 
+   <button class="btn-login" onclick="login()">login</button> 
     <a href="cadastro.html">Ainda não tem conta?</a>
 </div>
 </div>
@@ -55,72 +54,3 @@
     
 </body>
 </html>
-
-<script>
-    function entrar() {
-      aguardar();
-  
-      var emailVar = ipt_email.value;
-      var senhaVar = ipt_senha.value;
-  
-      if (emailVar == "" || senhaVar == "") {
-        msg.style.display = "block";
-        msg.innerHTML = "Há campos em branco";
-        finalizarAguardar();
-        return false;
-      } else {
-        setInterval(sumirMensagem, 3000);
-        msg.innerHTML = "Login Realizado com sucesso"
-      }
-  
-      console.log("FORM LOGIN: ", emailVar);
-      console.log("FORM SENHA: ", senhaVar);
-  
-      fetch("/usuarios/autenticar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emailServer: emailVar,
-          senhaServer: senhaVar,
-        }),
-      })
-        .then(function (resposta) {
-          console.log("ESTOU NO THEN DO entrar()!");
-  
-          if (resposta.ok) {
-            console.log(resposta);
-  
-            resposta.json().then((json) => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-              sessionStorage.EMAIL_USUARIO = json.email;
-              sessionStorage.NOME_USUARIO = json.nome;
-              sessionStorage.ID_USUARIO = json.id;
-              
-  
-              setTimeout(function () {
-                window.location = "index.html";
-              }, 3000); // apenas para exibir o loading
-            });
-          } else {
-            console.log("Houve um erro ao tentar realizar o login!");
-  
-            resposta.text().then((texto) => {
-              console.error(texto);
-              finalizarAguardar(texto);
-            });
-          }
-        })
-        .catch(function (erro) {
-          console.log(erro);
-        });
-  
-      return false;
-    }
-  
-    function sumirMensagem() {
-      msg.style.display = "none";
-    }
-  </script>
