@@ -1,3 +1,6 @@
+var input_email = document.querySelector("#ipt_email");
+var input_senha = document.querySelector("#ipt_senha");
+
 function login() {
     var email = input_email.value;
     var senha = input_senha.value;
