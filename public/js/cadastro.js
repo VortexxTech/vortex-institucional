@@ -1,3 +1,9 @@
+var input_nome = document.querySelector("#ipt_nome");
+var input_email = document.querySelector("#ipt_email");
+var input_senha = document.querySelector("#ipt_senha");
+var btn_login = document.querySelector(".btn-login");
+
+
 function registrar() {
   var nome = input_nome.value;
   var email = input_email.value;
@@ -32,10 +38,6 @@ function registrar() {
 
     alert("Senha inválida! A senha deve conter pelo menos 8 carateres, sendo pelo menos 1 número e 1 caractere especial");
 
-  } else if (senha != conf_senha) {
-
-    alert("As senhas devem ser iguais!");
-
   } else if (email_arroba < 0) {
 
     alert("Email inválido")
@@ -50,8 +52,6 @@ function registrar() {
     },
     body: JSON.stringify({
       nomeServer: nome,
-      dtNascServer: dt_nasc,
-      telefoneServer: telefone,
       emailServer: email,
       senhaServer: senha
     }),
