@@ -4,8 +4,8 @@ use VortexTech;
 
 CREATE TABLE Usuario (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nomeCompleto VARCHAR(45) NOT NULL,
-    email VARCHAR(100)  NOT NULL,
+    nome VARCHAR(45) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     id_localizacao INT,
     FOREIGN KEY (id_localizacao) REFERENCES Localizacao(id_localizacao)
