@@ -208,6 +208,11 @@ a{
     header img{
         height: 100%;
     }
+
+    #btn_register,
+    #btn_login{
+        padding: 10px 15px;
+    }
 }
 #msg{
     display: none;
