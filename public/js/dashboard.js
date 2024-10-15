@@ -7,7 +7,7 @@ function pesquisar_insights() {
 function pesquisar_previsao() {
     kpis_previsao.style.display = "flex";
     grafico_futurom2.style.display = "flex";
-    div_vazia2.style.display = "none";
+    div_vazia1.style.display = "none";
 }
 
 document.getElementById('filtrarBtn').addEventListener('click', () => {
@@ -51,18 +51,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    zonaRegiaoPrevista.addEventListener('change', function () {
-        const regiaoSelecionada = this.value;
-        regiaoCidadePrevista.innerHTML = '<option value="">Selecione uma cidade</option>';
+    // // zonaRegiaoPrevista.addEventListener('change', function () {
+    // //     const regiaoSelecionada = this.value;
+    // //     regiaoCidadePrevista.innerHTML = '<option value="">Selecione uma cidade</option>';
 
-        if (regiaoSelecionada && cidadesPorRegiao[regiaoSelecionada]) {
-            cidadesPorRegiao[regiaoSelecionada].forEach(function (cidade) {
-                const option = document.createElement('option');
-                option.textContent = cidade;
-                regiaoCidadePrevista.appendChild(option);
-            });
-        }
-    });
+    // //     if (regiaoSelecionada && cidadesPorRegiao[regiaoSelecionada]) {
+    // //         cidadesPorRegiao[regiaoSelecionada].forEach(function (cidade) {
+    // //             const option = document.createElement('option');
+    // //             option.textContent = cidade;
+    // //             regiaoCidadePrevista.appendChild(option);
+    // //         });
+    // //     }
+    // });
 
 
 });
