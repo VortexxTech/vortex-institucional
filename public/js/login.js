@@ -24,7 +24,7 @@ function login() {
                 sessionStorage.ID_USUARIO = usuario[0].idUsuario;
             });
             
-            window.location = "./index.html"
+            window.location = "./dashboard.html"
         } else {
 
             console.log("Houve um erro ao tentar realizar o login!");
