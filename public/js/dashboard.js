@@ -22,6 +22,7 @@ document.getElementById('filtrarBtn').addEventListener('click', () => {
     }
 });
 
+
 document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPesquisa = document.getElementById('zona-regiao-pesquisa');
     const regiaoCidadePesquisa = document.getElementById('regiao-cidade-pesquisa');
@@ -51,28 +52,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // // zonaRegiaoPrevista.addEventListener('change', function () {
-    // //     const regiaoSelecionada = this.value;
-    // //     regiaoCidadePrevista.innerHTML = '<option value="">Selecione uma cidade</option>';
-
-    // //     if (regiaoSelecionada && cidadesPorRegiao[regiaoSelecionada]) {
-    // //         cidadesPorRegiao[regiaoSelecionada].forEach(function (cidade) {
-    // //             const option = document.createElement('option');
-    // //             option.textContent = cidade;
-    // //             regiaoCidadePrevista.appendChild(option);
-    // //         });
-    // //     }
-    // });
-
-
 });
 
 
-
-
-
 ///segunda sessao
-
 document.getElementById('filtrarBtn2').addEventListener('click', () => {
     const zonaPrevista = document.getElementById('zona-regiao-prevista').value;
     const regiaoPrevista = document.getElementById('regiao-cidade-prevista').value;
@@ -119,6 +102,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+function preco_atual(){
+    var preco = 6.867;
+    var tamanhoTerreno = tamanho_terreno.value;
+
+    var resultado = preco * tamanhoTerreno;
+
+    document.getElementById('preco_atual').innerText = resultado.toFixed(3);
+}
+
+function preco_futuro(){
+    var preco_futuro = 7.100;
+    var tamanhoTerreno = tamanho_terreno.value;
+
+    var resultado = preco_futuro * tamanhoTerreno;
+
+    document.getElementById('preco_futuro').innerText = resultado.toFixed(3);
+}
+
+
 function geral() {
 
     div_graficos.style.display = "flex";
@@ -163,7 +165,7 @@ const grafico = new Chart(ctx, {
     data: {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro'],
         datasets: [{
-            label: 'Variação mensal do m² em SP',
+            label: 'Variação mensal do preço do m² em SP',
             data: [6.867, 6.700, 6.760, 6.758, 6.740, 6.800, 6.900, 7.000, 7.100],
             backgroundColor: ['#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6'],
             borderColor: ['#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6'],
@@ -192,9 +194,13 @@ const grafico = new Chart(ctx, {
         },
         plugins: {
             legend: {
+
                 labels: {
                     color: '#001F31',
-
+                    boxWidth: 0,
+                    font: {
+                        size: 15,
+                    }
                 }
             }
         }
@@ -208,7 +214,7 @@ const grafico2 = new Chart(ctx2, {
         labels: ['Mooca', 'Pinheiros', 'Liberdade', 'Jardins', 'Maio'],
         datasets: [
             {
-                label: 'Densidade demografica',
+                label: 'Densidade demográfica(hab/km²)',
                 data: [11.948, 10.137, 16.454, 12.46, 7.527],
                 backgroundColor: '#909DB6'
             },
@@ -247,8 +253,19 @@ const grafico2 = new Chart(ctx2, {
         plugins: {
             legend: {
                 labels: {
-                    color: '#001F31'
+                    color: '#001F31',
+                    font: {
+                        size: 7,
+                    },
                 }
+            },
+            title: {
+                display: true,
+                text: 'Principais Cidades em Densidade Demográfica e Renda Per Capita Juntas',
+                font: {
+                    size: 12,
+                },
+             
             }
         }
     }
@@ -261,7 +278,7 @@ const grafico3 = new Chart(ctx3, {
     data: {
         labels: ['São Caetano', 'Pinheiros', 'Pinheiros', 'Moema', 'Osasco', 'Perdizes'],
         datasets: [{
-            label: 'Preço do m² (R$)',
+            label: 'Cidades com o maior preço do m² (R$)',
             data: [7.604, 7.210, 7.600, 7.200, 6.900, 6.500],
             backgroundColor: '#909DB6'
         }]
@@ -287,7 +304,8 @@ const grafico3 = new Chart(ctx3, {
         plugins: {
             legend: {
                 labels: {
-                    color: '#001F31'
+                    color: '#001F31',
+                    boxWidth : 0 
                 }
             }
         }
@@ -298,7 +316,7 @@ const ctxIdh = document.getElementById('idhChart').getContext('2d');
 const idhChart = new Chart(ctxIdh, {
     type: 'doughnut',
     data: {
-        labels: ['IDH atual de Pinheiros', 'IDH médio do estado de SP'],
+        labels: ['IDH atual dessa subprefeitura', 'IDH médio do estado de SP'],
         datasets: [{
             label: 'IDH',
             data: [0.9, 0.85],
@@ -341,13 +359,6 @@ const idhChart = new Chart(ctxIdh, {
                     bottom: 10
                 },
             }
-        },
-        tooltip: {
-            callbacks: {
-                label: function (tooltipItem) {
-                    return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2);
-                }
-            }
         }
     }
 });
@@ -360,7 +371,7 @@ const grafico5 = new Chart(ctx5, {
         labels: ['Junho', 'Julho', 'Agosto', 'Setembro'],
         datasets: [{
             label: '',
-            data: [6.800, 6.900, 7.000, 7.100],
+            data: [6.800, 6.600, 7.000, 7.100],
             backgroundColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
             borderColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
             borderWidth: 1
@@ -395,7 +406,7 @@ const grafico5 = new Chart(ctx5, {
                 }
             }, title: {
                 display: true,
-                text: 'Variação mensal do m² nos últimos 4 meses',
+                text: 'Variação mensal do preço do m² nos últimos 4 meses',
                 font: {
                     size: 12,
                 },
@@ -415,7 +426,7 @@ const grafico6 = new Chart(ctx6, {
         labels: ['São Paulo', 'Bairro'],
         datasets: [{
             label: '',
-            data: [6.900, 6.500],
+            data: [6.00, 6.60],
             backgroundColor: '#909DB6'
         }]
     },

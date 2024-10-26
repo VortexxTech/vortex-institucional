@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="..//css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="shortcut icon" href="../assets/icons/Logo_V3.png" type="image/x-icon">   
+    <link rel="shortcut icon" href="../assets/icons/Logo_V3.png" type="image/x-icon">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
             <img src=../assets/img/logo_V2.png alt="logo da Vortex Tech">
 
             <div id="buttons">
-                
+
                 <button id="btn_register">
                     <a href="../index.html">Voltar</a>
                 </button>
@@ -66,9 +66,12 @@
                 </svg> Pesquisa por Regiões</p>
 
 
-            <p class="opcoes_menu" onclick="aparecer_previsao()" id="slc_previsao"> <img width="15" height="15"
-                    src="https://img.icons8.com/?size=100&id=116423&format=png&color=909DB6" alt="future" /> Projeção de
-                valorização</p>
+            <p class="opcoes_menu" onclick="aparecer_previsao()" id="slc_previsao"
+                style="color: orange; animation: blink 1s infinite;">
+                <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=909DB6"
+                    alt="future" />
+                Projeção de valorização
+            </p>
 
 
 
@@ -161,7 +164,7 @@
                 <div class="graficos_pesquisa">
                     <canvas id="grafico6" width="70%" height="100%"></canvas>
                     <span class="titulo_kpi" id="kpi_percapita">
-                        <h4>Comparativo R/C São Paulo X R/C região</h4><br>
+                        <h4>Comparativo Renda/Capita: SP vs Bairro</h4><br>
                         A Renda Per Capita da Subprefeita é de: <span
                             style="font-size: 2em; font-weight: bold; color: black;">10%</span> <br>
                         maior que a de São Paulo
@@ -175,7 +178,7 @@
         </div>
         <div id="div_previsao">
             <div class="container_ipt">
-                <p class="titulo_ipt">Zona:
+                <p class="titulo_ipt"><b>Zona:</b>
                     <select class="ipt_cidade" id="zona-regiao-prevista">
                         <option value="">Selecione uma região</option>
                         <option value="centro">Centro</option>
@@ -186,13 +189,13 @@
                         <option value="metropolitana">Metropolitana</option>
                     </select>
                 </p>
-                <p class="titulo_ipt">Bairro:
+                <p class="titulo_ipt"><b>Bairro:</b>
                     <select class="ipt_cidade" id="regiao-cidade-prevista">
                         <option value="">Selecione uma cidade</option>
                     </select>
                 </p>
-                <p class="titulo_ipt">Tamanho do terreno:(M²) <input type="number" class="ipt_cidade"></input></p>
-                <button id="filtrarBtn2" onclick="pesquisar_previsao()">
+                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade" id="tamanho_terreno"></input></p>
+                <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
 
@@ -203,15 +206,15 @@
             <div class="container_kpispesquisa" id="kpis_previsao">
                 <div class="kpis">
                     <span class="titulo_kpi">Preço do m² na região:</span>
-                    <span class="texto_kpi"> 12.00</span>
+                    <span class="texto_kpi"> 6.867</span>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Calculo atual de preço do terreno pelo tamanho:</span>
-                    <span class="texto_kpi"> 1.000.000</span>
+                    <span class="texto_kpi" id="preco_atual"></span>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Calculo do preço do terreno daqui a 6 meses:</span>
-                    <span class="texto_kpi">1.200.000</span>
+                    <span class="texto_kpi" id="preco_futuro"></span>
                 </div>
             </div>
             <div class="container_graficospesquisa" id="grafico_futurom2">
@@ -222,16 +225,23 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Google_Gemini_logo.svg/640px-Google_Gemini_logo.svg.png"
                         alt="Gemini" style="position: absolute; top: 10px; right: 25px; width: auto; height: 40px;">
                     <span class="titulo_kpi" id="kpi_percapita" style="width: 80%;">
-                        <h4>Resposta da nossa IA:</h4><br>Devido à densidade alta da região, Renda per capita média, e
-                        preço do m² em crescimento, o investimento recomendado para esse terreno é um <b>imóvel
-                            comercial</b><br><br>
-                        Lembrando que essas informações devem ser analisadas por um Especialista qualificadas e não são
-                        uma resposta final, mas são um auxilio para analise das construtoras
-                    </span>
-                </div>
-            </div>
+                        <h4 style="font-size: medium;">Resposta da nossa IA:</h4><br>
+                        <div class="tooltip">Devido à densidade alta da região, Renda per capita média, e
+                            preço do m² em crescimento, o investimento recomendado para esse terreno é um <b>imóvel
+                                comercial.</b><br><br>
+                        Não recomendaria um imóvel comercial pelo alto custo de investimento, mas isso depende do seu perfil e quantidade planejada de investimento.
 
+
+                            <span class="tooltiptext"> Lembrando que essas informações devem ser analisadas por um
+                                Especialista qualificado e não são
+                                uma resposta final, mas são um auxílio para análise das construtoras</span>
+                        </div>
+                </div>
+               
+            </div>
         </div>
+
+    </div>
 
     </div>
 
@@ -239,4 +249,3 @@
 </body>
 
 </html>
-
