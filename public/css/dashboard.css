@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    overflow: hidden;
+
     
 }
 
@@ -18,7 +18,7 @@ body{
 }
 
 #div_menu{
-    height: 100vh;
+    height: 90vh;
     width: 20%;
     background-color:#001F31;
     display: flex;
@@ -340,9 +340,51 @@ header img{
 }
 
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; 
+    left: 50%;
+    margin-left: -110px; 
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
 
 
+.ipt_cidade {
+    width: 100%;
+    max-width: 300px;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    font-size: 16px;        
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
+}
+
+.ipt_cidade:focus {
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
 
 
 @media (min-width: 660px) {
@@ -451,7 +493,11 @@ header img{
 }
 
 
-
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
 
 
 
