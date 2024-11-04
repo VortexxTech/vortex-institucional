@@ -172,6 +172,11 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
     display: block;
   }
 
+  #kpi_subprefeitura:hover .top-regions {
+    display: block;
+  }
+
+
 .container_titulo{
     justify-content: center;
     display: flex;
