@@ -197,8 +197,11 @@ main{
     font-weight: 400;
 }
 
-#map img{
+#map img,
+#map #google-maps{
     width: 85vw;
+    height: 17rem;
+    max-height: 462px;
     border: 2px solid #3066BE;
     border-radius: 15px;
     margin-bottom: 20px;
