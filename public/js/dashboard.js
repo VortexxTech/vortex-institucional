@@ -165,7 +165,7 @@ const grafico = new Chart(ctx, {
     data: {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro'],
         datasets: [{
-            label: 'Variação mensal do preço do m² em SP nos últimos 9 meses',
+            label: 'Variação mensal do preço do m² em SP nos últimos 9 meses(R$):',
             data: [6.867, 6.700, 6.760, 6.758, 6.740, 6.800, 6.900, 7.000, 7.100],
             backgroundColor: ['#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6'],
             borderColor: ['#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6'],
