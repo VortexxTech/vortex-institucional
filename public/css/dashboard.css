@@ -56,8 +56,6 @@ body{
     flex-direction: column;
 }
 
-
-
 .opcoes_menu{
     font-family: "Exo", sans-serif;
     margin-left: 10%;
@@ -68,7 +66,6 @@ body{
  .opcoes_menu:hover{
     color: #909DB6;
 }
-
 
 
 #container_kpis{
@@ -151,8 +148,29 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
     display: block;
 }
 
+#kpi_subprefeitura {
+    overflow: hidden;
+    transition: height 0.3s ease;
+    cursor: pointer;
+    z-index: 9;
+  }
 
+  #kpi_subprefeitura:hover {
+    height: 180px; 
+  }
 
+ 
+  .top-regions {
+    margin-top: 10px;
+    display: none;
+    font-size: 0.9em;
+    color: #333;
+    margin: 7px;
+  }
+
+  #kpi_subprefeitura:hover .top-regions {
+    display: block;
+  }
 
 .container_titulo{
     justify-content: center;
@@ -493,11 +511,7 @@ header img{
 }
 
 
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
-}
+
 
 
 

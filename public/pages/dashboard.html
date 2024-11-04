@@ -66,9 +66,8 @@
                 </svg> Pesquisa por Regiões</p>
 
 
-            <p class="opcoes_menu" onclick="aparecer_previsao()" id="slc_previsao"
-                style="color: orange; animation: blink 1s infinite;">
-                <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=909DB6"
+            <p class="opcoes_menu" onclick="aparecer_previsao()" id="slc_previsao">
+                <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=FF0000"
                     alt="future" />
                 Projeção de valorização
             </p>
@@ -79,17 +78,27 @@
         <div id="div_graficos">
             <div id="container_kpis">
                 <div class="kpis">
-                    <span class="titulo_kpi">Subprefeitura com maior valorização do m² no mês: </span>
+                    <span class="titulo_kpi">Subprefeitura com a maior valorização do preço do m² no mês(R$):</span>
                     <span class="texto_kpi">Tatuapé - Leste</span>
+                
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Zona com valorização mais alta do m² no mês(21/09/24):</span>
+                    <span class="titulo_kpi">Zona com valorização mais alta do m² no mês(R$):</span>
                     <span class="texto_kpi">Norte - 0.88%</span>
                 </div>
-                <div class="kpis">
-                    <span class="titulo_kpi">Subprefeitura com maior IDH no ultimo ano:</span>
+                <div class="kpis" id="kpi_subprefeitura">
+                    <span class="titulo_kpi">Subprefeitura com maior IDH no último ano:</span>
                     <span class="texto_kpi">São Caetano</span>
-                </div>
+            
+                    <div class="top-regions">
+                      <p>Top 3 Subprefeituras:</p>
+                      <ul>
+                        <li>1. São Caetano - IDH: 0.847</li>
+                        <li>2. Moema - IDH: 0.842</li>
+                        <li>3. Pinheiros - IDH: 0.836</li>
+                      </ul>
+                    </div>
+                  </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Data de atualização dos dados:</span>
                     <span class="texto_kpi">21/09/2024</span>
