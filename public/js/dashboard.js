@@ -279,7 +279,7 @@ const grafico3 = new Chart(ctx3, {
         labels: ['São Caetano', 'Pinheiros', 'Pinheiros', 'Moema', 'Osasco', 'Perdizes'],
         datasets: [{
             label: 'Cidades com o maior preço do m² (R$)',
-            data: [7.604, 7.210, 7.600, 7.200, 6.900, 6.500],
+            data: [7.500, 7.300, 7.200, 7.100, 7.000, 6.900],
             backgroundColor: '#909DB6'
         }]
     },
@@ -350,7 +350,7 @@ const idhChart = new Chart(ctxIdh, {
             },
             title: {
                 display: true,
-                text: 'Comparação do IDH',
+                text: 'Comparativo IDH: SP(média) vs Bairro',
                 font: {
                     size: 12,
                 },

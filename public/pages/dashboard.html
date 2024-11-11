@@ -83,10 +83,10 @@
                     <div class="top-regions">
                         <p>Valorização no último mês</p>
                         <ul>
-                          <li>0.88%</li>
+                            <li>0.88%</li>
                         </ul>
-                      </div>
-                
+                    </div>
+                    <div class="read-more">Ler mais ></div>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Zona com valorização mais alta do m² no mês(R$):</span>
@@ -95,16 +95,17 @@
                 <div class="kpis" id="kpi_subprefeitura">
                     <span class="titulo_kpi">Subprefeitura com maior IDH no último ano:</span>
                     <span class="texto_kpi">São Caetano</span>
-            
+
                     <div class="top-regions">
-                      <p>Top 3 Subprefeituras:</p>
-                      <ul>
-                        <li>1. São Caetano - IDH: 0.847</li>
-                        <li>2. Moema - IDH: 0.842</li>
-                        <li>3. Pinheiros - IDH: 0.836</li>
-                      </ul>
+                        <p>Top 3 Subprefeituras:</p>
+                        <ul>
+                            <li>1. São Caetano - IDH: 0.847</li>
+                            <li>2. Moema - IDH: 0.842</li>
+                            <li>3. Pinheiros - IDH: 0.836</li>
+                        </ul>
                     </div>
-                  </div>
+                    <div class="read-more">Ler mais ></div>
+                </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Data de atualização dos dados:</span>
                     <span class="texto_kpi">21/09/2024</span>
@@ -157,12 +158,24 @@
                     <span class="texto_kpi"> 11.948</span>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Colocação no ranking de m² mais caros de São Paulo</span>
+                    <span class="titulo_kpi">Classificação no ranking dos metros quadrados mais valorizados de São
+                        Paulo: </span>
                     <span class="texto_kpi"> 3° colocada</span>
                 </div>
-                <div class="kpis">
-                    <span class="titulo_kpi">Quantidade de meses que houve desvalorização nos últimos 6 meses</span>
-                    <span class="texto_kpi">1</span>
+                <div class="kpis" id="kpi_subprefeitura">
+                    <span class="titulo_kpi">Taxa de valorização do preço do m² em relação ao mesmo mês do ano anterior
+                        (Setembro):</span>
+                    <span class="texto_kpi">0.88%</span>
+                    <div class="top-regions">
+                        <p>Comparação anual</p>
+                        <ul>
+                            <li>2024 - 0.50</li>
+                            <li>2023 - 0.25</li>
+                        </ul>
+                    </div>
+
+                    <div class="read-more">Ler mais ></div>
+                    
                 </div>
 
             </div>
@@ -209,7 +222,8 @@
                         <option value="">Selecione uma cidade</option>
                     </select>
                 </p>
-                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade" id="tamanho_terreno"></input></p>
+                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade"
+                        id="tamanho_terreno"></input></p>
                 <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
@@ -220,15 +234,15 @@
             </div>
             <div class="container_kpispesquisa" id="kpis_previsao">
                 <div class="kpis">
-                    <span class="titulo_kpi">Preço do m² na região:</span>
+                    <span class="titulo_kpi">Preço do m² em XXXXXXXX lugar: (22/09/24)</span>
                     <span class="texto_kpi"> 6.867</span>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Calculo atual de preço do terreno pelo tamanho:</span>
+                    <span class="titulo_kpi">Cálculo atual de preço do terreno pelo tamanho:</span>
                     <span class="texto_kpi" id="preco_atual"></span>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Calculo do preço do terreno daqui a 6 meses:</span>
+                    <span class="titulo_kpi">Projeção do valor do terreno para os próximos 6 meses:</span>
                     <span class="texto_kpi" id="preco_futuro"></span>
                 </div>
             </div>
@@ -244,7 +258,8 @@
                         <div class="tooltip">Devido à densidade alta da região, Renda per capita média, e
                             preço do m² em crescimento, o investimento recomendado para esse terreno é um <b>imóvel
                                 comercial.</b><br><br>
-                        Não recomendaria um imóvel comercial pelo alto custo de investimento, mas isso depende do seu perfil e quantidade planejada de investimento.
+                            Não recomendaria um imóvel comercial pelo alto custo de investimento, mas isso depende do
+                            seu perfil e quantidade planejada de investimento.
 
 
                             <span class="tooltiptext"> Lembrando que essas informações devem ser analisadas por um
@@ -252,7 +267,7 @@
                                 uma resposta final, mas são um auxílio para análise das construtoras</span>
                         </div>
                 </div>
-               
+
             </div>
         </div>
 
