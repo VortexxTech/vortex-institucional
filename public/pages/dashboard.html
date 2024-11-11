@@ -66,9 +66,8 @@
                 </svg> Pesquisa por Regiões</p>
 
 
-            <p class="opcoes_menu" onclick="aparecer_previsao()" id="slc_previsao"
-                style="color: orange; animation: blink 1s infinite;">
-                <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=909DB6"
+            <p class="opcoes_menu" onclick="aparecer_previsao()" id="slc_previsao">
+                <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=FF0000"
                     alt="future" />
                 Projeção de valorização
             </p>
@@ -78,17 +77,34 @@
         </div>
         <div id="div_graficos">
             <div id="container_kpis">
-                <div class="kpis">
-                    <span class="titulo_kpi">Subprefeitura com maior valorização do m² no mês: </span>
+                <div class="kpis" id="kpi_subprefeitura">
+                    <span class="titulo_kpi">Subprefeitura com a maior valorização do preço do m² no mês(R$):</span>
                     <span class="texto_kpi">Tatuapé - Leste</span>
+                    <div class="top-regions">
+                        <p>Valorização no último mês</p>
+                        <ul>
+                            <li>0.88%</li>
+                        </ul>
+                    </div>
+                    <div class="read-more">Ler mais ></div>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Zona com valorização mais alta do m² no mês(21/09/24):</span>
+                    <span class="titulo_kpi">Zona com valorização mais alta do m² no mês(R$):</span>
                     <span class="texto_kpi">Norte - 0.88%</span>
                 </div>
-                <div class="kpis">
-                    <span class="titulo_kpi">Subprefeitura com maior IDH no ultimo ano:</span>
+                <div class="kpis" id="kpi_subprefeitura">
+                    <span class="titulo_kpi">Subprefeitura com maior IDH no último ano:</span>
                     <span class="texto_kpi">São Caetano</span>
+
+                    <div class="top-regions">
+                        <p>Top 3 Subprefeituras:</p>
+                        <ul>
+                            <li>1. São Caetano - IDH: 0.847</li>
+                            <li>2. Moema - IDH: 0.842</li>
+                            <li>3. Pinheiros - IDH: 0.836</li>
+                        </ul>
+                    </div>
+                    <div class="read-more">Ler mais ></div>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Data de atualização dos dados:</span>
@@ -111,7 +127,7 @@
             <div class="container_ipt">
                 <b>
                     <p class="titulo_ipt">Zona:
-                        <select class="ipt_cidade" id="zona-regiao-pesquisa">
+                        <select class="ipt_regiao" id="zona-regiao-pesquisa">
                             <option value="">Selecione uma região</option>
                             <option value="centro">Centro</option>
                             <option value="norte">Norte</option>
@@ -124,8 +140,8 @@
                 </b>
                 <b>
                     <p class="titulo_ipt">Bairro:
-                        <select class="ipt_cidade" id="regiao-cidade-pesquisa">
-                            <option value="">Selecione uma cidade</option>
+                        <select class="ipt_regiao" id="regiao-bairro-pesquisa">
+                            <option value="">Selecione um bairro</option>
                         </select>
                     </p>
                 </b>
@@ -141,13 +157,26 @@
                     <span class="titulo_kpi">Densidade demográfica do bairro(Hab/Km²):</span>
                     <span class="texto_kpi"> 11.948</span>
                 </div>
+<<<<<<< HEAD
                 <div class="kpis">
-                    <span class="titulo_kpi">Colocação no ranking de m² mais caros de São Paulo</span>
+                    <span class="titulo_kpi">Classificação no ranking dos metros quadrados mais valorizados de São
+                        Paulo: </span>
                     <span class="texto_kpi"> 3° colocada</span>
                 </div>
-                <div class="kpis">
-                    <span class="titulo_kpi">Quantidade de meses que houve desvalorização nos últimos 6 meses</span>
-                    <span class="texto_kpi">1</span>
+                <div class="kpis" id="kpi_subprefeitura">
+                    <span class="titulo_kpi">Taxa de valorização do preço do m² em relação ao mesmo mês do ano anterior
+                        (Setembro):</span>
+                    <span class="texto_kpi">0.88%</span>
+                    <div class="top-regions">
+                        <p>Comparação anual</p>
+                        <ul>
+                            <li>2024 - 0.50</li>
+                            <li>2023 - 0.25</li>
+                        </ul>
+                    </div>
+
+                    <div class="read-more">Ler mais ></div>
+                
                 </div>
 
             </div>
@@ -165,9 +194,9 @@
                     <canvas id="grafico6" width="70%" height="100%"></canvas>
                     <span class="titulo_kpi" id="kpi_percapita">
                         <h4>Comparativo Renda/Capita: SP vs Bairro</h4><br>
-                        A Renda Per Capita da Subprefeita é de: <span
+                        A Renda Per Capita da Subprefeitura é <span
                             style="font-size: 2em; font-weight: bold; color: black;">10%</span> <br>
-                        maior que a de São Paulo
+                        maior que a da cidade de São Paulo
                     </span>
                     <img height="40px" class="seta"
                         src="https://img.icons8.com/material/24/40C057/thick-arrow-pointing-up--v3.png"
@@ -179,7 +208,7 @@
         <div id="div_previsao">
             <div class="container_ipt">
                 <p class="titulo_ipt"><b>Zona:</b>
-                    <select class="ipt_cidade" id="zona-regiao-prevista">
+                    <select class="ipt_regiao" id="zona-regiao-prevista">
                         <option value="">Selecione uma região</option>
                         <option value="centro">Centro</option>
                         <option value="norte">Norte</option>
@@ -190,11 +219,16 @@
                     </select>
                 </p>
                 <p class="titulo_ipt"><b>Bairro:</b>
-                    <select class="ipt_cidade" id="regiao-cidade-prevista">
-                        <option value="">Selecione uma cidade</option>
+                    <select class="ipt_regiao" id="regiao-bairro-prevista">
+                        <option value="">Selecione um bairro</option>
                     </select>
                 </p>
-                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade" id="tamanho_terreno"></input></p>
+<<<<<<< HEAD
+                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade"
+                        id="tamanho_terreno"></input></p>
+=======
+                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_regiao" id="tamanho_terreno"></input></p>
+>>>>>>> 7e9c2833d96e4f497068bea7a64b8fafc89fcc4a
                 <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
@@ -205,15 +239,15 @@
             </div>
             <div class="container_kpispesquisa" id="kpis_previsao">
                 <div class="kpis">
-                    <span class="titulo_kpi">Preço do m² na região:</span>
+                    <span class="titulo_kpi">Preço do m² em XXXXXXXX lugar: (22/09/24)</span>
                     <span class="texto_kpi"> 6.867</span>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Calculo atual de preço do terreno pelo tamanho:</span>
+                    <span class="titulo_kpi">Cálculo atual de preço do terreno pelo tamanho:</span>
                     <span class="texto_kpi" id="preco_atual"></span>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Calculo do preço do terreno daqui a 6 meses:</span>
+                    <span class="titulo_kpi">Projeção do valor do terreno para os próximos 6 meses:</span>
                     <span class="texto_kpi" id="preco_futuro"></span>
                 </div>
             </div>
@@ -229,7 +263,8 @@
                         <div class="tooltip">Devido à densidade alta da região, Renda per capita média, e
                             preço do m² em crescimento, o investimento recomendado para esse terreno é um <b>imóvel
                                 comercial.</b><br><br>
-                        Não recomendaria um imóvel comercial pelo alto custo de investimento, mas isso depende do seu perfil e quantidade planejada de investimento.
+                            Não recomendaria um imóvel comercial pelo alto custo de investimento, mas isso depende do
+                            seu perfil e quantidade planejada de investimento.
 
 
                             <span class="tooltiptext"> Lembrando que essas informações devem ser analisadas por um
@@ -237,7 +272,7 @@
                                 uma resposta final, mas são um auxílio para análise das construtoras</span>
                         </div>
                 </div>
-               
+
             </div>
         </div>
 
