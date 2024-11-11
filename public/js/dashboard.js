@@ -12,11 +12,11 @@ function pesquisar_previsao() {
 
 document.getElementById('filtrarBtn').addEventListener('click', () => {
     const zona = document.getElementById('zona-regiao-pesquisa').value;
-    const regiao = document.getElementById('regiao-cidade-pesquisa').value;
+    const regiao = document.getElementById('regiao-bairro-pesquisa').value;
     const nomeCidadeElement = document.getElementById('nome_cidade');
 
     if (zona && regiao) {
-        nomeCidadeElement.textContent = `Análise para ${zona.charAt(0).toUpperCase() + zona.slice(1)} - ${regiao}`;
+        nomeCidadeElement.textContent = `Análise para Zona ${zona.charAt(0).toUpperCase() + zona.slice(1)} - ${regiao}`;
     } else {
         alert('Por favor, selecione uma região e uma cidade.');
     }
@@ -25,7 +25,7 @@ document.getElementById('filtrarBtn').addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPesquisa = document.getElementById('zona-regiao-pesquisa');
-    const regiaoCidadePesquisa = document.getElementById('regiao-cidade-pesquisa');
+    const regiaoCidadePesquisa = document.getElementById('regiao-bairro-pesquisa');
     const filtrarBtn = document.getElementById('filtrarBtn');
     const filtrarBtn2 = document.getElementById('filtrarBtn2');
     const nomeCidade = document.getElementById('nome_cidade');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 ///segunda sessao
 document.getElementById('filtrarBtn2').addEventListener('click', () => {
     const zonaPrevista = document.getElementById('zona-regiao-prevista').value;
-    const regiaoPrevista = document.getElementById('regiao-cidade-prevista').value;
+    const regiaoPrevista = document.getElementById('regiao-bairro-prevista').value;
     const tamanhoTerreno = document.querySelector('input[type="number"]').value; // Obtém o tamanho do terreno
     const kpiRespostaElement = document.getElementById('kpi_percapita');
 
@@ -77,7 +77,7 @@ document.getElementById('filtrarBtn2').addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPrevista = document.getElementById('zona-regiao-prevista');
-    const regiaoCidadePrevista = document.getElementById('regiao-cidade-prevista');
+    const regiaoCidadePrevista = document.getElementById('regiao-bairro-prevista');
     const cidadesPorRegiao = {
         centro: ['Bela Vista', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
         norte: ['Brasilândia', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
