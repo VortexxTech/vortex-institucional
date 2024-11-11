@@ -127,7 +127,7 @@
             <div class="container_ipt">
                 <b>
                     <p class="titulo_ipt">Zona:
-                        <select class="ipt_cidade" id="zona-regiao-pesquisa">
+                        <select class="ipt_regiao" id="zona-regiao-pesquisa">
                             <option value="">Selecione uma região</option>
                             <option value="centro">Centro</option>
                             <option value="norte">Norte</option>
@@ -140,8 +140,8 @@
                 </b>
                 <b>
                     <p class="titulo_ipt">Bairro:
-                        <select class="ipt_cidade" id="regiao-cidade-pesquisa">
-                            <option value="">Selecione uma cidade</option>
+                        <select class="ipt_regiao" id="regiao-bairro-pesquisa">
+                            <option value="">Selecione um bairro</option>
                         </select>
                     </p>
                 </b>
@@ -157,6 +157,7 @@
                     <span class="titulo_kpi">Densidade demográfica do bairro(Hab/Km²):</span>
                     <span class="texto_kpi"> 11.948</span>
                 </div>
+<<<<<<< HEAD
                 <div class="kpis">
                     <span class="titulo_kpi">Classificação no ranking dos metros quadrados mais valorizados de São
                         Paulo: </span>
@@ -175,7 +176,7 @@
                     </div>
 
                     <div class="read-more">Ler mais ></div>
-                    
+                
                 </div>
 
             </div>
@@ -193,9 +194,9 @@
                     <canvas id="grafico6" width="70%" height="100%"></canvas>
                     <span class="titulo_kpi" id="kpi_percapita">
                         <h4>Comparativo Renda/Capita: SP vs Bairro</h4><br>
-                        A Renda Per Capita da Subprefeita é de: <span
+                        A Renda Per Capita da Subprefeitura é <span
                             style="font-size: 2em; font-weight: bold; color: black;">10%</span> <br>
-                        maior que a de São Paulo
+                        maior que a da cidade de São Paulo
                     </span>
                     <img height="40px" class="seta"
                         src="https://img.icons8.com/material/24/40C057/thick-arrow-pointing-up--v3.png"
@@ -207,7 +208,7 @@
         <div id="div_previsao">
             <div class="container_ipt">
                 <p class="titulo_ipt"><b>Zona:</b>
-                    <select class="ipt_cidade" id="zona-regiao-prevista">
+                    <select class="ipt_regiao" id="zona-regiao-prevista">
                         <option value="">Selecione uma região</option>
                         <option value="centro">Centro</option>
                         <option value="norte">Norte</option>
@@ -218,12 +219,16 @@
                     </select>
                 </p>
                 <p class="titulo_ipt"><b>Bairro:</b>
-                    <select class="ipt_cidade" id="regiao-cidade-prevista">
-                        <option value="">Selecione uma cidade</option>
+                    <select class="ipt_regiao" id="regiao-bairro-prevista">
+                        <option value="">Selecione um bairro</option>
                     </select>
                 </p>
+<<<<<<< HEAD
                 <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade"
                         id="tamanho_terreno"></input></p>
+=======
+                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_regiao" id="tamanho_terreno"></input></p>
+>>>>>>> 7e9c2833d96e4f497068bea7a64b8fafc89fcc4a
                 <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
