@@ -195,6 +195,7 @@ main{
     margin: 20px 0;
     color: #001F31;
     font-weight: 400;
+    text-align: center;
 }
 
 #map img,
@@ -243,6 +244,10 @@ main{
     border: none;
     border-radius: 5px;
     color: #B4C5E4;
+}
+
+#btn-check-region:hover{
+    cursor: pointer;
 }
 
 footer{

@@ -101,10 +101,13 @@
             <div id="selects">
 
                 <label>
-                    Cidade:
+                    Zona:
                     <select name="zone" id="select_zone">
                         <option value="#">Escolha a zona</option>
-                        <option value="1">São Paulo</option>
+                        <option value="leste">Leste</option>
+                        <option value="norte">Norte</option>
+                        <option value="oeste">Oeste</option>
+                        <option value="sul">Sul</option>
                     </select>
                 </label>
 
@@ -112,9 +115,6 @@
                     Bairro
                     <select name="neighbourhood" id="select_neighbourhood">
                         <option value="#">Escolha um bairro</option>
-                        <option value="1">Consolação</option>
-                        <option value="2">Cerqueira césar</option>
-                        <option value="3">Pinheiros</option>
                     </select>
                 </label>
 
@@ -122,13 +122,13 @@
                     Comércio
                     <select name="business" id="select_business">
                         <option value="#">Escolha um comércio</option>
-                        <option value="1">Supermercado</option>
-                        <option value="2">Shopping</option>
-                        <option value="3">Farmacia</option>
+                        <option value="market">Supermercado</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="pharmacy">Farmacia</option>
                     </select>
                 </label>
 
-                <button>Ver Região</button>
+                <button id="btn-check-region">Ver Região</button>
 
             </div>
 
@@ -150,7 +150,7 @@
     </footer>
 
     <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        ({key: "", v: "weekly"});
+        ({key: "AIzaSyAZ1fxZbFbVn-_kYwARcjaZ3HAWiH6FDPA", v: "weekly"});
     </script>
     <script src="./js/index.js"></script>
 
