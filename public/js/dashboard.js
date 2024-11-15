@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('filtrarBtn2').addEventListener('click', () => {
     const zonaPrevista = document.getElementById('zona-regiao-prevista').value;
     const regiaoPrevista = document.getElementById('regiao-bairro-prevista').value;
-    const tamanhoTerreno = document.querySelector('input[type="number"]').value; // Obtém o tamanho do terreno
+    const tamanhoTerreno = document.querySelector('input[type="number"]').value; 
     const kpiRespostaElement = document.getElementById('kpi_percapita');
 
     if (zonaPrevista && regiaoPrevista && tamanhoTerreno) {
