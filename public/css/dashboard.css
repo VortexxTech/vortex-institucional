@@ -100,6 +100,7 @@ body{
 .kpis{
 height: 80%;
 width: 200px;
+position: relative;
 background-color: #FFFFFF;
 align-self: center;
 color: #001F31;
@@ -182,29 +183,42 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
     transition: height 0.3s ease;
     cursor: pointer;
     z-index: 9;
-  }
+    position: relative;
+}
 
-  #kpi_subprefeitura:hover {
-    height: 180px; 
-  }
+#kpi_subprefeitura:hover {
+    height: 180px;
+}
 
- 
-  .top-regions {
+.top-regions {
     margin-top: 10px;
     display: none;
     font-size: 0.9em;
     color: #333;
     margin: 7px;
-  }
+    font-size:13px;
+}
 
-  #kpi_subprefeitura:hover .top-regions {
+#kpi_subprefeitura:hover .top-regions {
     display: block;
-  }
+}
 
-  #kpi_subprefeitura:hover .top-regions {
-    display: block;
-  }
 
+
+.read-more {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 10px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.read-more:hover {
+    color: #444;
+    transform: scale(1.05);
+}
 
 .container_titulo{
     justify-content: center;
@@ -267,13 +281,13 @@ canvas{
 }
 
 .titulo_kpi{
-    font-size: 14px;
+    font-size: 12px;
     margin: 7px;
     align-self: flex-start
 }
 
 .texto_kpi{
-    font-size: 25px;
+    font-size: 20px;
 align-self: center;
 }
 
