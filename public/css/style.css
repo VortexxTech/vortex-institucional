@@ -203,7 +203,7 @@ main{
     width: 85vw;
     height: 17rem;
     max-height: 462px;
-    border: 2px solid #3066BE;
+    border: 2px solid #001F31;
     border-radius: 15px;
     margin-bottom: 20px;
 }
@@ -228,6 +228,11 @@ main{
     font-size: 18px;
 }
 
+#selects label:hover,
+#selects label select:hover{
+    cursor: pointer;
+}
+
 #selects select{
     background: transparent;
     border: none;
@@ -244,6 +249,11 @@ main{
     border: none;
     border-radius: 5px;
     color: #B4C5E4;
+}
+
+.inputs-error{
+    color: #FF0000;
+    margin-top: 5px;
 }
 
 #btn-check-region:hover{
@@ -312,6 +322,11 @@ footer img{
         max-width: 462px;
     }
 
+    #map #google-maps{
+        max-width: 561px;
+        height: 25rem;
+    }
+
     footer{
         height: 10vh;
         flex-direction: row;
@@ -358,6 +373,10 @@ footer img{
 
     #map img{
         margin: 30px;
+    }
+
+    #map #google-maps{
+        margin: 20px;
     }
 
     footer p{
