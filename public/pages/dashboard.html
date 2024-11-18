@@ -75,6 +75,7 @@
 
 
         </div>
+       
         <div id="div_graficos">
             <div id="container_kpis">
                 <div class="kpis" id="kpi_subprefeitura">
@@ -83,32 +84,32 @@
                     <div class="top-regions">
                         <p>Valorização no último mês</p>
                         <ul>
-                            <li>0.88%</li>
+                            <li id="valorizacao-kpi">0.88%</li>
                         </ul>
                     </div>
                     <div class="read-more">Ler mais ></div>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Zona com valorização mais alta do m² no mês(R$):</span>
-                    <span class="texto_kpi">Norte - 0.88%</span>
+                    <span class="texto_kpi" id="valorizacao-zona">Norte - 0.88%</span>
                 </div>
                 <div class="kpis" id="kpi_subprefeitura">
                     <span class="titulo_kpi">Subprefeitura com maior IDH no último ano:</span>
-                    <span class="texto_kpi">São Caetano</span>
+                    <span class="texto_kpi" id="resposta-idh">São Caetano</span>
 
                     <div class="top-regions">
                         <p>Top 3 Subprefeituras:</p>
                         <ul>
-                            <li>1. São Caetano - IDH: 0.847</li>
-                            <li>2. Moema - IDH: 0.842</li>
-                            <li>3. Pinheiros - IDH: 0.836</li>
+                            <li id="valorizacao-kpi-Primeiro">1. São Caetano - IDH: 0.847</li>
+                            <li id="valorizacao-kpi-Segundo">2. Moema - IDH: 0.842</li>
+                            <li id="valorizacao-kpi-Terceiro">3. Pinheiros - IDH: 0.836</li>
                         </ul>
                     </div>
                     <div class="read-more">Ler mais ></div>
                 </div>
                 <div class="kpis">
-                    <span class="titulo_kpi">Data de atualização dos dados:</span>
-                    <span class="texto_kpi">21/09/2024</span>
+                    <span class="titulo_kpi">Data de atualização de todos os dados:</span>
+                    <span class="texto_kpi" id="resposta-data">21/09/2024</span>
                 </div>
             </div>
             <div id="div_graficolinha">
@@ -123,6 +124,7 @@
                 </div>
             </div>
         </div>
+
         <div id="container_pesquisa">
             <div class="container_ipt">
                 <b>
@@ -157,7 +159,7 @@
                     <span class="titulo_kpi">Densidade demográfica do bairro(Hab/Km²):</span>
                     <span class="texto_kpi"> 11.948</span>
                 </div>
-<<<<<<< HEAD
+
                 <div class="kpis">
                     <span class="titulo_kpi">Classificação no ranking dos metros quadrados mais valorizados de São
                         Paulo: </span>
@@ -205,6 +207,7 @@
             </div>
 
         </div>
+        
         <div id="div_previsao">
             <div class="container_ipt">
                 <p class="titulo_ipt"><b>Zona:</b>
@@ -223,12 +226,9 @@
                         <option value="">Selecione um bairro</option>
                     </select>
                 </p>
-<<<<<<< HEAD
                 <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade"
                         id="tamanho_terreno"></input></p>
-=======
-                <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_regiao" id="tamanho_terreno"></input></p>
->>>>>>> 7e9c2833d96e4f497068bea7a64b8fafc89fcc4a
+
                 <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
