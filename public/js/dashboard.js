@@ -312,28 +312,37 @@ function plotarPrecoM2(labels, data) {
 document.addEventListener("DOMContentLoaded", obterValorizacao);
 
 function obterValorizacao() {
-    fetch(`/precoM2/buscarValorizacao`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados de valorização recebidos: ${JSON.stringify(resposta)}`);
-                
-                const cidade = resposta.cidade;
-                const bairro = resposta.bairro;
-                const zona = resposta.zona;
-                const valorizacao = resposta.percentualValorizacao;
-
-                // Preenchendo as KPIs
-                document.querySelector('.titulo_kpi').textContent = `Subprefeitura com a maior valorização do preço do m² no mês(R$):`;
-                document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
-                document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
+    fetch(`/precoM2/buscarValorizacao`, { cache: 'no-store' })
+        .then(function (response) {
+            // Verifica se a resposta foi bem-sucedida (status 200-299)
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.statusText}`);
+            }
+            
+            // Verifica se a resposta tem conteúdo
+            return response.text().then(function (text) {
+                if (text) {
+                    return JSON.parse(text);  // Só tenta fazer o parse se houver conteúdo
+                } else {
+                    throw new Error('Resposta vazia');
+                }
             });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');     
-        }
-    })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
-    });
+        })
+        .then(function (resposta) {
+            console.log(`Dados de valorização da cidade na KPI recebidos: ${JSON.stringify(resposta)}`);
+            
+            const bairro = resposta.bairro;
+            const zona = resposta.zona;
+            const valorizacao = resposta.percentualValorizacao;
+
+            // Preenchendo as KPIs
+            document.querySelector('.titulo_kpi').textContent = `Subprefeitura com a maior valorização do preço do m² no mês(R$):`;
+            document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
+            document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
+        });
 }
 
 
@@ -647,69 +656,76 @@ document.addEventListener("DOMContentLoaded", function() {
     obterPrecoM2();
 });
 
-const ctx2 = document.getElementById('grafico2');
-const grafico2 = new Chart(ctx2, {
-    type: 'bar',
-    data: {
-        labels: ['A', 'E', 'C', 'D', 'B'],
-        datasets: [
-            {
-                label: 'Densidade demográfica(hab/km²)',
-                data: [11.948, 10.137, 16.454, 12.46, 7.527],
-                backgroundColor: '#909DB6'
-            },
-            {
-                label: 'Renda per Capita',
-                data: [-4.098, -7.000, -2.333, -5.144, -2.492],
-                backgroundColor: '#001F31'
-            }
-        ]
-    },
-    options: {
-        indexAxis: 'y',
-        scales: {
-            x: {
-                beginAtZero: true,
-                min: -8,
-                max: 16,
-                ticks: {
-                    callback: function (value) {
-                        return Math.abs(value);
-                    },
+// Suponha que os dados sejam recebidos como resposta JSON da API.
+fetch('/precoM2/buscarCapitaDemografica')
+     .then(response => response.json())
+    .then(data => {
+        const bairros = data.map(item => item.bairro);
+        const densidades = data.map(item => -item.densidadeDemografica); // Multiplicando por -1
+        const rendas = data.map(item => item.rendaPerCapita);
 
-                    color: '#001F31'
-                },
-                grid: {
-                    display: false
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#001F31',
-
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    color: '#001F31',
-                    font: {
-                        size: 7,
+        const ctx2 = document.getElementById('grafico2');
+        const grafico2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: bairros, // Usando os nomes reais dos bairros
+                datasets: [
+                    {
+                        label: 'Densidade demográfica (hab/km²)',
+                        data: densidades, // Valores negativos
+                        backgroundColor: '#909DB6'
                     },
-                }
+                    {
+                        label: 'Renda per Capita',
+                        data: rendas,
+                        backgroundColor: '#001F31'
+                    }
+                ]
             },
-            title: {
-                display: true,
-                text: 'Principais Cidades em Densidade Demográfica e Renda Per Capita Juntas',
-                font: {
-                    size: 12,
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return Math.abs(value); // Mostrando valores absolutos
+                            },
+                            color: '#001F31'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#001F31'
+                        }
+                    }
                 },
-             
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#001F31',
+                            font: {
+                                size: 7
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Principais Cidades em Densidade Demográfica e Renda Per Capita Juntas',
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
             }
-        }
-    }
-});
+        });
+    })
+    .catch(error => {
+        console.error('Erro ao buscar dados para o gráfico:', error);
+    });
 
 
 const ctx3 = document.getElementById('grafico3');
