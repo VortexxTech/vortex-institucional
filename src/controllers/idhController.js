@@ -1,25 +1,28 @@
-var idhModel = require("../models/idhModel");
+const idhModel = require("../models/idhModel");
 
 function buscarIdh(req, res) {
+    const bairro = req.query.selectedNome; // Pega o valor enviado na URL
 
-    const limite_linhas = 6;
-    // var idUsuarioB = req.params.idUsuario;
+    if (!bairro) {
+        console.error("Erro: 'selectedNome' não foi enviado na requisição.");
+        return res.status(400).json({ error: 'Bairro (selectedNome) é necessário!' });
+    }
 
-    console.log(`Recuperando o IDH nos ultimos ${limite_linhas} meses.`);
-
-    idhModel.buscarIdh(/* idUsuarioB, */ limite_linhas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os ultimos pontos.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
+    console.log(`Buscando IDH para o bairro: ${bairro}`);
+    idhModel.buscarIdh(bairro)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.json({ idh: parseFloat(resultado[0].idh) }); // Garante que o valor seja numérico
+            } else {
+                res.status(404).json({ error: 'Nenhum dado encontrado para o bairro!' });
+            }
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar IDH:", erro.sqlMessage || erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
+        });
 }
 
 module.exports = {
-    buscarIdh
-}
+    buscarIdh,
+};

@@ -1,21 +1,25 @@
-var database = require("../database/config");
+const database = require("../database/config");
 
-function buscarIdh(/*idUsuarioB,*/ limite_linhas) {
+function buscarIdh(bairro) {
+    // Concatenando diretamente o valor do bairro na consulta
+    const instrucaoSql = `
+        SELECT 
+            idh
+        FROM 
+            DadosInseridos
+        WHERE 
+            bairro = '${bairro}'
+            AND dtInsercao = (
+                SELECT MAX(dtInsercao) 
+                FROM DadosInseridos 
+                WHERE bairro = '${bairro}'
+            );
+    `;
 
-    var instrucaoSql = `SELECT 
-        idh as IDH, 
-        momento,
-        DATE_FORMAT(momento,'%H:%i:%s'),
-        fkUsuario
-        FROM DadosInseridos
-        WHERE fkUsuario = ${idUsuarioB}
-        ORDER BY idCusto DESC LIMIT ${limite_linhas}`;
-
-    // console.log("idUsuario:", idUsuarioB);
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql); // Sem parâmetros, pois estamos concatenando diretamente
 }
 
 module.exports = {
     buscarIdh
-}
+};

@@ -1,10 +1,7 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const idhController = require("../controllers/idhController");
 
-var idhController = require("../controllers/idhController");
-
-router.post("/buscarIdh", function (req, res) {
-    idhController.buscarIdh(req, res);
-})
+router.get('/idh-grafico', idhController.buscarIdh);
 
 module.exports = router;
