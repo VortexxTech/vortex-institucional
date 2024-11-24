@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento</title>
+    <link rel="stylesheet" href="..//css/gerenciamento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="shortcut icon" href="../assets/icons/Logo_V3.png" type="image/x-icon">
+    <script src="../js/gerenciamento.js"></script>
+</head>
+
+<body>
+
+    <header>
+
+        <div>
+
+            <img src=../assets/img/logo_V2.png alt="logo da Vortex Tech">
+
+            <div id="buttons">
+
+                <button id="btn_register">
+                    <a href="./dashboard.html">Dashboard</a>
+                </button>
+                <button id="btn_register" class="voltar">
+                    <a href="../index.html">Voltar</a>
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <div id="container">
+
+        <div id="div_menu">
+            <p class="opcoes_menu">Olá Caramico</p>
+
+            <p class="opcoes_menu" onclick="listarDadosEmpresa()" id="slc_infgerais" style="color: #909DB6;">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0,0,256,256">
+                    <g fill="#909db6" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                        stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                        font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                        style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path
+                                d="M25,2c-12.6907,0 -23,10.3093 -23,23c0,12.69071 10.3093,23 23,23c12.69071,0 23,-10.30929 23,-23c0,-12.6907 -10.30929,-23 -23,-23zM25,4c11.60982,0 21,9.39018 21,21c0,11.60982 -9.39018,21 -21,21c-11.60982,0 -21,-9.39018 -21,-21c0,-11.60982 9.39018,-21 21,-21zM25,11c-1.65685,0 -3,1.34315 -3,3c0,1.65685 1.34315,3 3,3c1.65685,0 3,-1.34315 3,-3c0,-1.65685 -1.34315,-3 -3,-3zM21,21v2h1h1v13h-1h-1v2h1h1h4h1h1v-2h-1h-1v-15h-1h-4z">
+                            </path>
+                        </g>
+                    </g>
+                </svg> Gerenciar Empresa
+            </p>
+
+            <p class="opcoes_menu" onclick="listarFuncionarios()" id="slc_pesquisaregiao"> <svg
+                    xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="15" height="15" viewBox="0,0,256,256">
+                    <g fill="#909db6" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                        stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                        font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                        style="mix-blend-mode: normal">
+                        <g transform="scale(5.12,5.12)">
+                            <path
+                                d="M21,3c-9.37891,0 -17,7.62109 -17,17c0,9.37891 7.62109,17 17,17c3.71094,0 7.14063,-1.19531 9.9375,-3.21875l13.15625,13.125l2.8125,-2.8125l-13,-13.03125c2.55469,-2.97656 4.09375,-6.83984 4.09375,-11.0625c0,-9.37891 -7.62109,-17 -17,-17zM21,5c8.29688,0 15,6.70313 15,15c0,8.29688 -6.70312,15 -15,15c-8.29687,0 -15,-6.70312 -15,-15c0,-8.29687 6.70313,-15 15,-15z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+                Gerenciar Funcionário
+            </p>
+
+
+            <p class="opcoes_menu" onclick="listarUsuarios()" id="slc_previsao">
+                <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=FF0000"
+                    alt="future" />
+                Gerenciar Usuário
+            </p>
+        </div>
+
+        <div id="div_empresa">
+            <div id="container_titulo">
+                <h2>Dados da Empresa</h2>
+                <div id="user_list"></div>
+            </div>
+        
+            <div id="overlay close"></div>
+            <div id="modal close">
+                <div id="modal_container">
+                    <button id="close_modal"><i id="fa_solid fa_x"></i></button>
+                    <div id="modal_content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div_funcionarios">
+            <div id="container_titulo">
+                <h2>Lista de Funcionarios</h2>
+                <div id="user_list"></div>
+            </div>
+        
+            <div id="overlay close"></div>
+            <div id="modal close">
+                <div id="modal_container">
+                    <button id="close_modal"><i id="fa_solid fa_x"></i></button>
+                    <div id="modal_content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div_usuarios">
+            <div id="container_titulo">
+                <h2>Lista de Usuários</h2>
+                <div id="user_list"></div>
+            </div>
+        
+            <div id="overlay close"></div>
+            <div id="modal close">
+                <div id="modal_container">
+                    <button id="close_modal"><i id="fa_solid fa_x"></i></button>
+                    <div id="modal_content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
