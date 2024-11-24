@@ -67,8 +67,74 @@ function calcularPorcentagemRenda(req, res) {
         });
 }
 
+function obterDensidade(req, res) {
+    const bairro = req.query.selectedNome;
+
+    if (!bairro) {
+        return res.status(400).json({ error: "Bairro (selectedNome) é necessário!" });
+    }
+
+    idhModel.obterDensidadeBairro(bairro)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.json(resultado[0]);
+            } else {
+                res.status(404).json({ error: "Nenhum dado encontrado para o bairro!" });
+            }
+        })
+        .catch((erro) => {
+            console.error("Erro ao obter densidade do bairro:", erro.sqlMessage || erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
+        });
+}
+//KPI2
+function buscarRanking(req, res) {
+    const bairro = req.query.selectedNome;
+
+    if (!bairro) {
+        return res.status(400).json({ error: "Bairro (selectedNome) é obrigatório!" });
+    }
+
+    idhModel.buscarRankingBairro(bairro)
+        .then(resultado => {
+            if (resultado.length > 0) {
+                res.json(resultado[0]); // Retorna o resultado do ranking
+            } else {
+                res.status(404).json({ error: "Nenhum dado encontrado para o bairro informado!" });
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar ranking do bairro:", erro.sqlMessage || erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
+        });
+}
+function buscarTaxaValorizacao(req, res) {
+    const bairro = req.query.selectedNome;
+
+    if (!bairro) {
+        return res.status(400).json({ error: "Bairro (selectedNome) é obrigatório!" });
+    }
+
+    // Chama o model para buscar a taxa de valorização
+    idhModel.buscarTaxaValorizacao(bairro)
+        .then(resultado => {
+            if (resultado.length > 0) {
+                // Retorna os resultados, com a taxa de valorização e os dados de valor m² atual e passado
+                res.json(resultado[0]);
+            } else {
+                res.status(404).json({ error: "Nenhum dado encontrado para o bairro informado!" });
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar taxa de valorização do bairro:", erro.sqlMessage || erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
+        });
+}
 module.exports = {
     buscarIdh,
     buscarGraficoMediaValorM2,
-    calcularPorcentagemRenda
+    calcularPorcentagemRenda,
+    obterDensidade,
+    buscarRanking,
+    buscarTaxaValorizacao
 };

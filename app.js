@@ -16,7 +16,6 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var precoM2Router = require("./src/routes/precoM2");
 var idhRouter = require("./src/routes/idh");
-var rendaPerCaptaRouter = require("./src/routes/rendaPerCapta");
 var densidadeDemograficaRouter = require("./src/routes/densidadeDemografica");
 
 app.use(express.json());
@@ -30,7 +29,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/precoM2", precoM2Router);
 app.use("/idh", idhRouter);
-app.use("/rendaPerCapta", rendaPerCaptaRouter);
+
 app.use("/densidadeDemografica", densidadeDemograficaRouter);
 
 

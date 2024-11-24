@@ -152,94 +152,8 @@ function aparecer_previsao() {
 
 }
 
-function obterRendaPerCapta() {
-    fetch(`/rendaPerCapta/buscarRendaPerCapta`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
 
-                plotarRendaPerCapta(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function plotarRendaPerCapta(resposta) {
-
-    console.log('iniciando plotagem do gráfico...');
-
-    let labels = [];
-
-    let borderColors = [];
-
-    let dados = {
-        labels: labels,
-        datasets: [{
-            label: 'Quantidade de Usuários',
-            data: [],
-            fill: false,
-            borderColor: borderColors,
-            backgroundColor: borderColors,
-            tension: 0.1
-        }]
-    };
-
-    const colorPalette = [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 206, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(153, 102, 255)',
-        'rgb(255, 159, 64)',
-        'rgb(0, 255, 127)',
-        'rgb(255, 0, 255)'
-    ];
-
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-
-    for (var i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        labels.push(registro.religiao);
-        dados.datasets[0].data.push(registro.quantidade);
-
-        let colorIndex = i % colorPalette.length;
-        borderColors.push(colorPalette[colorIndex]);
-    }
-
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
-
-    const config = {
-        type: 'bar',
-        data: dados,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    let myChart2 = new Chart(
-        document.getElementById(`religion_canvas`),
-        config
-    );
-
-}
+//primeiro grafico primeira sessão
 function obterPrecoM2() {
     fetch(`/precoM2/buscarPreco`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -307,11 +221,11 @@ function plotarPrecoM2(labels, data) {
 
 
 document.addEventListener("DOMContentLoaded", obterValorizacao);
-
+//primeira kpi primeira sessão
 function obterValorizacao() {
     fetch(`/precoM2/buscarValorizacao`, { cache: 'no-store' })
         .then(function (response) {
-            // Verifica se a resposta foi bem-sucedida (status 200-299)
+       
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.statusText}`);
             }
@@ -319,21 +233,21 @@ function obterValorizacao() {
             // Verifica se a resposta tem conteúdo
             return response.text().then(function (text) {
                 if (text) {
-                    return JSON.parse(text);  // Só tenta fazer o parse se houver conteúdo
+                    return JSON.parse(text); 
                 } else {
                     throw new Error('Resposta vazia');
                 }
             });
         })
         .then(function (resposta) {
-            console.log(`Dados de valorização da cidade na KPI recebidos: ${JSON.stringify(resposta)}`);
+            console.log(`Dados de valorização da cidade na KPI 1: ${JSON.stringify(resposta)}`);
 
             const bairro = resposta.bairro;
             const zona = resposta.zona;
             const valorizacao = resposta.percentualValorizacao;
 
             // Preenchendo as KPIs
-            document.querySelector('.titulo_kpi').textContent = `Subprefeitura com a maior valorização do preço do m² no mês(R$):`;
+         
             document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
             document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
         })
@@ -342,7 +256,7 @@ function obterValorizacao() {
         });
 }
 
-
+//kpi 2 primeira sessão
 document.addEventListener("DOMContentLoaded", obterValorizacaoZona);
 
 function obterValorizacaoZona() {
@@ -368,7 +282,7 @@ function obterValorizacaoZona() {
         });
 }
 
-
+//terceira kpi primeira sessão
 document.addEventListener("DOMContentLoaded", buscarTopsIdh);
 
 function buscarTopsIdh() {
@@ -385,7 +299,7 @@ function buscarTopsIdh() {
                 const bairroTerceiro = resposta[2].bairro;
                 const valorizacaoTerceiro = resposta[2].idh;
 
-                // Preenchendo as KPIs
+            
                 document.getElementById('resposta-idh').textContent = `${bairroPrimeiro}`;
                 document.getElementById('valorizacao-kpi-Primeiro').textContent = `1. ${bairroPrimeiro} - IDH: ${valorizacaoPrimeiro}`;
                 document.getElementById('valorizacao-kpi-Segundo').textContent = `2. ${bairroSegundo} - IDH: ${valorizacaoSegundo}`;
@@ -399,7 +313,7 @@ function buscarTopsIdh() {
             console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
         });
 }
-
+//kpi 4 primeira sessão
 document.addEventListener("DOMContentLoaded", buscarDataAtualizacao);
 
 function buscarDataAtualizacao() {
@@ -409,7 +323,7 @@ function buscarDataAtualizacao() {
                 console.log(`Dados de atualização recebidos: ${JSON.stringify(resposta)}`);
 
                 const data = resposta.ultima_data_insercao;
-                // Preenchendo as KPIs
+              
                 document.getElementById('resposta-data').textContent = `${data}`;
             });
         } else {
@@ -423,237 +337,12 @@ function buscarDataAtualizacao() {
 
 
 
-
-function obterIdh() {
-    fetch(`/idh/buscarIdh`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-
-                plotarIdh(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function plotarIdh(resposta) {
-
-    console.log('iniciando plotagem do gráfico...');
-
-    let labels = [];
-
-    let borderColors = [];
-
-    let dados = {
-        labels: labels,
-        datasets: [{
-            label: 'Quantidade de Usuários',
-            data: [],
-            fill: false,
-            borderColor: borderColors,
-            backgroundColor: borderColors,
-            tension: 0.1
-        }]
-    };
-
-    const colorPalette = [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 206, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(153, 102, 255)',
-        'rgb(255, 159, 64)',
-        'rgb(0, 255, 127)',
-        'rgb(255, 0, 255)'
-    ];
-
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-
-    for (var i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        labels.push(registro.religiao);
-        dados.datasets[0].data.push(registro.quantidade);
-
-        let colorIndex = i % colorPalette.length;
-        borderColors.push(colorPalette[colorIndex]);
-    }
-
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
-
-    const config = {
-        type: 'bar',
-        data: dados,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    let myChart2 = new Chart(
-        document.getElementById(`religion_canvas`),
-        config
-    );
-
-}
-
-function obterDensidadeDemografica() {
-    fetch(`/densidadeDemografica/buscarDensidadeDemografica`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-
-                plotarDensidadeDemografica(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function plotarDensidadeDemografica(resposta) {
-
-    console.log('iniciando plotagem do gráfico...');
-
-    let labels = [];
-
-    let borderColors = [];
-
-    let dados = {
-        labels: labels,
-        datasets: [{
-            label: 'Quantidade de Usuários',
-            data: [],
-            fill: false,
-            borderColor: borderColors,
-            backgroundColor: borderColors,
-            tension: 0.1
-        }]
-    };
-
-    const colorPalette = [
-        'rgb(255, 99, 132)',
-        'rgb(54, 162, 235)',
-        'rgb(255, 206, 86)',
-        'rgb(75, 192, 192)',
-        'rgb(153, 102, 255)',
-        'rgb(255, 159, 64)',
-        'rgb(0, 255, 127)',
-        'rgb(255, 0, 255)'
-    ];
-
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-
-    for (var i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        labels.push(registro.religiao);
-        dados.datasets[0].data.push(registro.quantidade);
-
-        let colorIndex = i % colorPalette.length;
-        borderColors.push(colorPalette[colorIndex]);
-    }
-
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
-
-    const config = {
-        type: 'bar',
-        data: dados,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    let myChart2 = new Chart(
-        document.getElementById(`religion_canvas`),
-        config
-    );
-
-}
-
-// const ctx = document.getElementById('grafico');
-// const grafico = new Chart(ctx, {
-//     type: 'line',
-//     data: {
-//         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro'],
-//         datasets: [{
-//             label: 'Variação mensal do preço do m² em SP nos últimos 9 meses(R$):',
-//             data: [6.867, 6.700, 6.760, 6.758, 6.740, 6.800, 6.900, 7.000, 7.100],
-//             backgroundColor: ['#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6'],
-//             borderColor: ['#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6', '#001F31', '#909DB6'],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true,
-//                 min: 6,
-//                 max: 7.5,
-//                 ticks: {
-//                     color: '#001F31',
-
-//                 }
-//             },
-//             x: {
-//                 ticks: {
-//                     color: '#001F31'
-//                 },
-//                 grid: {
-//                     display: false
-//                 }
-//             }
-//         },
-//         plugins: {
-//             legend: {
-
-//                 labels: {
-//                     color: '#001F31',
-//                     boxWidth: 0,
-//                     font: {
-//                         size: 15,
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// });
+// segundo grafico primeira sessão
 document.addEventListener("DOMContentLoaded", function () {
     obterPrecoM2();
 });
 
-// Suponha que os dados sejam recebidos como resposta JSON da API.
+
 fetch('/precoM2/buscarCapitaDemografica')
     .then(response => response.json())
     .then(data => {
@@ -665,7 +354,7 @@ fetch('/precoM2/buscarCapitaDemografica')
         const grafico2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: bairros, // Usando os nomes reais dos bairros
+                labels: bairros, 
                 datasets: [
                     {
                         label: 'Densidade demográfica (hab/km²)',
@@ -724,7 +413,7 @@ fetch('/precoM2/buscarCapitaDemografica')
         console.error('Erro ao buscar dados para o gráfico:', error);
     });
 
-
+//grafico bairros com maior preço primeira sessão- segundo grafico
 const ctx3 = document.getElementById('grafico3');
 fetch('/precoM2/buscarRegioesComMaiorPreco')
 
@@ -774,110 +463,23 @@ fetch('/precoM2/buscarRegioesComMaiorPreco')
     })
     .catch(error => console.error('Erro ao carregar dados do gráfico:', error));
 
-// vou ter que pegar o value do option que o cliente selecionar e fazer um select com esse value
-// var selectedValue = null; // Declara a variável globalmente
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Pegando o select do HTML
-//     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-
-//     // Adiciona evento de mudança ao select
-//     bairroSelect.addEventListener('change', function () {
-//         selectedValue = this.value; // Atualiza a variável global com o valor selecionado
-//         console.log('Bairro selecionado:', selectedValue);
-//     });
-// });
 
 
-// // Função para atualizar o gráfico de IDH
-// let idhChart; // Variável global para o gráfico
-
-
-
-// function atualizarGraficoIdh(bairro) {
-//     fetch(`/idh/idh-grafico?bairro=${bairro}`) // Enviando o bairro como query param
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error(`Erro na requisição: ${response.statusText}`);
-//             }
-//             return response.json();
-//         })
-//         .then(resposta => {
-//             console.log(`Dados de IDH para gráfico recebidos:`, resposta);
-
-//             const idhBairro = resposta.idhBairro || 0; // Valor do bairro
-//             const idhSP = resposta.idhEstadoSP || 0.85; // Valor padrão do estado de SP
-
-//             const ctxIdh = document.getElementById('idhChart').getContext('2d');
-
-//             // Destroi o gráfico existente, se houver
-//             if (idhChart) {
-//                 idhChart.destroy();
-//             }
-
-//             // Cria o novo gráfico
-//             idhChart = new Chart(ctxIdh, {
-//                 type: 'doughnut',
-//                 data: {
-//                     labels: ['IDH atual dessa subprefeitura', 'IDH médio do estado de SP'],
-//                     datasets: [{
-//                         label: 'IDH',
-//                         data: [idhBairro, idhSP],
-//                         backgroundColor: ['#001F31', '#909DB6'],
-//                         borderColor: '#ffffff',
-//                         borderWidth: 1
-//                     }]
-//                 },
-//                 options: {
-//                     responsive: true,
-//                     plugins: {
-//                         legend: {
-//                             display: true,
-//                             position: 'top',
-//                             labels: {
-//                                 boxWidth: 15,
-//                                 padding: 2,
-//                                 font: {
-//                                     size: 9,
-//                                 }
-//                             }
-//                         },
-//                         title: {
-//                             display: true,
-//                             text: 'Comparativo IDH: SP(média) vs Bairro',
-//                             font: {
-//                                 size: 12,
-//                             },
-//                             padding: {
-//                                 top: 10,
-//                                 bottom: 10
-//                             },
-//                         }
-//                     }
-//                 }
-//             });
-//         })
-//         .catch(error => {
-//             console.error(`Erro ao buscar dados para o gráfico: ${error.message}`);
-//         });
-// }
-
-
-
-// Variável global para armazenar o gráfico
+//PRIMEIRO grafico sessão pesquisa
 let idhChart = null;
 var selectedValue = null;
-// Captura o valor do select e faz a requisição ao servidor
+
 document.addEventListener('DOMContentLoaded', function () {
-    // Declara a variável globalmente
 
 
-    // Pegando o select do HTML
+
+
+  
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
 
-    // Adiciona evento de mudança ao select
+  //função para pegar o valor do select
     bairroSelect.addEventListener('change', function () {
-        selectedValue = this.value; // Atualiza a variável global com o valor selecionado
+        selectedValue = this.value; 
         console.log('Bairro selecionado:', selectedValue);
 
         if (selectedValue) {
@@ -893,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(dados => {
                     console.log('Dados recebidos:', dados);
 
-                    // Atualiza ou cria o gráfico
+                  
                     renderizarGrafico(dados.idh);
                 })
                 .catch(error => {
@@ -905,16 +507,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Função para renderizar ou atualizar o gráfico
+
 function renderizarGrafico(idhAtual) {
     const ctxIdh = document.getElementById('idhChart').getContext('2d');
 
     if (idhChart) {
-        // Atualiza os dados do gráfico existente
-        idhChart.data.datasets[0].data = [idhAtual, 0.85]; // Atualiza com o IDH recebido
+       
+        idhChart.data.datasets[0].data = [idhAtual, 0.85]; 
         idhChart.update();
     } else {
-        // Cria o gráfico se ainda não existir
+       
         idhChart = new Chart(ctxIdh, {
             type: 'doughnut',
             data: {
@@ -944,58 +546,8 @@ function renderizarGrafico(idhAtual) {
     }
 }
 
-//grafico funcioando estatico
-// const ctxIdh = document.getElementById('idhChart').getContext('2d');
-// const idhChart = new Chart(ctxIdh, {
-//     type: 'doughnut',
-//     data: {
-//         labels: ['IDH atual dessa subprefeitura', 'IDH médio do estado de SP'],
-//         datasets: [{
-//             label: 'IDH',
-//             data: [0.9, 0.85],
-//             backgroundColor: ['#001F31', '#909DB6'],
-//             borderColor: '#ffffff',
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         responsive: true,
-//         plugins: {
-//             legend: {
-//                 display: true,
-//                 position: 'top',
-//                 labels: {
-//                     boxWidth: 15,
-//                     padding: 2,
-//                     font: {
-//                         size: 9,
-//                     },
 
-//                     generateLabels: function (chart) {
-//                         const original = Chart.overrides.doughnut.plugins.legend.labels.generateLabels;
-//                         const labels = original.call(this, chart);
-//                         labels.forEach(label => {
-//                             label.hidden = chart.getDatasetMeta(label.datasetIndex).hidden;
-//                         });
-//                         return labels;
-//                     }
-//                 }
-//             },
-//             title: {
-//                 display: true,
-//                 text: 'Comparativo IDH: SP(média) vs Bairro',
-//                 font: {
-//                     size: 12,
-//                 },
-//                 padding: {
-//                     top: 10,
-//                     bottom: 10
-//                 },
-//             }
-//         }
-//     }
-// });
-
+// segundo grafico pesquisa
 let grafico5 = null;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -1006,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Bairro selecionado:', selectedValue);
 
         if (selectedValue) {
-            // URL para buscar os dados para o gráfico
+          
             const urlGraficoM2 = `/idh/media-m2-grafico?selectedNome=${encodeURIComponent(selectedValue)}`;
 
             fetch(urlGraficoM2, { method: "GET" })
@@ -1015,20 +567,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         resposta.json().then(function (dados) {
                             console.log("Dados recebidos para o gráfico de linha:", dados);
 
-                            // Preparando os labels e os dados para o gráfico
                             const labels = dados.map(item => item.mes);
                             const valores = dados.map(item => parseFloat(item.mediaValorM2));
 
-                            // Obtendo o contexto do gráfico
                             const ctx5 = document.getElementById('grafico5').getContext('2d');
 
                             if (grafico5) {
-                                // Se o gráfico já existir, apenas atualize os dados e as configurações
-                                grafico5.data.labels = labels; // Atualiza os labels
-                                grafico5.data.datasets[0].data = valores; // Atualiza os valores
-                                grafico5.update(); // Atualiza o gráfico
+                              
+                                grafico5.data.labels = labels; 
+                                grafico5.data.datasets[0].data = valores;
+                                grafico5.update(); 
                             } else {
-                                // Se o gráfico não existir, crie um novo
+                                
                                 grafico5 = new Chart(ctx5, {
                                     type: 'line',
                                     data: {
@@ -1081,64 +631,7 @@ document.addEventListener('DOMContentLoaded', function () {
 }); 
 
 
-//grafico 5 mocado
-// const ctx5 = document.getElementById('grafico5');
-// const grafico5 = new Chart(ctx5, {
-//     type: 'line',
-//     data: {
-//         labels: ['Junho', 'Julho', 'Agosto', 'Setembro'],
-//         datasets: [{
-//             label: '',
-//             data: [6.800, 6.600, 7.000, 7.100],
-//             backgroundColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
-//             borderColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true,
-//                 min: 6,
-//                 max: 7.5,
-//                 ticks: {
-//                     color: '#001F31',
-
-//                 }
-//             },
-//             x: {
-//                 ticks: {
-//                     color: '#001F31'
-//                 },
-//                 grid: {
-//                     display: false
-//                 }
-//             }
-//         },
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     boxWidth: 0,
-//                     color: '#001F31',
-
-//                 }
-//             }, title: {
-//                 display: true,
-//                 text: 'Variação mensal do preço do m² nos últimos 4 meses',
-//                 font: {
-//                     size: 12,
-//                 },
-//                 padding: {
-//                     top: 10,
-//                     bottom: 10
-//                 },
-//             }
-//         }
-//     }
-// });
-
-// Função para atualizar o gráfico com dados dinâmicos
-
+//terceira grafica pesquisa
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
 
@@ -1164,13 +657,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.porcentagemMaior !== undefined) {
                     console.log('Dados recebidos:', data);
 
-                    // Verificar e destruir o gráfico anterior se ele existir
+                
                     const ctx6 = document.getElementById('grafico6');
                     if (ctx6.chart) {
-                        ctx6.chart.destroy(); // Destruir gráfico existente
+                        ctx6.chart.destroy();
                     }
 
-                    // Criar novo gráfico com tamanhos definidos pelo CSS
+                 
                     const grafico6 = new Chart(ctx6, {
                         type: 'bar',
                         data: {
@@ -1214,10 +707,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                    // Atribuir o gráfico à propriedade chart do canvas
+                  
                     ctx6.chart = grafico6;
 
-                    // Atualiza o valor do KPI
+                  
                     const kpiPercapitaSpan = document.querySelector('#kpi_percapita span');
                     const maiorOuMenor = data.porcentagemMaior >= 0 ? 'maior' : 'menor';
                     kpiPercapitaSpan.innerHTML = `${Math.abs(data.porcentagemMaior)}% ${maiorOuMenor}`;
@@ -1236,131 +729,127 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+//kpi 1 pesquisa
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            return;
+        }
+
+      
+        const urlDensidade = `/idh/densidade-bairro?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlDensidade)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos para KPI de densidade:', data);
+
+                // Atualizar a KPI
+                const kpiTitulo = document.querySelector('.titulo_kpi');
+                const kpiTexto = document.querySelector('.texto_kpi');
+
+                titulo_densidade.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (${data.dtInsercao}):`;
+                numero_densidade.innerHTML = data.densidadeDemografica;
+            })
+            .catch(error => {
+                console.error('Erro na obtenção dos dados:', error);
+
+                const kpiTitulo = document.querySelector('.titulo_kpi');
+                const kpiTexto = document.querySelector('.texto_kpi');
+
+                kpiTitulo.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (Dados não disponíveis):`;
+                kpiTexto.innerHTML = 'N/A';
+            });
+    });
+});
+
+
+//KPI2
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            return;
+        }
+
+        const urlRanking = `/idh/ranking-bairro?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlRanking)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Dados recebidos para o ranking:", data);
+
+                const kpiRankingTitulo = document.querySelector('.titulo_kpi');
+                const kpiRankingTexto = document.querySelector('.texto_kpi');
+
+                kpiRankingTitulo.innerHTML = `Classificação no ranking dos metros quadrados mais valorizados de São Paulo: `;
+                kpi_colocacao.innerHTML = `${data.ranking}° colocada`;
+            })
+            .catch(error => console.error('Erro ao buscar ranking do bairro:', error));
+    });
+});
+
+//kpi3
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            return;
+        }
+
+        const urlTaxaValorizacao = `idh/taxa-valorizacao?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlTaxaValorizacao)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Dados recebidos para a taxa de valorização:", data);
+
+          
+            
+
+                porcentagem_localizacao.innerHTML = `${data.taxa_valorizacao}%`;
+                taxa_atual.innerHTML = `2024 - ${data.dado_atual}`;
+                taxa_anopassado.innerHTML = `2023 - ${data.dado_anopassado}`;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar taxa de valorização:', error);
+            });
+    });
+});
 
 
 
-//testeAPAGAR
-// document.addEventListener('DOMContentLoaded', function () {
-
-//     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-//     bairroSelect.addEventListener('change', function () {
-//         selectedValue = this.value; // Atualiza o valor global
-//         console.log('Bairro selecionado:', selectedValue);
-
-
-//         if (selectedValue) {
-
-//             // URL para buscar os dados
-//             const urlRenda = `/idh/porcentagem-renda?selectedNome=${encodeURIComponent(selectedValue)}`;
-
-//             // Faz a requisição para o back-end
-//             fetch(urlRenda)
-//                 .then(response => response.json())
-//                 .then(data => {
-//                     if (data.rendaPerCapita !== undefined) {
-//                         console.log(`Dados recebidos:`, data);
-
-//                         // Atualiza o gráfico com os dados reais
-//                         const ctx6 = document.getElementById('grafico6');
-//                         const grafico6 = new Chart(ctx6, {
-//                             type: 'bar',
-//                             data: {
-//                                 labels: ['São Paulo', selectedValue],
-//                                 datasets: [{
-//                                     label: '',
-//                                     data: [3443, data.rendaPerCapita],
-//                                     backgroundColor: ['#909DB6', '#001F31']
-//                                 }]
-//                             },
-//                             options: {
-//                                 indexAxis: 'x',
-//                                 scales: {
-//                                     x: {
-//                                         beginAtZero: true,
-//                                         ticks: {
-//                                             color: '#001F31'
-//                                         },
-//                                         grid: {
-//                                             display: false
-//                                         }
-//                                     },
-//                                     y: {
-//                                         ticks: {
-//                                             color: '#001F31'
-//                                         }
-//                                     }
-//                                 },
-//                                 plugins: {
-//                                     legend: {
-//                                         labels: {
-//                                             boxWidth: 0,
-//                                             color: '#001F31'
-//                                         }
-//                                     },
-//                                     title: {
-//                                         display: true,
-//                                         text: `Comparação de Renda Per Capita: SP vs ${selectedValue}`
-//                                     }
-//                                 }
-//                             }
-//                         });
-//                     } else {
-//                         console.error('Erro: Dados insuficientes para o gráfico.');
-//                     }
-
-//                 })
-//                 .catch(error => console.error('Erro na obtenção dos dados:', error));
-//         } else {
-
-//         console.error("Erro na resposta do servidor para gráfico de linha: ", resposta.status);
-//     }
-//     }
-
-//     )
-// });
-
-
-
-//grafico estatico
-// const ctx6 = document.getElementById('grafico6');
-// const grafico6 = new Chart(ctx6, {
-//     type: 'bar',
-//     data: {
-//         labels: ['São Paulo', 'Bairro'],
-//         datasets: [{
-//             label: '',
-//             data: [3.300, 4.00],
-//             backgroundColor: '#909DB6'
-//         }]
-//     },
-//     options: {
-//         indexAxis: 'x',
-//         scales: {
-//             x: {
-//                 beginAtZero: true,
-//                 ticks: {
-//                     color: '#001F31'
-//                 },
-//                 grid: {
-//                     display: false
-//                 }
-//             },
-//             y: {
-//                 ticks: {
-//                     color: '#001F31'
-//                 }
-//             }
-//         },
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     boxWidth: 0,
-//                     color: '#001F31'
-//                 }
-//             }
-//         }
-//     }
-// });
 
 const ctx7 = document.getElementById('grafico7');
 const grafico7 = new Chart(ctx7, {
@@ -1413,3 +902,46 @@ const grafico7 = new Chart(ctx7, {
     }
 });
 
+
+
+
+//grafico estatico
+// const ctx6 = document.getElementById('grafico6');
+// const grafico6 = new Chart(ctx6, {
+//     type: 'bar',
+//     data: {
+//         labels: ['São Paulo', 'Bairro'],
+//         datasets: [{
+//             label: '',
+//             data: [3.300, 4.00],
+//             backgroundColor: '#909DB6'
+//         }]
+//     },
+//     options: {
+//         indexAxis: 'x',
+//         scales: {
+//             x: {
+//                 beginAtZero: true,
+//                 ticks: {
+//                     color: '#001F31'
+//                 },
+//                 grid: {
+//                     display: false
+//                 }
+//             },
+//             y: {
+//                 ticks: {
+//                     color: '#001F31'
+//                 }
+//             }
+//         },
+//         plugins: {
+//             legend: {
+//                 labels: {
+//                     boxWidth: 0,
+//                     color: '#001F31'
+//                 }
+//             }
+//         }
+//     }
+// });
