@@ -1,10 +1,15 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const idhController = require("../controllers/idhController");
 
-var idhController = require("../controllers/idhController");
+router.get('/idh-grafico', idhController.buscarIdh);
 
-router.post("/buscarIdh", function (req, res) {
-    idhController.buscarIdh(req, res);
-})
+router.get('/media-m2-grafico', function (req, res) { 
+    idhController.buscarGraficoMediaValorM2(req, res);
+});
+
+router.get('/porcentagem-renda', function (req, res) {
+    idhController.calcularPorcentagemRenda(req, res);
+});
 
 module.exports = router;

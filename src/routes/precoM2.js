@@ -26,4 +26,9 @@ router.get("/buscarDataAtualizacao", function (req, res) {
     precoM2Controller.buscarDataAtualizacao(req, res);
 });
 
+router.get("/buscarCapitaDemografica", function (req, res) {
+    precoM2Controller.buscarCapitaDemografica(req, res);
+});
+
+
 module.exports = router;

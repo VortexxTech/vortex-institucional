@@ -73,7 +73,6 @@ JOIN
      GROUP BY zona, bairro, cidade) AS valorMesAnterior
 ON valorMesAtual.zona = valorMesAnterior.zona 
    AND valorMesAtual.bairro = valorMesAnterior.bairro 
-   AND valorMesAtual.cidade = valorMesAnterior.cidade
 ORDER BY percentualValorizacao DESC
 LIMIT 1;
     `;
@@ -128,6 +127,41 @@ FROM DadosInseridos;
     return database.executar(instrucaoSql);
 }
 
+function buscarCapitaDemografica() {
+    var instrucaoSql = `
+WITH NormalizedData AS (
+    SELECT bairro, 
+           rendaPerCapita, 
+           densidadeDemografica, 
+           ((rendaPerCapita - MIN(rendaPerCapita) OVER ()) / 
+            (MAX(rendaPerCapita) OVER () - MIN(rendaPerCapita) OVER ())) AS renda_normalizada,
+           ((densidadeDemografica - MIN(densidadeDemografica) OVER ()) / 
+            (MAX(densidadeDemografica) OVER () - MIN(densidadeDemografica) OVER ())) AS densidade_normalizada,
+           (((rendaPerCapita - MIN(rendaPerCapita) OVER ()) / 
+             (MAX(rendaPerCapita) OVER () - MIN(rendaPerCapita) OVER ())) +
+            ((densidadeDemografica - MIN(densidadeDemografica) OVER ()) / 
+             (MAX(densidadeDemografica) OVER () - MIN(densidadeDemografica) OVER ()))) / 2 AS score_final
+    FROM DadosInseridos
+)
+SELECT bairro, 
+       rendaPerCapita, 
+       densidadeDemografica, 
+       renda_normalizada,
+       densidade_normalizada,
+       score_final
+FROM (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY bairro ORDER BY score_final DESC) AS rn
+    FROM NormalizedData
+) subquery
+WHERE rn = 1
+ORDER BY score_final DESC
+LIMIT 5;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 
 module.exports = {
@@ -136,5 +170,6 @@ module.exports = {
     buscarRegioesComMaiorPreco,
     buscarZonasComMaiorPreco,
     buscarTopsIdh,
-    buscarDataAtualizacao
+    buscarDataAtualizacao,
+    buscarCapitaDemografica
 };

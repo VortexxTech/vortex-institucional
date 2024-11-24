@@ -22,7 +22,6 @@ document.getElementById('filtrarBtn').addEventListener('click', () => {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPesquisa = document.getElementById('zona-regiao-pesquisa');
     const regiaoCidadePesquisa = document.getElementById('regiao-bairro-pesquisa');
@@ -31,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const nomeCidade = document.getElementById('nome_cidade');
 
     const cidadesPorRegiao = {
-        centro: ['Bela Vista', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
-        norte: ['Brasilândia', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
+        centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
+        norte: ['B', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
         sul: ['Campo Belo', 'Campo Grande', 'Campo Limpo', 'Capão Redondo', 'Cidade Ademar', 'Cidade Dutra', 'Cursino', 'Grajaú', 'Ipiranga', 'Jabaquara', 'Jardim Ângela', 'Jardim São Luís', 'Moema', 'Saúde', 'Sacomã', 'Santo Amaro', 'Vila Andrade', 'Vila Mariana'],
         oeste: ['Barra Funda', 'Butantã', 'Itaim Bibi', 'Jardim Paulista', 'Lapa', 'Morumbi', 'Perdizes', 'Pinheiros', 'Vila Leopoldina'],
         leste: ['Água Rasa', 'Aricanduva', 'Artur Alvim', 'Belenzinho', 'Brás', 'Cangaíba', 'Cidade Líder', 'Cidade Tiradentes', 'Ermelino Matarazzo', 'Guaianases', 'Iguatemi', 'Itaim Paulista', 'Itaquera', 'Jardim Helena', 'José Bonifácio', 'Mooca', 'Pari', 'Penha', 'São Lucas', 'São Mateus', 'Sapopemba', 'Tatuapé', 'Vila Carrão', 'Vila Formosa', 'Vila Matilde', 'Vila Prudente'],
@@ -47,19 +46,17 @@ document.addEventListener('DOMContentLoaded', function () {
             cidadesPorRegiao[regiaoSelecionada].forEach(function (cidade) {
                 const option = document.createElement('option');
                 option.textContent = cidade;
+                option.value = cidade;  // Agora o value será o nome da cidade
                 regiaoCidadePesquisa.appendChild(option);
             });
         }
     });
-
 });
 
-
-///segunda sessao
 document.getElementById('filtrarBtn2').addEventListener('click', () => {
     const zonaPrevista = document.getElementById('zona-regiao-prevista').value;
     const regiaoPrevista = document.getElementById('regiao-bairro-prevista').value;
-    const tamanhoTerreno = document.querySelector('input[type="number"]').value; 
+    const tamanhoTerreno = document.querySelector('input[type="number"]').value;
     const kpiRespostaElement = document.getElementById('kpi_percapita');
 
     if (zonaPrevista && regiaoPrevista && tamanhoTerreno) {
@@ -73,7 +70,6 @@ document.getElementById('filtrarBtn2').addEventListener('click', () => {
         alert('Por favor, preencha todos os campos.');
     }
 });
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPrevista = document.getElementById('zona-regiao-prevista');
@@ -95,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cidadesPorRegiao[regiaoSelecionada].forEach(function (cidade) {
                 const option = document.createElement('option');
                 option.textContent = cidade;
+                option.value = cidade;
                 regiaoCidadePrevista.appendChild(option);
             });
         }
@@ -102,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function preco_atual(){
+function preco_atual() {
     var preco = 6.867;
     var tamanhoTerreno = tamanho_terreno.value;
 
@@ -111,7 +108,7 @@ function preco_atual(){
     document.getElementById('preco_atual').innerText = resultado.toFixed(3);
 }
 
-function preco_futuro(){
+function preco_futuro() {
     var preco_futuro = 7.100;
     var tamanhoTerreno = tamanho_terreno.value;
 
@@ -194,13 +191,13 @@ function plotarRendaPerCapta(resposta) {
     };
 
     const colorPalette = [
-        'rgb(255, 99, 132)', 
-        'rgb(54, 162, 235)', 
-        'rgb(255, 206, 86)', 
-        'rgb(75, 192, 192)', 
-        'rgb(153, 102, 255)', 
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
         'rgb(255, 159, 64)',
-        'rgb(0, 255, 127)', 
+        'rgb(0, 255, 127)',
         'rgb(255, 0, 255)'
     ];
 
@@ -236,7 +233,7 @@ function plotarRendaPerCapta(resposta) {
             }
         }
     };
-    
+
     let myChart2 = new Chart(
         document.getElementById(`religion_canvas`),
         config
@@ -248,7 +245,7 @@ function obterPrecoM2() {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                
+
                 const labels = resposta.map(item => item.mes);
                 const data = resposta.map(item => parseFloat(item.mediaValorM2));
 
@@ -258,9 +255,9 @@ function obterPrecoM2() {
             console.error('Nenhum dado encontrado ou erro na API');
         }
     })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
 }
 
 function plotarPrecoM2(labels, data) {
@@ -312,28 +309,37 @@ function plotarPrecoM2(labels, data) {
 document.addEventListener("DOMContentLoaded", obterValorizacao);
 
 function obterValorizacao() {
-    fetch(`/precoM2/buscarValorizacao`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados de valorização recebidos: ${JSON.stringify(resposta)}`);
-                
-                const cidade = resposta.cidade;
-                const bairro = resposta.bairro;
-                const zona = resposta.zona;
-                const valorizacao = resposta.percentualValorizacao;
+    fetch(`/precoM2/buscarValorizacao`, { cache: 'no-store' })
+        .then(function (response) {
+            // Verifica se a resposta foi bem-sucedida (status 200-299)
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.statusText}`);
+            }
 
-                // Preenchendo as KPIs
-                document.querySelector('.titulo_kpi').textContent = `Subprefeitura com a maior valorização do preço do m² no mês(R$):`;
-                document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
-                document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
+            // Verifica se a resposta tem conteúdo
+            return response.text().then(function (text) {
+                if (text) {
+                    return JSON.parse(text);  // Só tenta fazer o parse se houver conteúdo
+                } else {
+                    throw new Error('Resposta vazia');
+                }
             });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');     
-        }
-    })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
-    });
+        })
+        .then(function (resposta) {
+            console.log(`Dados de valorização da cidade na KPI recebidos: ${JSON.stringify(resposta)}`);
+
+            const bairro = resposta.bairro;
+            const zona = resposta.zona;
+            const valorizacao = resposta.percentualValorizacao;
+
+            // Preenchendo as KPIs
+            document.querySelector('.titulo_kpi').textContent = `Subprefeitura com a maior valorização do preço do m² no mês(R$):`;
+            document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
+            document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
+        });
 }
 
 
@@ -344,8 +350,8 @@ function obterValorizacaoZona() {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados de valorização recebidos: ${JSON.stringify(resposta)}`);
-            
-          
+
+
                 const zona = resposta.zona;
                 const valorizacao = resposta.percentualValorizacao;
 
@@ -354,65 +360,65 @@ function obterValorizacaoZona() {
                 document.getElementById('valorizacao-zona').textContent = `${zona} - ${valorizacao}%`;
             });
         } else {
-            console.error('Nenhum dado encontrado ou erro na API');     
+            console.error('Nenhum dado encontrado ou erro na API');
         }
     })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
-    });
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
+        });
 }
 
 
 document.addEventListener("DOMContentLoaded", buscarTopsIdh);
 
 function buscarTopsIdh() {
-fetch(`/precoM2/buscarTopsIdh`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta) {
-            console.log(`Dados de valorização recebidos: ${JSON.stringify(resposta)}`);
-            
-       
-            const bairroPrimeiro = resposta[0].bairro;
-            const valorizacaoPrimeiro = resposta[0].idh;
-            const bairroSegundo = resposta[1].bairro;
-            const valorizacaoSegundo = resposta[1].idh;
-            const bairroTerceiro = resposta[2].bairro;
-            const valorizacaoTerceiro = resposta[2].idh;
+    fetch(`/precoM2/buscarTopsIdh`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados de valorização recebidos: ${JSON.stringify(resposta)}`);
 
-            // Preenchendo as KPIs
-            document.getElementById('resposta-idh').textContent = `${bairroPrimeiro}`;
-            document.getElementById('valorizacao-kpi-Primeiro').textContent = `1. ${bairroPrimeiro} - IDH: ${valorizacaoPrimeiro}`;
-            document.getElementById('valorizacao-kpi-Segundo').textContent = `2. ${bairroSegundo} - IDH: ${valorizacaoSegundo}`;
-            document.getElementById('valorizacao-kpi-Terceiro').textContent = `3. ${bairroTerceiro} - IDH: ${valorizacaoTerceiro}`;
+
+                const bairroPrimeiro = resposta[0].bairro;
+                const valorizacaoPrimeiro = resposta[0].idh;
+                const bairroSegundo = resposta[1].bairro;
+                const valorizacaoSegundo = resposta[1].idh;
+                const bairroTerceiro = resposta[2].bairro;
+                const valorizacaoTerceiro = resposta[2].idh;
+
+                // Preenchendo as KPIs
+                document.getElementById('resposta-idh').textContent = `${bairroPrimeiro}`;
+                document.getElementById('valorizacao-kpi-Primeiro').textContent = `1. ${bairroPrimeiro} - IDH: ${valorizacaoPrimeiro}`;
+                document.getElementById('valorizacao-kpi-Segundo').textContent = `2. ${bairroSegundo} - IDH: ${valorizacaoSegundo}`;
+                document.getElementById('valorizacao-kpi-Terceiro').textContent = `3. ${bairroTerceiro} - IDH: ${valorizacaoTerceiro}`;
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
         });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');     
-    }
-})
-.catch(function (error) {
-    console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
-});
 }
 
 document.addEventListener("DOMContentLoaded", buscarDataAtualizacao);
 
 function buscarDataAtualizacao() {
-fetch(`/precoM2/buscarDataAtualizacao`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta) {
-            console.log(`Dados de atualização recebidos: ${JSON.stringify(resposta)}`);
-        
-            const data = resposta.ultima_data_insercao;
-            // Preenchendo as KPIs
-            document.getElementById('resposta-data').textContent = `${data}`;
+    fetch(`/precoM2/buscarDataAtualizacao`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados de atualização recebidos: ${JSON.stringify(resposta)}`);
+
+                const data = resposta.ultima_data_insercao;
+                // Preenchendo as KPIs
+                document.getElementById('resposta-data').textContent = `${data}`;
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
         });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');     
-    }
-})
-.catch(function (error) {
-    console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
-});
 }
 
 
@@ -457,13 +463,13 @@ function plotarIdh(resposta) {
     };
 
     const colorPalette = [
-        'rgb(255, 99, 132)', 
-        'rgb(54, 162, 235)', 
-        'rgb(255, 206, 86)', 
-        'rgb(75, 192, 192)', 
-        'rgb(153, 102, 255)', 
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
         'rgb(255, 159, 64)',
-        'rgb(0, 255, 127)', 
+        'rgb(0, 255, 127)',
         'rgb(255, 0, 255)'
     ];
 
@@ -499,7 +505,7 @@ function plotarIdh(resposta) {
             }
         }
     };
-    
+
     let myChart2 = new Chart(
         document.getElementById(`religion_canvas`),
         config
@@ -546,13 +552,13 @@ function plotarDensidadeDemografica(resposta) {
     };
 
     const colorPalette = [
-        'rgb(255, 99, 132)', 
-        'rgb(54, 162, 235)', 
-        'rgb(255, 206, 86)', 
-        'rgb(75, 192, 192)', 
-        'rgb(153, 102, 255)', 
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(153, 102, 255)',
         'rgb(255, 159, 64)',
-        'rgb(0, 255, 127)', 
+        'rgb(0, 255, 127)',
         'rgb(255, 0, 255)'
     ];
 
@@ -588,7 +594,7 @@ function plotarDensidadeDemografica(resposta) {
             }
         }
     };
-    
+
     let myChart2 = new Chart(
         document.getElementById(`religion_canvas`),
         config
@@ -643,73 +649,80 @@ function plotarDensidadeDemografica(resposta) {
 //         }
 //     }
 // });
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     obterPrecoM2();
 });
 
-const ctx2 = document.getElementById('grafico2');
-const grafico2 = new Chart(ctx2, {
-    type: 'bar',
-    data: {
-        labels: ['A', 'E', 'C', 'D', 'B'],
-        datasets: [
-            {
-                label: 'Densidade demográfica(hab/km²)',
-                data: [11.948, 10.137, 16.454, 12.46, 7.527],
-                backgroundColor: '#909DB6'
-            },
-            {
-                label: 'Renda per Capita',
-                data: [-4.098, -7.000, -2.333, -5.144, -2.492],
-                backgroundColor: '#001F31'
-            }
-        ]
-    },
-    options: {
-        indexAxis: 'y',
-        scales: {
-            x: {
-                beginAtZero: true,
-                min: -8,
-                max: 16,
-                ticks: {
-                    callback: function (value) {
-                        return Math.abs(value);
-                    },
+// Suponha que os dados sejam recebidos como resposta JSON da API.
+fetch('/precoM2/buscarCapitaDemografica')
+    .then(response => response.json())
+    .then(data => {
+        const bairros = data.map(item => item.bairro);
+        const densidades = data.map(item => -item.densidadeDemografica); // Multiplicando por -1
+        const rendas = data.map(item => item.rendaPerCapita);
 
-                    color: '#001F31'
-                },
-                grid: {
-                    display: false
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#001F31',
-
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    color: '#001F31',
-                    font: {
-                        size: 7,
+        const ctx2 = document.getElementById('grafico2');
+        const grafico2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: bairros, // Usando os nomes reais dos bairros
+                datasets: [
+                    {
+                        label: 'Densidade demográfica (hab/km²)',
+                        data: densidades, // Valores negativos
+                        backgroundColor: '#909DB6'
                     },
-                }
+                    {
+                        label: 'Renda per Capita',
+                        data: rendas,
+                        backgroundColor: '#001F31'
+                    }
+                ]
             },
-            title: {
-                display: true,
-                text: 'Principais Cidades em Densidade Demográfica e Renda Per Capita Juntas',
-                font: {
-                    size: 12,
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                return Math.abs(value); // Mostrando valores absolutos
+                            },
+                            color: '#001F31'
+                        },
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#001F31'
+                        }
+                    }
                 },
-             
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#001F31',
+                            font: {
+                                size: 7
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Principais Cidades em Densidade Demográfica e Renda Per Capita Juntas',
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
             }
-        }
-    }
-});
+        });
+    })
+    .catch(error => {
+        console.error('Erro ao buscar dados para o gráfico:', error);
+    });
 
 
 const ctx3 = document.getElementById('grafico3');
@@ -752,7 +765,7 @@ fetch('/precoM2/buscarRegioesComMaiorPreco')
                     legend: {
                         labels: {
                             color: '#001F31',
-                            boxWidth : 0 
+                            boxWidth: 0
                         }
                     }
                 }
@@ -761,153 +774,593 @@ fetch('/precoM2/buscarRegioesComMaiorPreco')
     })
     .catch(error => console.error('Erro ao carregar dados do gráfico:', error));
 
+// vou ter que pegar o value do option que o cliente selecionar e fazer um select com esse value
+// var selectedValue = null; // Declara a variável globalmente
 
-const ctxIdh = document.getElementById('idhChart').getContext('2d');
-const idhChart = new Chart(ctxIdh, {
-    type: 'doughnut',
-    data: {
-        labels: ['IDH atual dessa subprefeitura', 'IDH médio do estado de SP'],
-        datasets: [{
-            label: 'IDH',
-            data: [0.9, 0.85],
-            backgroundColor: ['#001F31', '#909DB6'],
-            borderColor: '#ffffff',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    boxWidth: 15,
-                    padding: 2,
-                    font: {
-                        size: 9,
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Pegando o select do HTML
+//     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+//     // Adiciona evento de mudança ao select
+//     bairroSelect.addEventListener('change', function () {
+//         selectedValue = this.value; // Atualiza a variável global com o valor selecionado
+//         console.log('Bairro selecionado:', selectedValue);
+//     });
+// });
+
+
+// // Função para atualizar o gráfico de IDH
+// let idhChart; // Variável global para o gráfico
+
+
+
+// function atualizarGraficoIdh(bairro) {
+//     fetch(`/idh/idh-grafico?bairro=${bairro}`) // Enviando o bairro como query param
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(`Erro na requisição: ${response.statusText}`);
+//             }
+//             return response.json();
+//         })
+//         .then(resposta => {
+//             console.log(`Dados de IDH para gráfico recebidos:`, resposta);
+
+//             const idhBairro = resposta.idhBairro || 0; // Valor do bairro
+//             const idhSP = resposta.idhEstadoSP || 0.85; // Valor padrão do estado de SP
+
+//             const ctxIdh = document.getElementById('idhChart').getContext('2d');
+
+//             // Destroi o gráfico existente, se houver
+//             if (idhChart) {
+//                 idhChart.destroy();
+//             }
+
+//             // Cria o novo gráfico
+//             idhChart = new Chart(ctxIdh, {
+//                 type: 'doughnut',
+//                 data: {
+//                     labels: ['IDH atual dessa subprefeitura', 'IDH médio do estado de SP'],
+//                     datasets: [{
+//                         label: 'IDH',
+//                         data: [idhBairro, idhSP],
+//                         backgroundColor: ['#001F31', '#909DB6'],
+//                         borderColor: '#ffffff',
+//                         borderWidth: 1
+//                     }]
+//                 },
+//                 options: {
+//                     responsive: true,
+//                     plugins: {
+//                         legend: {
+//                             display: true,
+//                             position: 'top',
+//                             labels: {
+//                                 boxWidth: 15,
+//                                 padding: 2,
+//                                 font: {
+//                                     size: 9,
+//                                 }
+//                             }
+//                         },
+//                         title: {
+//                             display: true,
+//                             text: 'Comparativo IDH: SP(média) vs Bairro',
+//                             font: {
+//                                 size: 12,
+//                             },
+//                             padding: {
+//                                 top: 10,
+//                                 bottom: 10
+//                             },
+//                         }
+//                     }
+//                 }
+//             });
+//         })
+//         .catch(error => {
+//             console.error(`Erro ao buscar dados para o gráfico: ${error.message}`);
+//         });
+// }
+
+
+
+// Variável global para armazenar o gráfico
+let idhChart = null;
+var selectedValue = null;
+// Captura o valor do select e faz a requisição ao servidor
+document.addEventListener('DOMContentLoaded', function () {
+    // Declara a variável globalmente
+
+
+    // Pegando o select do HTML
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+    // Adiciona evento de mudança ao select
+    bairroSelect.addEventListener('change', function () {
+        selectedValue = this.value; // Atualiza a variável global com o valor selecionado
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (selectedValue) {
+            // Faz a requisição ao servidor
+            fetch(`/idh/idh-grafico?selectedNome=${encodeURIComponent(selectedValue)}`)
+                .then(resposta => {
+                    if (resposta.ok) {
+                        return resposta.json(); // Converte para JSON
+                    } else {
+                        throw new Error(`Erro na resposta do servidor: ${resposta.status}`);
+                    }
+                })
+                .then(dados => {
+                    console.log('Dados recebidos:', dados);
+
+                    // Atualiza ou cria o gráfico
+                    renderizarGrafico(dados.idh);
+                })
+                .catch(error => {
+                    console.error(`Erro na obtenção dos dados: ${error.message}`);
+                });
+        } else {
+            console.log('Nenhum bairro selecionado.');
+        }
+    });
+});
+
+// Função para renderizar ou atualizar o gráfico
+function renderizarGrafico(idhAtual) {
+    const ctxIdh = document.getElementById('idhChart').getContext('2d');
+
+    if (idhChart) {
+        // Atualiza os dados do gráfico existente
+        idhChart.data.datasets[0].data = [idhAtual, 0.85]; // Atualiza com o IDH recebido
+        idhChart.update();
+    } else {
+        // Cria o gráfico se ainda não existir
+        idhChart = new Chart(ctxIdh, {
+            type: 'doughnut',
+            data: {
+                labels: [`IDH atual da região`, 'IDH médio do estado de SP'],
+                datasets: [{
+                    label: 'IDH',
+                    data: [idhAtual, 0.90],
+                    backgroundColor: ['#001F31', '#909DB6'],
+                    borderColor: '#ffffff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
                     },
-
-                    generateLabels: function (chart) {
-                        const original = Chart.overrides.doughnut.plugins.legend.labels.generateLabels;
-                        const labels = original.call(this, chart);
-                        labels.forEach(label => {
-                            label.hidden = chart.getDatasetMeta(label.datasetIndex).hidden;
-                        });
-                        return labels;
+                    title: {
+                        display: true,
+                        text: 'Comparativo IDH: SP(média) vs Bairro',
                     }
                 }
-            },
-            title: {
-                display: true,
-                text: 'Comparativo IDH: SP(média) vs Bairro',
-                font: {
-                    size: 12,
-                },
-                padding: {
-                    top: 10,
-                    bottom: 10
-                },
             }
-        }
+        });
     }
+}
+
+//grafico funcioando estatico
+// const ctxIdh = document.getElementById('idhChart').getContext('2d');
+// const idhChart = new Chart(ctxIdh, {
+//     type: 'doughnut',
+//     data: {
+//         labels: ['IDH atual dessa subprefeitura', 'IDH médio do estado de SP'],
+//         datasets: [{
+//             label: 'IDH',
+//             data: [0.9, 0.85],
+//             backgroundColor: ['#001F31', '#909DB6'],
+//             borderColor: '#ffffff',
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         responsive: true,
+//         plugins: {
+//             legend: {
+//                 display: true,
+//                 position: 'top',
+//                 labels: {
+//                     boxWidth: 15,
+//                     padding: 2,
+//                     font: {
+//                         size: 9,
+//                     },
+
+//                     generateLabels: function (chart) {
+//                         const original = Chart.overrides.doughnut.plugins.legend.labels.generateLabels;
+//                         const labels = original.call(this, chart);
+//                         labels.forEach(label => {
+//                             label.hidden = chart.getDatasetMeta(label.datasetIndex).hidden;
+//                         });
+//                         return labels;
+//                     }
+//                 }
+//             },
+//             title: {
+//                 display: true,
+//                 text: 'Comparativo IDH: SP(média) vs Bairro',
+//                 font: {
+//                     size: 12,
+//                 },
+//                 padding: {
+//                     top: 10,
+//                     bottom: 10
+//                 },
+//             }
+//         }
+//     }
+// });
+
+let grafico5 = null;
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value; // Atualiza o valor global
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (selectedValue) {
+            // URL para buscar os dados para o gráfico
+            const urlGraficoM2 = `/idh/media-m2-grafico?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+            fetch(urlGraficoM2, { method: "GET" })
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        resposta.json().then(function (dados) {
+                            console.log("Dados recebidos para o gráfico de linha:", dados);
+
+                            // Preparando os labels e os dados para o gráfico
+                            const labels = dados.map(item => item.mes);
+                            const valores = dados.map(item => parseFloat(item.mediaValorM2));
+
+                            // Obtendo o contexto do gráfico
+                            const ctx5 = document.getElementById('grafico5').getContext('2d');
+
+                            if (grafico5) {
+                                // Se o gráfico já existir, apenas atualize os dados e as configurações
+                                grafico5.data.labels = labels; // Atualiza os labels
+                                grafico5.data.datasets[0].data = valores; // Atualiza os valores
+                                grafico5.update(); // Atualiza o gráfico
+                            } else {
+                                // Se o gráfico não existir, crie um novo
+                                grafico5 = new Chart(ctx5, {
+                                    type: 'line',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Média Valor m²',
+                                            data: valores,
+                                            backgroundColor: '#909DB6',
+                                            borderColor: '#001F31',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                ticks: { color: '#001F31' }
+                                            },
+                                            x: {
+                                                ticks: { color: '#001F31' },
+                                                grid: { display: false }
+                                            }
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                labels: {
+                                                    color: '#001F31',
+                                                }
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: 'Variação mensal do preço do m² nos últimos 4 meses',
+                                                font: { size: 12 },
+                                                padding: { top: 10, bottom: 10 }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        console.error("Erro na resposta do servidor para gráfico de linha: ", resposta.status);
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro ao buscar dados do gráfico de linha: ${error.message}`);
+                });
+        }
+    });
+}); 
+
+
+//grafico 5 mocado
+// const ctx5 = document.getElementById('grafico5');
+// const grafico5 = new Chart(ctx5, {
+//     type: 'line',
+//     data: {
+//         labels: ['Junho', 'Julho', 'Agosto', 'Setembro'],
+//         datasets: [{
+//             label: '',
+//             data: [6.800, 6.600, 7.000, 7.100],
+//             backgroundColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
+//             borderColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             y: {
+//                 beginAtZero: true,
+//                 min: 6,
+//                 max: 7.5,
+//                 ticks: {
+//                     color: '#001F31',
+
+//                 }
+//             },
+//             x: {
+//                 ticks: {
+//                     color: '#001F31'
+//                 },
+//                 grid: {
+//                     display: false
+//                 }
+//             }
+//         },
+//         plugins: {
+//             legend: {
+//                 labels: {
+//                     boxWidth: 0,
+//                     color: '#001F31',
+
+//                 }
+//             }, title: {
+//                 display: true,
+//                 text: 'Variação mensal do preço do m² nos últimos 4 meses',
+//                 font: {
+//                     size: 12,
+//                 },
+//                 padding: {
+//                     top: 10,
+//                     bottom: 10
+//                 },
+//             }
+//         }
+//     }
+// });
+
+// Função para atualizar o gráfico com dados dinâmicos
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            return;
+        }
+
+        const urlRenda = `/idh/porcentagem-renda?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlRenda)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.porcentagemMaior !== undefined) {
+                    console.log('Dados recebidos:', data);
+
+                    // Verificar e destruir o gráfico anterior se ele existir
+                    const ctx6 = document.getElementById('grafico6');
+                    if (ctx6.chart) {
+                        ctx6.chart.destroy(); // Destruir gráfico existente
+                    }
+
+                    // Criar novo gráfico com tamanhos definidos pelo CSS
+                    const grafico6 = new Chart(ctx6, {
+                        type: 'bar',
+                        data: {
+                            labels: ['São Paulo', selectedValue],
+                            datasets: [{
+                                label: '',
+                                data: [3443, data.rendaPerCapita],
+                                backgroundColor: ['#909DB6', '#001F31']
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'x',
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: '#001F31'
+                                    },
+                                    grid: {
+                                        display: false
+                                    }
+                                },
+                                y: {
+                                    ticks: {
+                                        color: '#001F31'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        boxWidth: 0,
+                                        color: '#001F31'
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: `Comparação de Renda Per Capita: SP vs ${selectedValue}`
+                                }
+                            }
+                        }
+                    });
+
+                    // Atribuir o gráfico à propriedade chart do canvas
+                    ctx6.chart = grafico6;
+
+                    // Atualiza o valor do KPI
+                    const kpiPercapitaSpan = document.querySelector('#kpi_percapita span');
+                    const maiorOuMenor = data.porcentagemMaior >= 0 ? 'maior' : 'menor';
+                    kpiPercapitaSpan.innerHTML = `${Math.abs(data.porcentagemMaior)}% ${maiorOuMenor}`;
+                } else {
+                    console.error('Erro: porcentagemMaior não está disponível.');
+                }
+            })
+            .catch(error => console.error('Erro na obtenção dos dados:', error));
+    });
 });
 
 
-const ctx5 = document.getElementById('grafico5');
-const grafico5 = new Chart(ctx5, {
-    type: 'line',
-    data: {
-        labels: ['Junho', 'Julho', 'Agosto', 'Setembro'],
-        datasets: [{
-            label: '',
-            data: [6.800, 6.600, 7.000, 7.100],
-            backgroundColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
-            borderColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-                min: 6,
-                max: 7.5,
-                ticks: {
-                    color: '#001F31',
 
-                }
-            },
-            x: {
-                ticks: {
-                    color: '#001F31'
-                },
-                grid: {
-                    display: false
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    boxWidth: 0,
-                    color: '#001F31',
 
-                }
-            }, title: {
-                display: true,
-                text: 'Variação mensal do preço do m² nos últimos 4 meses',
-                font: {
-                    size: 12,
-                },
-                padding: {
-                    top: 10,
-                    bottom: 10
-                },
-            }
-        }
-    }
-});
 
-const ctx6 = document.getElementById('grafico6');
-const grafico6 = new Chart(ctx6, {
-    type: 'bar',
-    data: {
-        labels: ['São Paulo', 'Bairro'],
-        datasets: [{
-            label: '',
-            data: [6.00, 6.60],
-            backgroundColor: '#909DB6'
-        }]
-    },
-    options: {
-        indexAxis: 'x',
-        scales: {
-            x: {
-                beginAtZero: true,
-                ticks: {
-                    color: '#001F31'
-                },
-                grid: {
-                    display: false
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#001F31'
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    boxWidth: 0,
-                    color: '#001F31'
-                }
-            }
-        }
-    }
-});
+
+
+
+
+
+
+//testeAPAGAR
+// document.addEventListener('DOMContentLoaded', function () {
+
+//     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+//     bairroSelect.addEventListener('change', function () {
+//         selectedValue = this.value; // Atualiza o valor global
+//         console.log('Bairro selecionado:', selectedValue);
+
+
+//         if (selectedValue) {
+
+//             // URL para buscar os dados
+//             const urlRenda = `/idh/porcentagem-renda?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+//             // Faz a requisição para o back-end
+//             fetch(urlRenda)
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     if (data.rendaPerCapita !== undefined) {
+//                         console.log(`Dados recebidos:`, data);
+
+//                         // Atualiza o gráfico com os dados reais
+//                         const ctx6 = document.getElementById('grafico6');
+//                         const grafico6 = new Chart(ctx6, {
+//                             type: 'bar',
+//                             data: {
+//                                 labels: ['São Paulo', selectedValue],
+//                                 datasets: [{
+//                                     label: '',
+//                                     data: [3443, data.rendaPerCapita],
+//                                     backgroundColor: ['#909DB6', '#001F31']
+//                                 }]
+//                             },
+//                             options: {
+//                                 indexAxis: 'x',
+//                                 scales: {
+//                                     x: {
+//                                         beginAtZero: true,
+//                                         ticks: {
+//                                             color: '#001F31'
+//                                         },
+//                                         grid: {
+//                                             display: false
+//                                         }
+//                                     },
+//                                     y: {
+//                                         ticks: {
+//                                             color: '#001F31'
+//                                         }
+//                                     }
+//                                 },
+//                                 plugins: {
+//                                     legend: {
+//                                         labels: {
+//                                             boxWidth: 0,
+//                                             color: '#001F31'
+//                                         }
+//                                     },
+//                                     title: {
+//                                         display: true,
+//                                         text: `Comparação de Renda Per Capita: SP vs ${selectedValue}`
+//                                     }
+//                                 }
+//                             }
+//                         });
+//                     } else {
+//                         console.error('Erro: Dados insuficientes para o gráfico.');
+//                     }
+
+//                 })
+//                 .catch(error => console.error('Erro na obtenção dos dados:', error));
+//         } else {
+
+//         console.error("Erro na resposta do servidor para gráfico de linha: ", resposta.status);
+//     }
+//     }
+
+//     )
+// });
+
+
+
+//grafico estatico
+// const ctx6 = document.getElementById('grafico6');
+// const grafico6 = new Chart(ctx6, {
+//     type: 'bar',
+//     data: {
+//         labels: ['São Paulo', 'Bairro'],
+//         datasets: [{
+//             label: '',
+//             data: [3.300, 4.00],
+//             backgroundColor: '#909DB6'
+//         }]
+//     },
+//     options: {
+//         indexAxis: 'x',
+//         scales: {
+//             x: {
+//                 beginAtZero: true,
+//                 ticks: {
+//                     color: '#001F31'
+//                 },
+//                 grid: {
+//                     display: false
+//                 }
+//             },
+//             y: {
+//                 ticks: {
+//                     color: '#001F31'
+//                 }
+//             }
+//         },
+//         plugins: {
+//             legend: {
+//                 labels: {
+//                     boxWidth: 0,
+//                     color: '#001F31'
+//                 }
+//             }
+//         }
+//     }
+// });
 
 const ctx7 = document.getElementById('grafico7');
 const grafico7 = new Chart(ctx7, {
