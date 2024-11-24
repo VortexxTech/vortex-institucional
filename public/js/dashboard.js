@@ -869,17 +869,17 @@ let idhChart = null;
 var selectedValue = null;
 // Captura o valor do select e faz a requisição ao servidor
 document.addEventListener('DOMContentLoaded', function () {
-   // Declara a variável globalmente
+    // Declara a variável globalmente
 
 
-        // Pegando o select do HTML
-        const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    // Pegando o select do HTML
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
 
-        // Adiciona evento de mudança ao select
-        bairroSelect.addEventListener('change', function () {
-            selectedValue = this.value; // Atualiza a variável global com o valor selecionado
-            console.log('Bairro selecionado:', selectedValue);
-      
+    // Adiciona evento de mudança ao select
+    bairroSelect.addEventListener('change', function () {
+        selectedValue = this.value; // Atualiza a variável global com o valor selecionado
+        console.log('Bairro selecionado:', selectedValue);
+
         if (selectedValue) {
             // Faz a requisição ao servidor
             fetch(`/idh/idh-grafico?selectedNome=${encodeURIComponent(selectedValue)}`)
@@ -918,7 +918,7 @@ function renderizarGrafico(idhAtual) {
         idhChart = new Chart(ctxIdh, {
             type: 'doughnut',
             data: {
-                labels: [`IDH atual da região ${selectedValue}`, 'IDH médio do estado de SP'],
+                labels: [`IDH atual da região`, 'IDH médio do estado de SP'],
                 datasets: [{
                     label: 'IDH',
                     data: [idhAtual, 0.90],
@@ -996,101 +996,371 @@ function renderizarGrafico(idhAtual) {
 //     }
 // });
 
+let grafico5 = null;
 
-const ctx5 = document.getElementById('grafico5');
-const grafico5 = new Chart(ctx5, {
-    type: 'line',
-    data: {
-        labels: ['Junho', 'Julho', 'Agosto', 'Setembro'],
-        datasets: [{
-            label: '',
-            data: [6.800, 6.600, 7.000, 7.100],
-            backgroundColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
-            borderColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true,
-                min: 6,
-                max: 7.5,
-                ticks: {
-                    color: '#001F31',
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value; // Atualiza o valor global
+        console.log('Bairro selecionado:', selectedValue);
 
-                }
-            },
-            x: {
-                ticks: {
-                    color: '#001F31'
-                },
-                grid: {
-                    display: false
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    boxWidth: 0,
-                    color: '#001F31',
+        if (selectedValue) {
+            // URL para buscar os dados para o gráfico
+            const urlGraficoM2 = `/idh/media-m2-grafico?selectedNome=${encodeURIComponent(selectedValue)}`;
 
-                }
-            }, title: {
-                display: true,
-                text: 'Variação mensal do preço do m² nos últimos 4 meses',
-                font: {
-                    size: 12,
-                },
-                padding: {
-                    top: 10,
-                    bottom: 10
-                },
-            }
+            fetch(urlGraficoM2, { method: "GET" })
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        resposta.json().then(function (dados) {
+                            console.log("Dados recebidos para o gráfico de linha:", dados);
+
+                            // Preparando os labels e os dados para o gráfico
+                            const labels = dados.map(item => item.mes);
+                            const valores = dados.map(item => parseFloat(item.mediaValorM2));
+
+                            // Obtendo o contexto do gráfico
+                            const ctx5 = document.getElementById('grafico5').getContext('2d');
+
+                            if (grafico5) {
+                                // Se o gráfico já existir, apenas atualize os dados e as configurações
+                                grafico5.data.labels = labels; // Atualiza os labels
+                                grafico5.data.datasets[0].data = valores; // Atualiza os valores
+                                grafico5.update(); // Atualiza o gráfico
+                            } else {
+                                // Se o gráfico não existir, crie um novo
+                                grafico5 = new Chart(ctx5, {
+                                    type: 'line',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Média Valor m²',
+                                            data: valores,
+                                            backgroundColor: '#909DB6',
+                                            borderColor: '#001F31',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true,
+                                                ticks: { color: '#001F31' }
+                                            },
+                                            x: {
+                                                ticks: { color: '#001F31' },
+                                                grid: { display: false }
+                                            }
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                labels: {
+                                                    color: '#001F31',
+                                                }
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: 'Variação mensal do preço do m² nos últimos 4 meses',
+                                                font: { size: 12 },
+                                                padding: { top: 10, bottom: 10 }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        console.error("Erro na resposta do servidor para gráfico de linha: ", resposta.status);
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro ao buscar dados do gráfico de linha: ${error.message}`);
+                });
         }
-    }
+    });
+}); 
+
+
+//grafico 5 mocado
+// const ctx5 = document.getElementById('grafico5');
+// const grafico5 = new Chart(ctx5, {
+//     type: 'line',
+//     data: {
+//         labels: ['Junho', 'Julho', 'Agosto', 'Setembro'],
+//         datasets: [{
+//             label: '',
+//             data: [6.800, 6.600, 7.000, 7.100],
+//             backgroundColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
+//             borderColor: ['#001F31', '#909DB6', '#001F31', '#909DB6'],
+//             borderWidth: 1
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             y: {
+//                 beginAtZero: true,
+//                 min: 6,
+//                 max: 7.5,
+//                 ticks: {
+//                     color: '#001F31',
+
+//                 }
+//             },
+//             x: {
+//                 ticks: {
+//                     color: '#001F31'
+//                 },
+//                 grid: {
+//                     display: false
+//                 }
+//             }
+//         },
+//         plugins: {
+//             legend: {
+//                 labels: {
+//                     boxWidth: 0,
+//                     color: '#001F31',
+
+//                 }
+//             }, title: {
+//                 display: true,
+//                 text: 'Variação mensal do preço do m² nos últimos 4 meses',
+//                 font: {
+//                     size: 12,
+//                 },
+//                 padding: {
+//                     top: 10,
+//                     bottom: 10
+//                 },
+//             }
+//         }
+//     }
+// });
+
+// Função para atualizar o gráfico com dados dinâmicos
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+
+    bairroSelect.addEventListener('change', function () {
+        const selectedValue = this.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            return;
+        }
+
+        const urlRenda = `/idh/porcentagem-renda?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlRenda)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.porcentagemMaior !== undefined) {
+                    console.log('Dados recebidos:', data);
+
+                    // Verificar e destruir o gráfico anterior se ele existir
+                    const ctx6 = document.getElementById('grafico6');
+                    if (ctx6.chart) {
+                        ctx6.chart.destroy(); // Destruir gráfico existente
+                    }
+
+                    // Criar novo gráfico com tamanhos definidos pelo CSS
+                    const grafico6 = new Chart(ctx6, {
+                        type: 'bar',
+                        data: {
+                            labels: ['São Paulo', selectedValue],
+                            datasets: [{
+                                label: '',
+                                data: [3443, data.rendaPerCapita],
+                                backgroundColor: ['#909DB6', '#001F31']
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'x',
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: '#001F31'
+                                    },
+                                    grid: {
+                                        display: false
+                                    }
+                                },
+                                y: {
+                                    ticks: {
+                                        color: '#001F31'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        boxWidth: 0,
+                                        color: '#001F31'
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: `Comparação de Renda Per Capita: SP vs ${selectedValue}`
+                                }
+                            }
+                        }
+                    });
+
+                    // Atribuir o gráfico à propriedade chart do canvas
+                    ctx6.chart = grafico6;
+
+                    // Atualiza o valor do KPI
+                    const kpiPercapitaSpan = document.querySelector('#kpi_percapita span');
+                    const maiorOuMenor = data.porcentagemMaior >= 0 ? 'maior' : 'menor';
+                    kpiPercapitaSpan.innerHTML = `${Math.abs(data.porcentagemMaior)}% ${maiorOuMenor}`;
+                } else {
+                    console.error('Erro: porcentagemMaior não está disponível.');
+                }
+            })
+            .catch(error => console.error('Erro na obtenção dos dados:', error));
+    });
 });
 
-const ctx6 = document.getElementById('grafico6');
-const grafico6 = new Chart(ctx6, {
-    type: 'bar',
-    data: {
-        labels: ['São Paulo', 'Bairro'],
-        datasets: [{
-            label: '',
-            data: [6.00, 6.60],
-            backgroundColor: '#909DB6'
-        }]
-    },
-    options: {
-        indexAxis: 'x',
-        scales: {
-            x: {
-                beginAtZero: true,
-                ticks: {
-                    color: '#001F31'
-                },
-                grid: {
-                    display: false
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#001F31'
-                }
-            }
-        },
-        plugins: {
-            legend: {
-                labels: {
-                    boxWidth: 0,
-                    color: '#001F31'
-                }
-            }
-        }
-    }
-});
+
+
+
+
+
+
+
+
+
+
+//testeAPAGAR
+// document.addEventListener('DOMContentLoaded', function () {
+
+//     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+//     bairroSelect.addEventListener('change', function () {
+//         selectedValue = this.value; // Atualiza o valor global
+//         console.log('Bairro selecionado:', selectedValue);
+
+
+//         if (selectedValue) {
+
+//             // URL para buscar os dados
+//             const urlRenda = `/idh/porcentagem-renda?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+//             // Faz a requisição para o back-end
+//             fetch(urlRenda)
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     if (data.rendaPerCapita !== undefined) {
+//                         console.log(`Dados recebidos:`, data);
+
+//                         // Atualiza o gráfico com os dados reais
+//                         const ctx6 = document.getElementById('grafico6');
+//                         const grafico6 = new Chart(ctx6, {
+//                             type: 'bar',
+//                             data: {
+//                                 labels: ['São Paulo', selectedValue],
+//                                 datasets: [{
+//                                     label: '',
+//                                     data: [3443, data.rendaPerCapita],
+//                                     backgroundColor: ['#909DB6', '#001F31']
+//                                 }]
+//                             },
+//                             options: {
+//                                 indexAxis: 'x',
+//                                 scales: {
+//                                     x: {
+//                                         beginAtZero: true,
+//                                         ticks: {
+//                                             color: '#001F31'
+//                                         },
+//                                         grid: {
+//                                             display: false
+//                                         }
+//                                     },
+//                                     y: {
+//                                         ticks: {
+//                                             color: '#001F31'
+//                                         }
+//                                     }
+//                                 },
+//                                 plugins: {
+//                                     legend: {
+//                                         labels: {
+//                                             boxWidth: 0,
+//                                             color: '#001F31'
+//                                         }
+//                                     },
+//                                     title: {
+//                                         display: true,
+//                                         text: `Comparação de Renda Per Capita: SP vs ${selectedValue}`
+//                                     }
+//                                 }
+//                             }
+//                         });
+//                     } else {
+//                         console.error('Erro: Dados insuficientes para o gráfico.');
+//                     }
+
+//                 })
+//                 .catch(error => console.error('Erro na obtenção dos dados:', error));
+//         } else {
+
+//         console.error("Erro na resposta do servidor para gráfico de linha: ", resposta.status);
+//     }
+//     }
+
+//     )
+// });
+
+
+
+//grafico estatico
+// const ctx6 = document.getElementById('grafico6');
+// const grafico6 = new Chart(ctx6, {
+//     type: 'bar',
+//     data: {
+//         labels: ['São Paulo', 'Bairro'],
+//         datasets: [{
+//             label: '',
+//             data: [3.300, 4.00],
+//             backgroundColor: '#909DB6'
+//         }]
+//     },
+//     options: {
+//         indexAxis: 'x',
+//         scales: {
+//             x: {
+//                 beginAtZero: true,
+//                 ticks: {
+//                     color: '#001F31'
+//                 },
+//                 grid: {
+//                     display: false
+//                 }
+//             },
+//             y: {
+//                 ticks: {
+//                     color: '#001F31'
+//                 }
+//             }
+//         },
+//         plugins: {
+//             legend: {
+//                 labels: {
+//                     boxWidth: 0,
+//                     color: '#001F31'
+//                 }
+//             }
+//         }
+//     }
+// });
 
 const ctx7 = document.getElementById('grafico7');
 const grafico7 = new Chart(ctx7, {
