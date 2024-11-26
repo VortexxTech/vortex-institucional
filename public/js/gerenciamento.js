@@ -3,35 +3,14 @@ window.addEventListener("load", async () => {
     await listarDadosEmpresa();
 })
 
-const btnEdit = document.querySelector(".edit_btn");
-const btnDelete = document.querySelector(".delete_btn");
-const modal = document.querySelector(".modal");
-const overlay = document.querySelector(".overlay");
-const btnCloseModal = document.querySelector(".close_modal");
-
-function showModal() {
-    modal.classList.remove("close");
-    modal.classList.add("open");
-
-    overlay.classList.remove("close");
-    overlay.classList.add("open");
-}
-
-function closeModal() {
-    modal.classList.remove("open");
-    modal.classList.add("close");
-
-    overlay.classList.remove("open");
-    overlay.classList.add("close");
-}
-
 async function listarDadosEmpresa() {
     const url = "/empresa";
-    const divEmpresa = document.querySelector(".user_list");
+    const divEmpresa = document.querySelector("#empresa_list");
     div_funcionarios.style.display = "none";
     div_usuarios.style.display = "none";
     div_empresa.style.display = "flex";
 
+    
     async function getDadosEmpresa() {
         const res = await fetch(`${url}/listar`);
         const data = await res.json();
@@ -40,24 +19,46 @@ async function listarDadosEmpresa() {
 
     const listaDadosEmpresa = await getDadosEmpresa();
     let dadosEmpresaFormatados = "";
-
+    
     listaDadosEmpresa.map((item) => {
         dadosEmpresaFormatados += `
         <div class="user_item" id=${item.idEmpresa}>
         <span class="user_name">${item.nome}</span>
         <div class="user_actions">
         <button class="edit_btn">
-        <i class="fas fa_pencil_alt"></i> Editar
+        <i class="fas fa-pencil-alt"></i> Editar
         </button>
         <button class="delete_btn">
-        <i class="fas fa_trash_alt"></i> Excluir
+        <i class="fas fa-trash-alt"></i> Excluir
         </button>
         </div>
         </div>
         `
     });
-
+    
     divEmpresa.innerHTML = dadosEmpresaFormatados;
+    
+    const btnEdit = document.querySelector(".edit_btn");
+    const btnDelete = document.querySelector(".delete_btn");
+    const btnCloseModal = document.querySelector("#close_modal");
+    const overlay = document.querySelector(".overlay");
+    const modal = document.querySelector(".modal");
+
+    function showModal() {
+        modal.classList.remove("close");
+        modal.classList.add("open");
+
+        overlay.classList.remove("close");
+        overlay.classList.add("open");
+    }
+
+    function closeModal() {
+        modal.classList.remove("open");
+        modal.classList.add("close");
+
+        overlay.classList.remove("open");
+        overlay.classList.add("close");
+    }
 
     btnEdit.addEventListener("click", (e) => {
         editModal("edit", e.currentTarget);
@@ -95,19 +96,19 @@ async function listarDadosEmpresa() {
             const inputName = document.querySelector("#name");
             inputName.value = nomeEmpresa;
     
-            const btnConfirm = document.querySelector(".btn_confirm");
+            const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idEmpresa));
     
         } else {
             const deleteModal = `
                 <h2>Deletar empresa:</h2>
                 <div>Deseja deletar a empresa ${nomeEmpresa}?</div>
-                <button class="btn_confirm delete-user">Excluir</button>
+                <button class="btn-confirm delete-user">Excluir</button>
             `;
     
             contentModal.innerHTML = deleteModal;
     
-            const btnConfirm = document.querySelector(".btn_confirm");
+            const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idEmpresa));
         }
     }
@@ -157,12 +158,13 @@ async function listarDadosEmpresa() {
 }
 
 async function listarFuncionarios() {
-    const url = "/funcionarios";
-    const divFuncionarios = document.querySelector(".user_list");
+    const url = "/funcionario";
+    const divFuncionarios = document.querySelector("#func_list");
     div_empresa.style.display = "none";
     div_usuarios.style.display = "none";
     div_funcionarios.style.display = "flex";
 
+    
     async function getFuncionarios() {
         const res = await fetch(`${url}/listar`);
         const data = await res.json();
@@ -178,10 +180,10 @@ async function listarFuncionarios() {
         <span class="user_name">${item.nome}</span>
         <div class="user_actions">
         <button class="edit_btn">
-        <i class="fas fa_pencil_alt"></i> Editar
+        <i class="fas fa-pencil-alt"></i> Editar
         </button>
         <button class="delete_btn">
-        <i class="fas fa_trash_alt"></i> Excluir
+        <i class="fas fa-trash-alt"></i> Excluir
         </button>
         </div>
         </div>
@@ -189,13 +191,35 @@ async function listarFuncionarios() {
     });
 
     divFuncionarios.innerHTML = listaFuncionariosFormatados;
+    
+    const btnEdit = document.querySelectorAll(".edit_btn");
+    const btnDelete = document.querySelectorAll(".delete_btn");
+    const btnCloseModal = document.querySelector("#close_modal");
+    const overlay = document.querySelector(".overlay");
+    const modal = document.querySelector(".modal");
 
-    btnEdit.addEventListener("click", (e) => {
+    function showModal() {
+        modal.classList.remove("close");
+        modal.classList.add("open");
+
+        overlay.classList.remove("close");
+        overlay.classList.add("open");
+    }
+
+    function closeModal() {
+        modal.classList.remove("open");
+        modal.classList.add("close");
+
+        overlay.classList.remove("open");
+        overlay.classList.add("close");
+    }
+
+    btnEdit[1].addEventListener("click", (e) => {
         editModal("edit", e.currentTarget);
         showModal();
     });
     
-    btnDelete.addEventListener("click", (e) => {
+    btnDelete[1].addEventListener("click", (e) => {
         editModal("delete", e.currentTarget);
         showModal();
     });
@@ -226,19 +250,19 @@ async function listarFuncionarios() {
             const inputName = document.querySelector("#name");
             inputName.value = nomeFuncionario;
     
-            const btnConfirm = document.querySelector(".btn_confirm");
+            const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idFuncionario));
     
         } else {
             const deleteModal = `
                 <h2>Deletar funcionario:</h2>
                 <div>Deseja deletar o funcionario ${nomeFuncionario}?</div>
-                <button class="btn_confirm delete-user">Excluir</button>
+                <button class="btn-confirm delete-user">Excluir</button>
             `;
     
             contentModal.innerHTML = deleteModal;
     
-            const btnConfirm = document.querySelector(".btn_confirm");
+            const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idFuncionario));
         }
     }
@@ -289,30 +313,31 @@ async function listarFuncionarios() {
 
 async function listarUsuarios() {
     const url = "/usuarios";
-    const divUsuarios = document.querySelector(".user_list");
+    const divUsuarios = document.querySelector("#user_list");
     div_funcionarios.style.display = "none";
     div_empresa.style.display = "none";
     div_usuarios.style.display = "flex";
 
+    
     async function getUsuarios() {
         const res = await fetch(`${url}/listar`);
         const data = await res.json();
         return data;
     }
-
+    
     const listaUsuarios = await getUsuarios();
     let listaUsuariosFormatados = "";
-
+    
     listaUsuarios.map((item) => {
         listaUsuariosFormatados += `
         <div class="user_item" id=${item.idUsuario}>
         <span class="user_name">${item.nome}</span>
         <div class="user_actions">
         <button class="edit_btn">
-        <i class="fas fa_pencil_alt"></i> Editar
+        <i class="fas fa-pencil-alt"></i> Editar
         </button>
         <button class="delete_btn">
-        <i class="fas fa_trash_alt"></i> Excluir
+        <i class="fas fa-trash-alt"></i> Excluir
         </button>
         </div>
         </div>
@@ -320,13 +345,36 @@ async function listarUsuarios() {
     });
 
     divUsuarios.innerHTML = listaUsuariosFormatados;
+    
+    const btnEdit = document.querySelectorAll(".edit_btn");
+    console.log(btnEdit)
+    const btnDelete = document.querySelectorAll(".delete_btn");
+    const btnCloseModal = document.querySelector("#close_modal");
+    const overlay = document.querySelector(".overlay");
+    const modal = document.querySelector(".modal");
 
-    btnEdit.addEventListener("click", (e) => {
+    function showModal() {
+        modal.classList.remove("close");
+        modal.classList.add("open");
+
+        overlay.classList.remove("close");
+        overlay.classList.add("open");
+    }
+
+    function closeModal() {
+        modal.classList.remove("open");
+        modal.classList.add("close");
+
+        overlay.classList.remove("open");
+        overlay.classList.add("close");
+    }
+
+    btnEdit[2].addEventListener("click", (e) => {
         editModal("edit", e.currentTarget);
         showModal();
     });
     
-    btnDelete.addEventListener("click", (e) => {
+    btnDelete[2].addEventListener("click", (e) => {
         editModal("delete", e.currentTarget);
         showModal();
     });
@@ -357,19 +405,19 @@ async function listarUsuarios() {
             const inputName = document.querySelector("#name");
             inputName.value = nomeUsuario;
     
-            const btnConfirm = document.querySelector(".btn_confirm");
+            const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idUsuario));
     
         } else {
             const deleteModal = `
                 <h2>Deletar usuario:</h2>
                 <div>Deseja deletar o usuario ${nomeUsuario}?</div>
-                <button class="btn_confirm delete-user">Excluir</button>
+                <button class="btn-confirm delete-user">Excluir</button>
             `;
     
             contentModal.innerHTML = deleteModal;
     
-            const btnConfirm = document.querySelector(".btn_confirm");
+            const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idUsuario));
         }
     }

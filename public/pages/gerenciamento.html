@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento</title>
     <link rel="stylesheet" href="..//css/gerenciamento.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="../assets/icons/Logo_V3.png" type="image/x-icon">
     <script src="../js/gerenciamento.js"></script>
 </head>
@@ -72,7 +72,6 @@
                 Gerenciar Funcionário
             </p>
 
-
             <p class="opcoes_menu" onclick="listarUsuarios()" id="slc_previsao">
                 <img width="15" height="15" src="https://img.icons8.com/?size=100&id=116423&format=png&color=FF0000"
                     alt="future" />
@@ -83,34 +82,14 @@
         <div id="div_empresa">
             <div id="container_titulo">
                 <h2>Dados da Empresa</h2>
-                <div id="user_list"></div>
-            </div>
-        
-            <div id="overlay close"></div>
-            <div id="modal close">
-                <div id="modal_container">
-                    <button id="close_modal"><i id="fa_solid fa_x"></i></button>
-                    <div id="modal_content">
-
-                    </div>
-                </div>
+                <div id="empresa_list"></div>
             </div>
         </div>
 
         <div id="div_funcionarios">
             <div id="container_titulo">
                 <h2>Lista de Funcionarios</h2>
-                <div id="user_list"></div>
-            </div>
-        
-            <div id="overlay close"></div>
-            <div id="modal close">
-                <div id="modal_container">
-                    <button id="close_modal"><i id="fa_solid fa_x"></i></button>
-                    <div id="modal_content">
-
-                    </div>
-                </div>
+                <div id="func_list"></div>
             </div>
         </div>
 
@@ -119,14 +98,14 @@
                 <h2>Lista de Usuários</h2>
                 <div id="user_list"></div>
             </div>
-        
-            <div id="overlay close"></div>
-            <div id="modal close">
-                <div id="modal_container">
-                    <button id="close_modal"><i id="fa_solid fa_x"></i></button>
-                    <div id="modal_content">
+        </div>
 
-                    </div>
+        <div class="overlay close" id="overlay close"></div>
+        <div class="modal close" id="modal close">
+            <div id="modal_container">
+                <button id="close_modal"><i class="fa-solid fa-x"></i></button>
+                <div id="modal_content">
+
                 </div>
             </div>
         </div>

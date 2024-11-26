@@ -33,25 +33,21 @@ function cadastrarFunc(req, res) {
 }
 
 function listar(req, res) {
-    var id = req.params.id;
-
-    if (id == undefined) {
-        res.status(400).send("O id do funcionário está indefinido!");
-    } else {
-        funcionarioModel.listar()
-            .then(function (resultado) {
-                res.json(resultado)
-            }).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao listar! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
+    
+    funcionarioModel.listar()
+        .then(function (resultado) {
+            res.json(resultado)
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao listar! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
             );
-    }
+    
 }
 
 function atualizar(req, res) {

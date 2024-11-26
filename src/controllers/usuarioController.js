@@ -78,25 +78,21 @@ function cadastrar(req, res) {
 }
 
 function listar(req, res) {
-    var id = req.params.id;
-
-    if (id == undefined) {
-        res.status(400).send("O id do usuario está indefinido!");
-    } else {
-        usuarioModel.listar(id)
-            .then(function (resultado) {
-                res.json(resultado)
-            }).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao listar! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
+    
+    usuarioModel.listar()
+        .then(function (resultado) {
+            res.json(resultado)
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao listar! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    
 }
 
 function atualizar(req, res) {
