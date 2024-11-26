@@ -126,9 +126,25 @@ function buscarTaxaValorizacao(bairro) {
 }
 
 
+///1 KPI 3 SESSAO
+
+function buscarPrecoLocal(bairro) {
+    const instrucaoSql = `
+     SELECT 
+    valorM2, 
+   DATE_FORMAT(dtInsercao, '%Y-%m-%d') AS dtInsercao
+FROM DadosInseridos
+WHERE bairro = '${bairro}'
+ORDER BY dtInsercao DESC
+LIMIT 1;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 
-/////
+/////// 2 kpi 3 sessao
 function buscarValorM2MaisRecente(bairro) {
     const instrucaoSql = `
      SELECT CAST(valorM2 AS DECIMAL(10,2)) AS valorM2
@@ -143,6 +159,7 @@ function buscarValorM2MaisRecente(bairro) {
 }
 
 
+
 module.exports = {
     buscarIdh,
     buscarMediaValorM2,
@@ -150,5 +167,6 @@ module.exports = {
     obterDensidadeBairro,
     buscarRankingBairro,
     buscarTaxaValorizacao,
-    buscarValorM2MaisRecente
+    buscarValorM2MaisRecente,
+    buscarPrecoLocal
 };

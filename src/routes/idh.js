@@ -24,7 +24,11 @@ router.get('/taxa-valorizacao', function (req, res) {
     idhController.buscarTaxaValorizacao(req, res);
 });
 
-////
+/////// 1 kpi 3 sessao
+router.get('/valor-local', function (req, res) { 
+    idhController.buscarPrecoLocal(req, res);
+});
+/////// 2 kpi 3 sessao
 router.get('/valor-m2', function (req, res) { 
     idhController.buscarValorM2(req, res);
 });

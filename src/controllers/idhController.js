@@ -66,7 +66,7 @@ function calcularPorcentagemRenda(req, res) {
             res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
         });
 }
-
+//KPI1 2 sessao
 function obterDensidade(req, res) {
     const bairro = req.query.selectedNome;
 
@@ -87,7 +87,7 @@ function obterDensidade(req, res) {
             res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
         });
 }
-//KPI2
+//KPI2 2 sessao
 function buscarRanking(req, res) {
     const bairro = req.query.selectedNome;
 
@@ -108,6 +108,8 @@ function buscarRanking(req, res) {
             res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
         });
 }
+/////// 3 kpi 2 sessao
+
 function buscarTaxaValorizacao(req, res) {
     const bairro = req.query.selectedNome;
 
@@ -131,7 +133,36 @@ function buscarTaxaValorizacao(req, res) {
         });
 }
 
-///////
+/////// 1 kpi 3 sessao
+function buscarPrecoLocal(req, res) {
+    const bairro = req.query.selectedNome; // Pega o valor enviado na URL
+
+    if (!bairro) {
+        console.error("Erro: 'selectedNome' não foi enviado na requisição.");
+        return res.status(400).json({ error: 'Bairro (selectedNome) é necessário!' });
+    }
+
+    console.log(`Buscando valorM2: ${bairro}`);
+    idhModel.buscarPrecoLocal(bairro)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.json({
+                    valorM2: parseFloat(resultado[0].valorM2),
+                    dtInsercao: resultado[0].dtInsercao
+                });
+            } else {
+                res.status(404).json({ error: 'Nenhum dado encontrado para o bairro!' });
+            }
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar valorM2:", erro.sqlMessage || erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
+        });
+}
+
+
+/////// 2 kpi 3 sessao
+
 function buscarValorM2(req, res) {
     const bairro = req.query.selectedNome; // Pega o valor enviado na URL
 
@@ -161,5 +192,6 @@ module.exports = {
     obterDensidade,
     buscarRanking,
     buscarTaxaValorizacao,
-    buscarValorM2
+    buscarValorM2,
+    buscarPrecoLocal
 };

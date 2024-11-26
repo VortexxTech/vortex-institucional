@@ -895,49 +895,48 @@ const grafico7 = new Chart(ctx7, {
     }
 });
 
+/////// 1 kpi 3 sessao
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-prevista');
+    const filtrarBtn = document.getElementById('filtrarBtn2');
+    const precoAtualSpan = document.getElementById('preco_local');
+
+    filtrarBtn.addEventListener('click', function () {
+        const selectedValue = bairroSelect.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            precoAtualSpan.innerHTML = 'Selecione um bairro válido.';
+            return;
+        }
+
+        const urlvalorm2 = `/idh/valor-local?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlvalorm2)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos para mostrar preço:', data);
+
+        
+                
+                titulo_preco_local.innerHTML = `Preço do m² em ${selectedValue} lugar: (${data.dtInsercao})`
+                precoAtualSpan.innerHTML = `R$ ${data.valorM2}`;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar valor do m²:', error);
+                precoAtualSpan.innerHTML = 'Erro ao buscar valor.';
+            });
+    });
+});
 
 
-
-//grafico estatico
-// const ctx6 = document.getElementById('grafico6');
-// const grafico6 = new Chart(ctx6, {
-//     type: 'bar',
-//     data: {
-//         labels: ['São Paulo', 'Bairro'],
-//         datasets: [{
-//             label: '',
-//             data: [3.300, 4.00],
-//             backgroundColor: '#909DB6'
-//         }]
-//     },
-//     options: {
-//         indexAxis: 'x',
-//         scales: {
-//             x: {
-//                 beginAtZero: true,
-//                 ticks: {
-//                     color: '#001F31'
-//                 },
-//                 grid: {
-//                     display: false
-//                 }
-//             },
-//             y: {
-//                 ticks: {
-//                     color: '#001F31'
-//                 }
-//             }
-//         },
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     boxWidth: 0,
-//                     color: '#001F31'
-//                 }
-//             }
-//         }
-//     }
-// });
 
 
 //kpi2 terceira sessão
