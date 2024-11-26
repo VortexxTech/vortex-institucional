@@ -24,4 +24,9 @@ router.get('/taxa-valorizacao', function (req, res) {
     idhController.buscarTaxaValorizacao(req, res);
 });
 
+////
+router.get('/valor-m2', function (req, res) { 
+    idhController.buscarValorM2(req, res);
+});
+
 module.exports = router;

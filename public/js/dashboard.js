@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPrevista = document.getElementById('zona-regiao-prevista');
     const regiaoCidadePrevista = document.getElementById('regiao-bairro-prevista');
     const cidadesPorRegiao = {
-        centro: ['Bela Vista', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
-        norte: ['Brasilândia', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
+        centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
+        norte: ['B', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
         sul: ['Campo Belo', 'Campo Grande', 'Campo Limpo', 'Capão Redondo', 'Cidade Ademar', 'Cidade Dutra', 'Cursino', 'Grajaú', 'Ipiranga', 'Jabaquara', 'Jardim Ângela', 'Jardim São Luís', 'Moema', 'Saúde', 'Sacomã', 'Santo Amaro', 'Vila Andrade', 'Vila Mariana'],
         oeste: ['Barra Funda', 'Butantã', 'Itaim Bibi', 'Jardim Paulista', 'Lapa', 'Morumbi', 'Perdizes', 'Pinheiros', 'Vila Leopoldina'],
         leste: ['Água Rasa', 'Aricanduva', 'Artur Alvim', 'Belenzinho', 'Brás', 'Cangaíba', 'Cidade Líder', 'Cidade Tiradentes', 'Ermelino Matarazzo', 'Guaianases', 'Iguatemi', 'Itaim Paulista', 'Itaquera', 'Jardim Helena', 'José Bonifácio', 'Mooca', 'Pari', 'Penha', 'São Lucas', 'São Mateus', 'Sapopemba', 'Tatuapé', 'Vila Carrão', 'Vila Formosa', 'Vila Matilde', 'Vila Prudente'],
@@ -97,16 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-
-function preco_atual() {
-    var preco = 6.867;
-    var tamanhoTerreno = tamanho_terreno.value;
-
-    var resultado = preco * tamanhoTerreno;
-
-    document.getElementById('preco_atual').innerText = resultado.toFixed(3);
-}
+////
 
 function preco_futuro() {
     var preco_futuro = 7.100;
@@ -756,9 +747,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('Dados recebidos para KPI de densidade:', data);
 
                 // Atualizar a KPI
-                const kpiTitulo = document.querySelector('.titulo_kpi');
-                const kpiTexto = document.querySelector('.texto_kpi');
-
                 titulo_densidade.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (${data.dtInsercao}):`;
                 numero_densidade.innerHTML = data.densidadeDemografica;
             })
@@ -773,6 +761,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
+
+
+
+
 
 
 //KPI2
@@ -945,3 +938,58 @@ const grafico7 = new Chart(ctx7, {
 //         }
 //     }
 // });
+
+
+//kpi2 terceira sessão
+document.addEventListener('DOMContentLoaded', function () {
+    const bairroSelect = document.getElementById('regiao-bairro-prevista');
+    const filtrarBtn = document.getElementById('filtrarBtn2');
+    const tamanhoTerrenoInput = document.getElementById('tamanho_terreno');
+    const precoAtualSpan = document.getElementById('preco_atual');
+
+    filtrarBtn.addEventListener('click', function () {
+        const selectedValue = bairroSelect.value.trim();
+        console.log('Bairro selecionado:', selectedValue);
+
+        if (!selectedValue) {
+            console.error("Nenhum valor válido foi selecionado.");
+            precoAtualSpan.innerHTML = 'Selecione um bairro válido.';
+            return;
+        }
+
+        const urlvalorm2 = `/idh/valor-m2?selectedNome=${encodeURIComponent(selectedValue)}`;
+
+        fetch(urlvalorm2)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro na resposta do servidor: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos para cálculo de preço atual:', data);
+
+                const tamanhoTerreno = parseFloat(tamanhoTerrenoInput.value);
+                const valorM2 = parseFloat(data.valorM2);
+
+                if (isNaN(tamanhoTerreno) || tamanhoTerreno <= 0) {
+                    precoAtualSpan.innerHTML = 'Informe o tamanho do terreno!';
+                    return;
+                }
+
+                if (isNaN(valorM2)) {
+                    precoAtualSpan.innerHTML = 'Erro: valor do m² inválido!';
+                    return;
+                }
+
+                const resultado = tamanhoTerreno * valorM2;
+
+                // Atualizar a KPI
+                precoAtualSpan.innerHTML = `R$ ${resultado}`;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar valor do m²:', error);
+                precoAtualSpan.innerHTML = 'Erro ao buscar valor.';
+            });
+    });
+});

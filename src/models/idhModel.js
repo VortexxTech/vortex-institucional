@@ -125,11 +125,30 @@ function buscarTaxaValorizacao(bairro) {
     return database.executar(instrucaoSql);
 }
 
+
+
+
+/////
+function buscarValorM2MaisRecente(bairro) {
+    const instrucaoSql = `
+     SELECT CAST(valorM2 AS DECIMAL(10,2)) AS valorM2
+        FROM DadosInseridos
+        WHERE bairro = '${bairro}'
+        ORDER BY dtInsercao DESC
+        LIMIT 1;
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     buscarIdh,
     buscarMediaValorM2,
     calcularPorcentagemRendaMaior,
     obterDensidadeBairro,
     buscarRankingBairro,
-    buscarTaxaValorizacao
+    buscarTaxaValorizacao,
+    buscarValorM2MaisRecente
 };

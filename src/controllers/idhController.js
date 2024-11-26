@@ -130,11 +130,36 @@ function buscarTaxaValorizacao(req, res) {
             res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
         });
 }
+
+///////
+function buscarValorM2(req, res) {
+    const bairro = req.query.selectedNome; // Pega o valor enviado na URL
+
+    if (!bairro) {
+        console.error("Erro: 'selectedNome' não foi enviado na requisição.");
+        return res.status(400).json({ error: 'Bairro (selectedNome) é necessário!' });
+    }
+
+    console.log(`Buscando valorM2 para o bairro: ${bairro}`);
+    idhModel.buscarValorM2MaisRecente(bairro)
+        .then((resultado) => {
+            if (resultado.length > 0) {
+                res.json({ valorM2: parseFloat(resultado[0].valorM2) }); // Garante que o valor seja numérico
+            } else {
+                res.status(404).json({ error: 'Nenhum dado encontrado para o bairro!' });
+            }
+        })
+        .catch((erro) => {
+            console.error("Erro ao buscar valorM2:", erro.sqlMessage || erro);
+            res.status(500).json({ error: erro.sqlMessage || "Erro interno no servidor." });
+        });
+}
 module.exports = {
     buscarIdh,
     buscarGraficoMediaValorM2,
     calcularPorcentagemRenda,
     obterDensidade,
     buscarRanking,
-    buscarTaxaValorizacao
+    buscarTaxaValorizacao,
+    buscarValorM2
 };
