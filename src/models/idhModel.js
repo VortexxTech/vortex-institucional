@@ -107,13 +107,13 @@ function buscarTaxaValorizacao(bairro) {
             WHERE dtInsercao = (SELECT MAX(dtInsercao) FROM DadosInseridos)
             AND bairro = '${bairro}'
         ),
-        DadosAnteriores AS (
-            -- Preço do metro quadrado há 12 meses
-            SELECT valorM2 AS dado_anopassado
-            FROM DadosInseridos
-            WHERE dtInsercao = DATE_FORMAT(CURDATE() - INTERVAL 12 MONTH, '%Y-%m-%d')
-            AND bairro = '${bairro}'
-        )
+       DadosAnteriores AS (
+    SELECT valorM2 AS dado_anopassado
+    FROM DadosInseridos
+    WHERE bairro = '${bairro}'
+    ORDER BY ABS(DATEDIFF(dtInsercao, CURDATE() - INTERVAL 12 MONTH))
+    LIMIT 1
+)
         SELECT 
             ROUND(((atual.dado_atual - anterior.dado_anopassado) / anterior.dado_anopassado) * 100, 2) AS taxa_valorizacao,
             atual.dado_atual,

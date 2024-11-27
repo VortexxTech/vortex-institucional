@@ -246,6 +246,12 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
     box-shadow: 4px 4px 4px 4px    #909db6a9;
 }
 
+.graficos_pesquisa #grafico6 {
+    flex: 7; 
+    max-width: 70%; 
+    height: auto;
+}
+
 .graficos_pesquisa {
     height: 45vh;
     width: 30%;
@@ -568,10 +574,7 @@ header img{
 }
 
 
-#grafico6 {
-    width: 100%;   /* O gráfico ocupará 100% da largura da div */
-    height: 400px; /* Altura fixa ou pode ser dinâmica se necessário */
-}
+
 
 
 

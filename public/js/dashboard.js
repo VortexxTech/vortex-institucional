@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", obterValorizacao);
 function obterValorizacao() {
     fetch(`/precoM2/buscarValorizacao`, { cache: 'no-store' })
         .then(function (response) {
-       
+
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.statusText}`);
             }
@@ -224,7 +224,7 @@ function obterValorizacao() {
             // Verifica se a resposta tem conteúdo
             return response.text().then(function (text) {
                 if (text) {
-                    return JSON.parse(text); 
+                    return JSON.parse(text);
                 } else {
                     throw new Error('Resposta vazia');
                 }
@@ -238,7 +238,7 @@ function obterValorizacao() {
             const valorizacao = resposta.percentualValorizacao;
 
             // Preenchendo as KPIs
-         
+
             document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
             document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
         })
@@ -290,7 +290,7 @@ function buscarTopsIdh() {
                 const bairroTerceiro = resposta[2].bairro;
                 const valorizacaoTerceiro = resposta[2].idh;
 
-            
+
                 document.getElementById('resposta-idh').textContent = `${bairroPrimeiro}`;
                 document.getElementById('valorizacao-kpi-Primeiro').textContent = `1. ${bairroPrimeiro} - IDH: ${valorizacaoPrimeiro}`;
                 document.getElementById('valorizacao-kpi-Segundo').textContent = `2. ${bairroSegundo} - IDH: ${valorizacaoSegundo}`;
@@ -314,7 +314,7 @@ function buscarDataAtualizacao() {
                 console.log(`Dados de atualização recebidos: ${JSON.stringify(resposta)}`);
 
                 const data = resposta.ultima_data_insercao;
-              
+
                 document.getElementById('resposta-data').textContent = `${data}`;
             });
         } else {
@@ -345,7 +345,7 @@ fetch('/precoM2/buscarCapitaDemografica')
         const grafico2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: bairros, 
+                labels: bairros,
                 datasets: [
                     {
                         label: 'Densidade demográfica (hab/km²)',
@@ -465,12 +465,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  
+
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
 
-  //função para pegar o valor do select
+    //função para pegar o valor do select
     bairroSelect.addEventListener('change', function () {
-        selectedValue = this.value; 
+        selectedValue = this.value;
         console.log('Bairro selecionado:', selectedValue);
 
         if (selectedValue) {
@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(dados => {
                     console.log('Dados recebidos:', dados);
 
-                  
+
                     renderizarGrafico(dados.idh);
                 })
                 .catch(error => {
@@ -503,11 +503,11 @@ function renderizarGrafico(idhAtual) {
     const ctxIdh = document.getElementById('idhChart').getContext('2d');
 
     if (idhChart) {
-       
-        idhChart.data.datasets[0].data = [idhAtual, 0.85]; 
+
+        idhChart.data.datasets[0].data = [idhAtual, 0.85];
         idhChart.update();
     } else {
-       
+
         idhChart = new Chart(ctxIdh, {
             type: 'doughnut',
             data: {
@@ -543,13 +543,13 @@ let grafico5 = null;
 
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-    
+
     bairroSelect.addEventListener('change', function () {
         const selectedValue = this.value; // Atualiza o valor global
         console.log('Bairro selecionado:', selectedValue);
 
         if (selectedValue) {
-          
+
             const urlGraficoM2 = `/idh/media-m2-grafico?selectedNome=${encodeURIComponent(selectedValue)}`;
 
             fetch(urlGraficoM2, { method: "GET" })
@@ -564,12 +564,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             const ctx5 = document.getElementById('grafico5').getContext('2d');
 
                             if (grafico5) {
-                              
-                                grafico5.data.labels = labels; 
+
+                                grafico5.data.labels = labels;
                                 grafico5.data.datasets[0].data = valores;
-                                grafico5.update(); 
+                                grafico5.update();
                             } else {
-                                
+
                                 grafico5 = new Chart(ctx5, {
                                     type: 'line',
                                     data: {
@@ -619,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         }
     });
-}); 
+});
 
 
 //terceira grafica pesquisa
@@ -648,13 +648,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.porcentagemMaior !== undefined) {
                     console.log('Dados recebidos:', data);
 
-                
+
                     const ctx6 = document.getElementById('grafico6');
+
+              
                     if (ctx6.chart) {
                         ctx6.chart.destroy();
                     }
+         
 
-                 
+
                     const grafico6 = new Chart(ctx6, {
                         type: 'bar',
                         data: {
@@ -667,6 +670,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         options: {
                             indexAxis: 'x',
+                            responsive: true, // Ajusta ao tamanho do contêiner
+                            maintainAspectRatio: false, // Mantém a proporção original                
                             scales: {
                                 x: {
                                     beginAtZero: true,
@@ -698,10 +703,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                  
+
                     ctx6.chart = grafico6;
 
-                  
+
                     const kpiPercapitaSpan = document.querySelector('#kpi_percapita span');
                     const maiorOuMenor = data.porcentagemMaior >= 0 ? 'maior' : 'menor';
                     kpiPercapitaSpan.innerHTML = `${Math.abs(data.porcentagemMaior)}% ${maiorOuMenor}`;
@@ -733,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-      
+
         const urlDensidade = `/idh/densidade-bairro?selectedNome=${encodeURIComponent(selectedValue)}`;
 
         fetch(urlDensidade)
@@ -828,8 +833,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log("Dados recebidos para a taxa de valorização:", data);
 
-          
-            
+
+
 
                 porcentagem_localizacao.innerHTML = `${data.taxa_valorizacao}%`;
                 taxa_atual.innerHTML = `2024 - ${data.dado_atual}`;
@@ -924,8 +929,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log('Dados recebidos para mostrar preço:', data);
 
-        
-                
+
+
                 titulo_preco_local.innerHTML = `Preço do m² em ${selectedValue} lugar: (${data.dtInsercao})`
                 precoAtualSpan.innerHTML = `R$ ${data.valorM2}`;
             })
