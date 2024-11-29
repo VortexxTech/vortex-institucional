@@ -18,7 +18,6 @@ var empresaRouter = require("./src/routes/empresa");
 var funcionarioRouter = require("./src/routes/funcionario");
 var precoM2Router = require("./src/routes/precoM2");
 var idhRouter = require("./src/routes/idh");
-var rendaPerCaptaRouter = require("./src/routes/rendaPerCapta");
 var densidadeDemograficaRouter = require("./src/routes/densidadeDemografica");
 
 app.use(express.json());
@@ -34,7 +33,7 @@ app.use("/empresa",empresaRouter);
 app.use("/funcionario",funcionarioRouter);
 app.use("/precoM2", precoM2Router);
 app.use("/idh", idhRouter);
-app.use("/rendaPerCapta", rendaPerCaptaRouter);
+
 app.use("/densidadeDemografica", densidadeDemograficaRouter);
 
 
