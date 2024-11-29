@@ -239,7 +239,7 @@ function obterValorizacao() {
 
             // Preenchendo as KPIs
 
-            document.querySelector('.texto_kpi').textContent = `${bairro} - ${zona}`;
+            document.querySelector('.texto_kpi').textContent = `${bairro} / ${zona}`;
             document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
         })
         .catch(function (error) {
@@ -262,7 +262,7 @@ function obterValorizacaoZona() {
 
                 // Preenchendo as KPIs
                 document.querySelector('.titulo_kpi').textContent = `Zona com valorização mais alta do m² no mês(R$):`;
-                document.getElementById('valorizacao-zona').textContent = `${zona} - ${valorizacao}%`;
+                document.getElementById('valorizacao-zona').textContent = `${zona} / ${valorizacao}%`;
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -461,32 +461,24 @@ let idhChart = null;
 var selectedValue = null;
 
 document.addEventListener('DOMContentLoaded', function () {
-
-
-
-
-
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    const filtrarBtn = document.getElementById('filtrarBtn');
 
-    //função para pegar o valor do select
-    bairroSelect.addEventListener('change', function () {
-        selectedValue = this.value;
+    function pesquisar_insights() {
+        const selectedValue = bairroSelect.value;
         console.log('Bairro selecionado:', selectedValue);
 
         if (selectedValue) {
-            // Faz a requisição ao servidor
             fetch(`/idh/idh-grafico?selectedNome=${encodeURIComponent(selectedValue)}`)
                 .then(resposta => {
                     if (resposta.ok) {
-                        return resposta.json(); // Converte para JSON
+                        return resposta.json(); 
                     } else {
                         throw new Error(`Erro na resposta do servidor: ${resposta.status}`);
                     }
                 })
                 .then(dados => {
                     console.log('Dados recebidos:', dados);
-
-
                     renderizarGrafico(dados.idh);
                 })
                 .catch(error => {
@@ -495,19 +487,20 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             console.log('Nenhum bairro selecionado.');
         }
+    }
+
+    filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights();
     });
 });
-
 
 function renderizarGrafico(idhAtual) {
     const ctxIdh = document.getElementById('idhChart').getContext('2d');
 
     if (idhChart) {
-
         idhChart.data.datasets[0].data = [idhAtual, 0.85];
         idhChart.update();
     } else {
-
         idhChart = new Chart(ctxIdh, {
             type: 'doughnut',
             data: {
@@ -522,6 +515,14 @@ function renderizarGrafico(idhAtual) {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false, // Mantém a proporção original   
+                animation: {
+                    duration: 1500, 
+                    easing: 'easeOutQuad', 
+                    onComplete: function () {
+                        console.log('Animação Completa');
+                    }
+                },
                 plugins: {
                     legend: {
                         display: true,
@@ -537,19 +538,17 @@ function renderizarGrafico(idhAtual) {
     }
 }
 
-
 // segundo grafico pesquisa
 let grafico5 = null;
-
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    const filtrarBtn = document.getElementById('filtrarBtn');
 
-    bairroSelect.addEventListener('change', function () {
-        const selectedValue = this.value; // Atualiza o valor global
+    function pesquisar_insights() {
+        const selectedValue = bairroSelect.value;
         console.log('Bairro selecionado:', selectedValue);
 
         if (selectedValue) {
-
             const urlGraficoM2 = `/idh/media-m2-grafico?selectedNome=${encodeURIComponent(selectedValue)}`;
 
             fetch(urlGraficoM2, { method: "GET" })
@@ -564,12 +563,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             const ctx5 = document.getElementById('grafico5').getContext('2d');
 
                             if (grafico5) {
-
                                 grafico5.data.labels = labels;
                                 grafico5.data.datasets[0].data = valores;
                                 grafico5.update();
                             } else {
-
                                 grafico5 = new Chart(ctx5, {
                                     type: 'line',
                                     data: {
@@ -583,6 +580,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                         }]
                                     },
                                     options: {
+                                        animation: {
+                                            duration: 1500,  // Tempo de animação
+                                            easing: 'easeOutQuad',  // Tipo de animação
+                                            onComplete: function () {
+                                                console.log('Animação Completa');
+                                            }
+                                        },
                                         scales: {
                                             y: {
                                                 beginAtZero: true,
@@ -618,6 +622,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error(`Erro ao buscar dados do gráfico de linha: ${error.message}`);
                 });
         }
+    }
+
+    filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights();
     });
 });
 
@@ -625,9 +633,10 @@ document.addEventListener('DOMContentLoaded', function () {
 //terceira grafica pesquisa
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    const filtrarBtn = document.getElementById('filtrarBtn'); 
 
-    bairroSelect.addEventListener('change', function () {
-        const selectedValue = this.value.trim();
+    function pesquisar_insights() {
+        const selectedValue = bairroSelect.value.trim();
         console.log('Bairro selecionado:', selectedValue);
 
         if (!selectedValue) {
@@ -648,15 +657,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.porcentagemMaior !== undefined) {
                     console.log('Dados recebidos:', data);
 
-
                     const ctx6 = document.getElementById('grafico6');
 
-              
+                  
                     if (ctx6.chart) {
                         ctx6.chart.destroy();
                     }
-         
-
 
                     const grafico6 = new Chart(ctx6, {
                         type: 'bar',
@@ -671,7 +677,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         options: {
                             indexAxis: 'x',
                             responsive: true, // Ajusta ao tamanho do contêiner
-                            maintainAspectRatio: false, // Mantém a proporção original                
+                            maintainAspectRatio: false, // Mantém a proporção original 
+                            animation: {
+                                duration: 1500, 
+                                easing: 'easeOutQuad', 
+                                onComplete: function () {
+                                    console.log('Animação Completa');
+                                }
+                            },           
                             scales: {
                                 x: {
                                     beginAtZero: true,
@@ -703,9 +716,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-
+                   
                     ctx6.chart = grafico6;
-
 
                     const kpiPercapitaSpan = document.querySelector('#kpi_percapita span');
                     const maiorOuMenor = data.porcentagemMaior >= 0 ? 'maior' : 'menor';
@@ -715,9 +727,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(error => console.error('Erro na obtenção dos dados:', error));
+    }
+
+ 
+    filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights(); 
     });
 });
-
 
 
 
@@ -728,16 +744,16 @@ document.addEventListener('DOMContentLoaded', function () {
 //kpi 1 pesquisa
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    const filtrarBtn = document.getElementById('filtrarBtn'); 
 
-    bairroSelect.addEventListener('change', function () {
-        const selectedValue = this.value.trim();
+    function pesquisar_insights() {
+        const selectedValue = bairroSelect.value.trim();
         console.log('Bairro selecionado:', selectedValue);
 
         if (!selectedValue) {
             console.error("Nenhum valor válido foi selecionado.");
             return;
         }
-
 
         const urlDensidade = `/idh/densidade-bairro?selectedNome=${encodeURIComponent(selectedValue)}`;
 
@@ -751,7 +767,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log('Dados recebidos para KPI de densidade:', data);
 
-                // Atualizar a KPI
+             
                 titulo_densidade.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (${data.dtInsercao}):`;
                 numero_densidade.innerHTML = data.densidadeDemografica;
             })
@@ -764,6 +780,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 kpiTitulo.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (Dados não disponíveis):`;
                 kpiTexto.innerHTML = 'N/A';
             });
+    }
+
+    filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights(); 
     });
 });
 
@@ -776,9 +796,11 @@ document.addEventListener('DOMContentLoaded', function () {
 //KPI2
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    const filtrarBtn = document.getElementById('filtrarBtn'); 
 
-    bairroSelect.addEventListener('change', function () {
-        const selectedValue = this.value.trim();
+
+    function pesquisar_insights() {
+        const selectedValue = bairroSelect.value.trim();
         console.log('Bairro selecionado:', selectedValue);
 
         if (!selectedValue) {
@@ -805,15 +827,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 kpi_colocacao.innerHTML = `${data.ranking}° colocada`;
             })
             .catch(error => console.error('Erro ao buscar ranking do bairro:', error));
+    };
+  
+     filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights(); 
     });
 });
 
 //kpi3
+
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
+    const filtrarBtn = document.getElementById('filtrarBtn'); 
 
-    bairroSelect.addEventListener('change', function () {
-        const selectedValue = this.value.trim();
+    function pesquisar_insights() {
+        const selectedValue = bairroSelect.value.trim();
         console.log('Bairro selecionado:', selectedValue);
 
         if (!selectedValue) {
@@ -821,7 +849,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const urlTaxaValorizacao = `idh/taxa-valorizacao?selectedNome=${encodeURIComponent(selectedValue)}`;
+        const urlTaxaValorizacao = `/idh/taxa-valorizacao?selectedNome=${encodeURIComponent(selectedValue)}`;
 
         fetch(urlTaxaValorizacao)
             .then(response => {
@@ -833,9 +861,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log("Dados recebidos para a taxa de valorização:", data);
 
-
-
-
                 porcentagem_localizacao.innerHTML = `${data.taxa_valorizacao}%`;
                 taxa_atual.innerHTML = `2024 - ${data.dado_atual}`;
                 taxa_anopassado.innerHTML = `2023 - ${data.dado_anopassado}`;
@@ -843,6 +868,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => {
                 console.error('Erro ao buscar taxa de valorização:', error);
             });
+    }
+
+    filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights();  
     });
 });
 
