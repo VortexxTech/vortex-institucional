@@ -246,6 +246,12 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
     box-shadow: 4px 4px 4px 4px    #909db6a9;
 }
 
+.graficos_pesquisa #grafico6 {
+    flex: 7; 
+    max-width: 70%; 
+    height: auto;
+}
+
 .graficos_pesquisa {
     height: 45vh;
     width: 30%;
@@ -266,6 +272,7 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
 }
 
 
+
 #grafico1{
     background-color: #FFFFFF;
     width: 100%;
@@ -277,6 +284,12 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
 canvas{
     height: 100%;
     width: 100%;
+    background-color: #FFFFFF;
+}
+
+canvas #grafico6{
+    height: 100%;
+    width: 70%;
     background-color: #FFFFFF;
 }
 
@@ -294,7 +307,9 @@ align-self: center;
 #kpi_percapita{
     margin-top: 10%;
     color: #001F31;
-    width: 60%;
+    width: 30%;
+    font-size: 12px;
+
 }
 
 
@@ -557,6 +572,7 @@ header img{
         max-width: 1152px;
     }
 }
+
 
 
 
