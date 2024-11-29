@@ -14,6 +14,8 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+var empresaRouter = require("./src/routes/empresa");
+var funcionarioRouter = require("./src/routes/funcionario");
 var precoM2Router = require("./src/routes/precoM2");
 var idhRouter = require("./src/routes/idh");
 var densidadeDemograficaRouter = require("./src/routes/densidadeDemografica");
@@ -27,6 +29,8 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
+app.use("/empresa",empresaRouter);
+app.use("/funcionario",funcionarioRouter);
 app.use("/precoM2", precoM2Router);
 app.use("/idh", idhRouter);
 
