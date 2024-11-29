@@ -141,6 +141,19 @@ header img {
     margin-bottom: 10px;
 }
 
+.textfield > select {
+    width: 100%;
+    outline: 0;
+    border: 0;
+    padding: 15px;
+    background: none;
+    border-bottom: 2px solid #00536d;
+    color: #001F31;
+    font-size: 12pt;
+    appearance: none; /* Remove o estilo padrão do select */
+    cursor: pointer;
+}
+
 
 .btn-login {
     width: 100%;

@@ -20,11 +20,9 @@
             <img src=../assets/img/logo_V2.png alt="logo da Vortex Tech">
 
             <div id="buttons">
-
-                <button id="btn_register">
+                <button id="btn_register" class="voltar">
                     <a href="../index.html">Voltar</a>
                 </button>
-
             </div>
 
         </div>
@@ -147,7 +145,7 @@
                         </select>
                     </p>
                 </b>
-                <button id="filtrarBtn" onclick="pesquisar_insights()">
+                <button id="filtrarBtn" onclick="pesquisar_insights()"  >
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
             </div>
@@ -156,24 +154,24 @@
             </div>
             <div class="container_kpispesquisa" id="kpi_pesquisa">
                 <div class="kpis">
-                    <span class="titulo_kpi">Densidade demográfica do bairro(Hab/Km²):</span>
-                    <span class="texto_kpi"> 11.948</span>
+                    <span class="titulo_kpi" id="titulo_densidade">Densidade demográfica do bairro(Hab/Km²):</span>
+                    <span class="texto_kpi" id="numero_densidade"> 11.948</span>
                 </div>
 
                 <div class="kpis">
                     <span class="titulo_kpi">Classificação no ranking dos metros quadrados mais valorizados de São
                         Paulo: </span>
-                    <span class="texto_kpi"> 3° colocada</span>
+                    <span class="texto_kpi" id="kpi_colocacao"> 3° colocada</span>
                 </div>
                 <div class="kpis" id="kpi_subprefeitura">
                     <span class="titulo_kpi">Taxa de valorização do preço do m² em relação ao mesmo mês do ano anterior
                         (Setembro):</span>
-                    <span class="texto_kpi">0.88%</span>
+                    <span class="texto_kpi" id="porcentagem_localizacao">0.88%</span>
                     <div class="top-regions">
                         <p>Comparação anual</p>
                         <ul>
-                            <li>2024 - 0.50</li>
-                            <li>2023 - 0.25</li>
+                            <li id="taxa_atual">2024 - 0.50</li>
+                            <li id="taxa_anopassado">2023 - 0.25</li>
                         </ul>
                     </div>
 
@@ -190,19 +188,16 @@
                     <canvas id="idhChart"></canvas>
                 </div>
                 <div class="graficos_pesquisa">
-                    <canvas id="grafico5" style="width: 100%; height: 210px;"></canvas>
+                    <canvas id="grafico5" style="width: 100%;"></canvas>
                 </div>
                 <div class="graficos_pesquisa">
                     <canvas id="grafico6" width="70%" height="100%"></canvas>
                     <span class="titulo_kpi" id="kpi_percapita">
-                        <h4>Comparativo Renda/Capita: SP vs Bairro</h4><br>
+                
                         A Renda Per Capita da Subprefeitura é <span
                             style="font-size: 2em; font-weight: bold; color: black;">10%</span> <br>
                         maior que a da cidade de São Paulo
                     </span>
-                    <img height="40px" class="seta"
-                        src="https://img.icons8.com/material/24/40C057/thick-arrow-pointing-up--v3.png"
-                        alt="thick-arrow-pointing-up--v3" />
                 </div>
             </div>
 
@@ -229,7 +224,8 @@
                 <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade"
                         id="tamanho_terreno"></input></p>
 
-                <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro(); pesquisar_empreendimento()">
+                <button id="filtrarBtn2" onclick="pesquisar_previsao();preco_futuro(),pesquisar_empreendimento()">
+
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
 
@@ -239,8 +235,10 @@
             </div>
             <div class="container_kpispesquisa" id="kpis_previsao">
                 <div class="kpis">
-                    <span class="titulo_kpi">Preço do m² em XXXXXXXX lugar: (22/09/24)</span>
-                    <span class="texto_kpi" id="preco_metro"> 6.867</span>
+
+                    <span class="titulo_kpi" id="titulo_preco_local">Preço do m² em XXXXXXXX lugar: (22/09/24)</span>
+                    <span class="texto_kpi" id="preco_local"> 6.867</span>
+
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Cálculo atual de preço do terreno pelo tamanho:</span>

@@ -80,6 +80,7 @@ function buscarValorizacao(req, res) {
     });
 }
 
+
 function buscarTopsIdh(req, res) {
     console.log(`Recuperando a idh das melhores 3 regiões.`);
 
@@ -112,6 +113,22 @@ function buscarDataAtualizacao(req, res) {
     });
 }
 
+function  buscarCapitaDemografica(req, res) {
+    console.log(`Recuperando a renda per capita e Densidade.`);
+
+    precoM2Model.buscarCapitaDemografica().then(function (resultado) {
+        if (resultado.length > 0) {
+         
+            res.status(200).json(resultado); 
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log("Houve um erro ao buscar os dados renda per capita e Densidade.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 module.exports = {
     buscarPreco,
@@ -119,5 +136,7 @@ module.exports = {
     buscarRegioesComMaiorPreco,
     buscarZonasComMaiorPreco,
     buscarTopsIdh,
-    buscarDataAtualizacao
+    buscarDataAtualizacao,
+    buscarCapitaDemografica
+
 };
