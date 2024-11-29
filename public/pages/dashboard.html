@@ -229,7 +229,7 @@
                 <p class="titulo_ipt"><b>Tamanho do terreno:(M²) </b><input type="number" class="ipt_cidade"
                         id="tamanho_terreno"></input></p>
 
-                <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro()">
+                <button id="filtrarBtn2" onclick="pesquisar_previsao(); preco_atual(); preco_futuro(); pesquisar_empreendimento()">
                     <i class="fas fa-filter"></i> Filtrar
                 </button>
 
@@ -240,11 +240,11 @@
             <div class="container_kpispesquisa" id="kpis_previsao">
                 <div class="kpis">
                     <span class="titulo_kpi">Preço do m² em XXXXXXXX lugar: (22/09/24)</span>
-                    <span class="texto_kpi"> 6.867</span>
+                    <span class="texto_kpi" id="preco_metro"> 6.867</span>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Cálculo atual de preço do terreno pelo tamanho:</span>
-                    <span class="texto_kpi" id="preco_atual"></span>
+                    <span class="texto_kpi preco_terreno" id="preco_atual"></span>
                 </div>
                 <div class="kpis">
                     <span class="titulo_kpi">Projeção do valor do terreno para os próximos 6 meses:</span>
@@ -261,8 +261,10 @@
                     <span class="titulo_kpi" id="kpi_percapita" style="width: 80%;">
                         <h4 style="font-size: medium;">Resposta da nossa IA:</h4><br>
                         <div class="tooltip">Devido à densidade alta da região, Renda per capita média, e
-                            preço do m² em crescimento, o investimento recomendado para esse terreno é um <b>imóvel
-                                comercial.</b><br><br>
+                            preço do m² em crescimento, o investimento recomendado para esse terreno é um
+                            <b class="mensagem_ia"></b>
+                            <br>
+                            <br>
                             Não recomendaria um imóvel comercial pelo alto custo de investimento, mas isso depende do
                             seu perfil e quantidade planejada de investimento.
 
