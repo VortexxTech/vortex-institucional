@@ -99,15 +99,65 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 ////
 
+
 function preco_futuro() {
+
     var preco_futuro = 7.100;
     var tamanhoTerreno = tamanho_terreno.value;
 
     var resultado = preco_futuro * tamanhoTerreno;
 
     document.getElementById('preco_futuro').innerText = resultado.toFixed(3);
+} */
+
+async function preco_futuro() {
+    const tooltipElement = document.querySelector(".tooltip");
+    const zona = document.querySelector("#zona-regiao-prevista").value;
+    const tamanhoTerreno = document.querySelector("#tamanho_terreno").value;
+    const bairro = document.querySelector("#regiao-bairro-prevista").value;
+    const precoTerreno = document.querySelector(".preco_terreno").textContent;
+    const precoFuturo = document.querySelector("#preco_futuro");
+    
+    const pergunta = `Levando em consideração um terreno com tamanho de: ${tamanhoTerreno} M² custando ${precoTerreno},
+    localizado na zona ${zona} de são paulo,
+    no bairro ${bairro}, quanto irá valer o mesmo terreno daqui a 6 meses?(mostre somente o valor e nada mais)`;
+    
+    const res = await fetch("/gemini/perguntar", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pergunta })
+    });
+    
+    const data = await res.json();
+    
+    precoFuturo.innerHTML = data;
+    
 }
 
+async function pesquisar_empreendimento() {
+    const bairro = document.querySelector("#regiao-bairro-prevista").value;
+    const precoMetro = document.querySelector("#preco_metro").textContent;
+    const mensagemIA = document.querySelector(".mensagem_ia");
+
+    const pergunta = `Com base na densidade da região(faça uma pesquisa),
+        Renda per capita média(faça uma pesquisa),
+        e preço do m² sendo ${precoMetro}, do bairro ${bairro},
+        qual tipo de imovel é recomendado? (mostre somente um tipo de imovel e nada mais e com formatação somente de "imovel comercial" ou "imovel residencial")`;
+
+    const res = await fetch("/gemini/perguntar", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pergunta })
+    });
+
+    const data = await res.json();
+
+    mensagemIA.innerHTML = data;
+}
 
 function geral() {
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/index.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,23 +14,24 @@
 
     <title>Vortex Tech</title>
 </head>
+
 <body>
 
     <header>
-        
+
         <div>
 
             <img src="./assets/img/logo_V1.png" alt="logo da Vortex Tech">
-    
+
             <div id="buttons">
-    
+
                 <button id="btn_login">
                     <a href="./login.html">Login</a>
                 </button>
                 <button id="btn_register">
                     <a href="./cadastro.html">Cadastrar</a>
                 </button>
-    
+
             </div>
 
         </div>
@@ -49,41 +50,46 @@
         <div>
 
             <div id="topic_one">
-    
+
                 <div id="locate_img">
                     <img src="./assets/icons/icon_brasil.svg" alt="icone do brasil">
                 </div>
                 <section id="locate">
                     <p>Localização inteligente, resultados extraordinários.</p>
                 </section>
-    
+
             </div>
-    
+
             <div id="topic_two">
-    
+
                 <div id="analysis_img">
                     <img src="./assets/icons/icon_analysis.svg" alt="icone de analise">
                 </div>
                 <section id="analysis">
                     <p>Inteligência nos dados, excelência nos resultados.</p>
                 </section>
-    
+
             </div>
-            
+
         </div>
     </main>
 
     <section id="about">
         <div>
             <div>
-                <div>        
+                <div>
                     <h2>Nossa Empresa</h2>
                     <p>
-                        Na Vortex Tech, transformamos a análise de viabilidade imobiliária em um processo eficiente e preciso, combinando inovação, tecnologia e dados concretos. Com uma equipe de desenvolvedores dedicados, oferecemos uma ferramenta que utiliza informações de fontes confiáveis, como o IBGE, para avaliar fatores essenciais e identificar as melhores oportunidades de novos empreendimentos. Acreditamos que a inteligência de dados molda o futuro do setor imobiliário, e nosso compromisso é com a excelência, transparência e crescimento sustentável.
-                    </p>        
+                        Na Vortex Tech, transformamos a análise de viabilidade imobiliária em um processo eficiente e
+                        preciso, combinando inovação, tecnologia e dados concretos. Com uma equipe de desenvolvedores
+                        dedicados, oferecemos uma ferramenta que utiliza informações de fontes confiáveis, como o IBGE,
+                        para avaliar fatores essenciais e identificar as melhores oportunidades de novos
+                        empreendimentos. Acreditamos que a inteligência de dados molda o futuro do setor imobiliário, e
+                        nosso compromisso é com a excelência, transparência e crescimento sustentável.
+                    </p>
                 </div>
                 <img src="./assets/img/interprise.png" alt="imagem ilustrativa da empresa">
-            </div>            
+            </div>
         </div>
     </section>
 
@@ -93,42 +99,47 @@
 
             <h2>Faça uma Pesquisa</h2>
             <div id="selects">
-    
+
                 <label>
-                    Cidade:
-                    <select name="city" id="select_city">
-                        <option value="#">Escolha uma cidade</option>
-                        <option value="1">São Paulo</option>
+                    Zona:
+                    <select name="zone" id="select_zone">
+                        <option value="#">Escolha a zona</option>
+                        <option value="leste">Leste</option>
+                        <option value="norte">Norte</option>
+                        <option value="oeste">Oeste</option>
+                        <option value="sul">Sul</option>
                     </select>
                 </label>
-                
+
                 <label>
-                    Bairro
+                    Bairro:
                     <select name="neighbourhood" id="select_neighbourhood">
                         <option value="#">Escolha um bairro</option>
-                        <option value="1">Consolação</option>
-                        <option value="2">Cerqueira césar</option>
-                        <option value="3">Pinheiros</option>
                     </select>
                 </label>
-    
+
                 <label>
-                    Comércio
+                    Comércio:
                     <select name="business" id="select_business">
                         <option value="#">Escolha um comércio</option>
-                        <option value="1">Supermercado</option>
-                        <option value="2">Shopping</option>
-                        <option value="3">Farmacia</option>
+                        <option value="supermarket">Supermercado</option>
+                        <option value="bakery">Padaria</option>
+                        <option value="pharmacy">Farmacia</option>
                     </select>
                 </label>
-    
-                <button>Ver Região</button>
-    
+
+                <p class="inputs-error"></p>
+
+                <button id="btn-check-region">Ver Região</button>
+
             </div>
-            
+
         </div>
 
-        <img src="./assets/img/map.png">
+        <div id="google-maps">
+
+        </div>
+        <!-- <img src="./assets/img/map.png"> -->
 
     </section>
 
@@ -140,5 +151,11 @@
         </div>
     </footer>
 
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyAZ1fxZbFbVn-_kYwARcjaZ3HAWiH6FDPA", v: "weekly"});
+    </script>
+    <script src="./js/index.js"></script>
+
 </body>
+
 </html>
