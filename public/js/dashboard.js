@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtrarBtn = document.getElementById('filtrarBtn');
     const filtrarBtn2 = document.getElementById('filtrarBtn2');
     const nomeCidade = document.getElementById('nome_cidade');
+    configurarDropdownBairros();
 
     const cidadesPorRegiao = {
         centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
@@ -97,8 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-////
-
 
 function preco_futuro() {
 
@@ -108,7 +107,7 @@ function preco_futuro() {
     var resultado = preco_futuro * tamanhoTerreno;
 
     document.getElementById('preco_futuro').innerText = resultado.toFixed(3);
-} */
+}
 
 async function preco_futuro() {
     const tooltipElement = document.querySelector(".tooltip");
@@ -117,11 +116,11 @@ async function preco_futuro() {
     const bairro = document.querySelector("#regiao-bairro-prevista").value;
     const precoTerreno = document.querySelector(".preco_terreno").textContent;
     const precoFuturo = document.querySelector("#preco_futuro");
-    
+
     const pergunta = `Levando em consideração um terreno com tamanho de: ${tamanhoTerreno} M² custando ${precoTerreno},
     localizado na zona ${zona} de são paulo,
     no bairro ${bairro}, quanto irá valer o mesmo terreno daqui a 6 meses?(mostre somente o valor e nada mais)`;
-    
+
     const res = await fetch("/gemini/perguntar", {
         method: "POST",
         headers: {
@@ -129,11 +128,10 @@ async function preco_futuro() {
         },
         body: JSON.stringify({ pergunta })
     });
-    
+
     const data = await res.json();
-    
+
     precoFuturo.innerHTML = data;
-    
 }
 
 async function pesquisar_empreendimento() {
@@ -522,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`/idh/idh-grafico?selectedNome=${encodeURIComponent(selectedValue)}`)
                 .then(resposta => {
                     if (resposta.ok) {
-                        return resposta.json(); 
+                        return resposta.json();
                     } else {
                         throw new Error(`Erro na resposta do servidor: ${resposta.status}`);
                     }
@@ -567,8 +565,8 @@ function renderizarGrafico(idhAtual) {
                 responsive: true,
                 maintainAspectRatio: false, // Mantém a proporção original   
                 animation: {
-                    duration: 1500, 
-                    easing: 'easeOutQuad', 
+                    duration: 1500,
+                    easing: 'easeOutQuad',
                     onComplete: function () {
                         console.log('Animação Completa');
                     }
@@ -683,7 +681,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //terceira grafica pesquisa
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-    const filtrarBtn = document.getElementById('filtrarBtn'); 
+    const filtrarBtn = document.getElementById('filtrarBtn');
 
     function pesquisar_insights() {
         const selectedValue = bairroSelect.value.trim();
@@ -709,7 +707,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     const ctx6 = document.getElementById('grafico6');
 
-                  
+
                     if (ctx6.chart) {
                         ctx6.chart.destroy();
                     }
@@ -729,12 +727,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             responsive: true, // Ajusta ao tamanho do contêiner
                             maintainAspectRatio: false, // Mantém a proporção original 
                             animation: {
-                                duration: 1500, 
-                                easing: 'easeOutQuad', 
+                                duration: 1500,
+                                easing: 'easeOutQuad',
                                 onComplete: function () {
                                     console.log('Animação Completa');
                                 }
-                            },           
+                            },
                             scales: {
                                 x: {
                                     beginAtZero: true,
@@ -766,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     });
 
-                   
+
                     ctx6.chart = grafico6;
 
                     const kpiPercapitaSpan = document.querySelector('#kpi_percapita span');
@@ -779,9 +777,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Erro na obtenção dos dados:', error));
     }
 
- 
+
     filtrarBtn.addEventListener('click', function () {
-        pesquisar_insights(); 
+        pesquisar_insights();
     });
 });
 
@@ -794,7 +792,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //kpi 1 pesquisa
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-    const filtrarBtn = document.getElementById('filtrarBtn'); 
+    const filtrarBtn = document.getElementById('filtrarBtn');
 
     function pesquisar_insights() {
         const selectedValue = bairroSelect.value.trim();
@@ -817,7 +815,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 console.log('Dados recebidos para KPI de densidade:', data);
 
-             
+
                 titulo_densidade.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (${data.dtInsercao}):`;
                 numero_densidade.innerHTML = data.densidadeDemografica;
             })
@@ -833,7 +831,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     filtrarBtn.addEventListener('click', function () {
-        pesquisar_insights(); 
+        pesquisar_insights();
     });
 });
 
@@ -846,7 +844,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //KPI2
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-    const filtrarBtn = document.getElementById('filtrarBtn'); 
+    const filtrarBtn = document.getElementById('filtrarBtn');
 
 
     function pesquisar_insights() {
@@ -878,9 +876,9 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Erro ao buscar ranking do bairro:', error));
     };
-  
-     filtrarBtn.addEventListener('click', function () {
-        pesquisar_insights(); 
+
+    filtrarBtn.addEventListener('click', function () {
+        pesquisar_insights();
     });
 });
 
@@ -888,7 +886,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-pesquisa');
-    const filtrarBtn = document.getElementById('filtrarBtn'); 
+    const filtrarBtn = document.getElementById('filtrarBtn');
 
     function pesquisar_insights() {
         const selectedValue = bairroSelect.value.trim();
@@ -921,12 +919,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     filtrarBtn.addEventListener('click', function () {
-        pesquisar_insights();  
+        pesquisar_insights();
     });
 });
-
-
-
 
 const ctx7 = document.getElementById('grafico7');
 const grafico7 = new Chart(ctx7, {
@@ -1020,9 +1015,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-
-
 //kpi2 terceira sessão
 document.addEventListener('DOMContentLoaded', function () {
     const bairroSelect = document.getElementById('regiao-bairro-prevista');
@@ -1076,3 +1068,58 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+
+function configurarDropdownBairros() {
+    const selectBairro = document.getElementById('regiao-bairro-pesquisa');
+    const mensagemDiv = document.getElementById('mensagem');
+    const dadosDiv = document.getElementById('dados');
+
+    selectBairro.addEventListener('change', function () {
+        const bairroSelecionado = this.value;
+
+        mensagemDiv.textContent = '';
+        dadosDiv.innerHTML = '';
+
+        if (!bairroSelecionado) {
+            mensagemDiv.textContent = 'Por favor, selecione um bairro.';
+            return;
+        }
+
+        axios.get(`/ApiArquivos/verificarBairro/${bairroSelecionado}`)
+            .then(response => {
+                const { valorM2, densidade, idh } = response.data;
+
+                if (valorM2 && densidade && idh) {
+                    mensagemDiv.textContent = 'Todos os dados estão disponíveis. Carregando...';
+                    carregarDadosDoBanco(bairroSelecionado);
+                } else {
+                    const mensagens = [];
+                    if (!valorM2) mensagens.push('valor por m²');
+                    if (!densidade) mensagens.push('densidade demográfica');
+                    if (!idh) mensagens.push('IDH');
+
+                    mensagemDiv.textContent = `Os seguintes dados estão ausentes: ${mensagens.join(', ')}.`;
+                }
+            })
+            .catch(error => {
+                mensagemDiv.textContent = 'Erro ao verificar os dados: ' + error.message;
+            });
+    });
+
+    function carregarDadosDoBanco(bairro) {
+        axios.get(`/ApiArquivos/obterDadosDoBanco/${bairro}`)
+            .then(response => {
+                const data = response.data;
+
+                dadosDiv.innerHTML = `
+                    <p><strong>Bairro:</strong> ${bairro}</p>
+                    <p><strong>Valor M²:</strong> ${data.valorM2}</p>
+                    <p><strong>Densidade:</strong> ${data.densidade}</p>
+                    <p><strong>IDH:</strong> ${data.idh}</p>
+                `;
+            })
+            .catch(error => {
+                dadosDiv.textContent = 'Erro ao carregar os dados: ' + error.message;
+            });
+    }
+}

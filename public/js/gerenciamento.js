@@ -3,9 +3,15 @@ window.addEventListener("load", async () => {
     await listarDadosEmpresa();
 })
 
+const divEmpresa = document.querySelector("#div_empresa");
+const listEmpresa = document.querySelector("#empresa_list");
+const divFuncionarios = document.querySelector("#div_funcionarios");
+const listFuncionarios = document.querySelector("#func_list");
+const divUsuarios = document.querySelector("#div_usuarios");
+const listUsuarios = document.querySelector("#user_list");
+
 async function listarDadosEmpresa() {
     const url = "/empresa";
-    const divEmpresa = document.querySelector("#empresa_list");
     div_funcionarios.style.display = "none";
     div_usuarios.style.display = "none";
     div_empresa.style.display = "flex";
@@ -36,7 +42,7 @@ async function listarDadosEmpresa() {
         `
     });
     
-    divEmpresa.innerHTML = dadosEmpresaFormatados;
+    listDadosEmpresa.innerHTML = dadosEmpresaFormatados;
     
     const btnEdit = document.querySelector(".edit_btn");
     const btnDelete = document.querySelector(".delete_btn");
@@ -159,7 +165,6 @@ async function listarDadosEmpresa() {
 
 async function listarFuncionarios() {
     const url = "/funcionario";
-    const divFuncionarios = document.querySelector("#func_list");
     div_empresa.style.display = "none";
     div_usuarios.style.display = "none";
     div_funcionarios.style.display = "flex";
@@ -190,7 +195,7 @@ async function listarFuncionarios() {
         `
     });
 
-    divFuncionarios.innerHTML = listaFuncionariosFormatados;
+    listFuncionarios.innerHTML = listaFuncionariosFormatados;
     
     const btnEdit = document.querySelectorAll(".edit_btn");
     const btnDelete = document.querySelectorAll(".delete_btn");
@@ -313,7 +318,6 @@ async function listarFuncionarios() {
 
 async function listarUsuarios() {
     const url = "/usuarios";
-    const divUsuarios = document.querySelector("#user_list");
     div_funcionarios.style.display = "none";
     div_empresa.style.display = "none";
     div_usuarios.style.display = "flex";
@@ -344,7 +348,7 @@ async function listarUsuarios() {
         `
     });
 
-    divUsuarios.innerHTML = listaUsuariosFormatados;
+    listUsuarios.innerHTML = listaUsuariosFormatados;
     
     const btnEdit = document.querySelectorAll(".edit_btn");
     console.log(btnEdit)
