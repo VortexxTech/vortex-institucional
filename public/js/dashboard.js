@@ -1090,14 +1090,12 @@ function configurarDropdownBairros() {
                 const { valorM2, densidade, idh } = response.data;
 
                 if (valorM2 && densidade && idh) {
-                    carregarDadosDoBanco(bairroSelecionado);
+                    console.log("Todos os dados disponíveis!");                    
                 } else {
                     const mensagens = [];
                     if (!valorM2) mensagens.push('valor por m²');
                     if (!densidade) mensagens.push('densidade demográfica');
                     if (!idh) mensagens.push('IDH');
-
-                    mensagemDiv.textContent = `Os seguintes dados não foram disponibilizados pelo Censo/IBGE: ${mensagens.join(', ')}.`;
 
                     exibirPopup(`Os seguintes dados não foram disponibilizados pelo Censo/IBGE: ${mensagens.join(', ')}.`);
                 }
