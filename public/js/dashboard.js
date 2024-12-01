@@ -1071,8 +1071,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function configurarDropdownBairros() {
     const selectBairro = document.getElementById('regiao-bairro-pesquisa');
-    const mensagemDiv = document.getElementById('mensagem');
-    const dadosDiv = document.getElementById('dados');
+    const mensagemDiv = document.getElementById('conteudoMensagem');
+    const fecharPopup = document.getElementById('fechar');
 
     selectBairro.addEventListener('change', function () {
         const bairroSelecionado = this.value;
@@ -1081,7 +1081,7 @@ function configurarDropdownBairros() {
         dadosDiv.innerHTML = '';
 
         if (!bairroSelecionado) {
-            mensagemDiv.textContent = 'Por favor, selecione um bairro.';
+            exibirPopup('Por favor, selecione um bairro.');
             return;
         }
 
@@ -1090,7 +1090,6 @@ function configurarDropdownBairros() {
                 const { valorM2, densidade, idh } = response.data;
 
                 if (valorM2 && densidade && idh) {
-                    mensagemDiv.textContent = 'Todos os dados estão disponíveis. Carregando...';
                     carregarDadosDoBanco(bairroSelecionado);
                 } else {
                     const mensagens = [];
@@ -1098,28 +1097,26 @@ function configurarDropdownBairros() {
                     if (!densidade) mensagens.push('densidade demográfica');
                     if (!idh) mensagens.push('IDH');
 
-                    mensagemDiv.textContent = `Os seguintes dados estão ausentes: ${mensagens.join(', ')}.`;
+                    mensagemDiv.textContent = `Os seguintes dados não foram disponibilizados pelo Censo/IBGE: ${mensagens.join(', ')}.`;
+
+                    exibirPopup(`Os seguintes dados não foram disponibilizados pelo Censo/IBGE: ${mensagens.join(', ')}.`);
                 }
             })
             .catch(error => {
-                mensagemDiv.textContent = 'Erro ao verificar os dados: ' + error.message;
+                console.log('Erro ao verificar os dados: ' + error.message);
             });
     });
 
-    function carregarDadosDoBanco(bairro) {
-        axios.get(`/ApiArquivos/obterDadosDoBanco/${bairro}`)
-            .then(response => {
-                const data = response.data;
+    function exibirPopup(mensagem) {
+        mensagemDiv.textContent = mensagem;
+        mensagemDiv.style.display = 'block';
 
-                dadosDiv.innerHTML = `
-                    <p><strong>Bairro:</strong> ${bairro}</p>
-                    <p><strong>Valor M²:</strong> ${data.valorM2}</p>
-                    <p><strong>Densidade:</strong> ${data.densidade}</p>
-                    <p><strong>IDH:</strong> ${data.idh}</p>
-                `;
-            })
-            .catch(error => {
-                dadosDiv.textContent = 'Erro ao carregar os dados: ' + error.message;
-            });
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 5000);
     }
+
+    fecharPopup.onclick = function () {
+        mensagemDiv.style.display = 'none';
+    };
 }
