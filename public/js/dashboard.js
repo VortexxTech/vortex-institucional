@@ -1069,46 +1069,39 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-function configurarDropdownBairros() {
+function verificarBairro() {
     const selectBairro = document.getElementById('regiao-bairro-pesquisa');
     const mensagemDiv = document.getElementById('conteudoMensagem');
     const fecharPopup = document.getElementById('fechar');
 
+
+    if (!bairro) {
+        alert("Por favor, selecione um bairro.");
+        return;
+    }
+
     selectBairro.addEventListener('change', function () {
-        const bairroSelecionado = this.value;
-
-        mensagemDiv.textContent = '';
-        dadosDiv.innerHTML = '';
-
-        if (!bairroSelecionado) {
-            exibirPopup('Por favor, selecione um bairro.');
-            return;
-        }
-
-        axios.get(`/ApiArquivos/verificarBairro/${bairroSelecionado}`)
-            .then(response => {
-                const { valorM2, densidade, idh } = response.data;
-
-                if (valorM2 && densidade && idh) {
-                    console.log("Todos os dados disponíveis!");                    
+        fetch(`/verificarDadosBairro/${bairro}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    mensagemDiv.textContent = data.mensagem;
                 } else {
-                    const mensagens = [];
-                    if (!valorM2) mensagens.push('valor por m²');
-                    if (!densidade) mensagens.push('densidade demográfica');
-                    if (!idh) mensagens.push('IDH');
-
-                    exibirPopup(`Os seguintes dados não foram disponibilizados pelo Censo/IBGE: ${mensagens.join(', ')}.`);
+                    mensagemDiv.textContent = data.mensagem;
                 }
+
+                exibirPopup(popupMessage);
             })
-            .catch(error => {
-                console.log('Erro ao verificar os dados: ' + error.message);
+            .catch(err => {
+                console.error("Erro ao verificar dados do bairro:", err);
+                alert("Ocorreu um erro ao verificar os dados. Tente novamente.");
             });
-    });
+    })
 
     function exibirPopup(mensagem) {
         mensagemDiv.textContent = mensagem;
         mensagemDiv.style.display = 'block';
-
+    
         setTimeout(() => {
             popup.style.display = 'none';
         }, 5000);
