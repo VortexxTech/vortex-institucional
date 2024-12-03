@@ -1,12 +1,16 @@
 var database = require("../database/config")
 
-function cadastrarFunc(idUsuario, cpf, cargo) {
+async function cadastrarFunc(idUsuario, cpf, idEmpresa, cargo) {
     console.log("ACESSEI O FUNCIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",cpf, cargo);
 
     var instrucaoSql = `
-        INSERT INTO Funcionario (idFuncionario, fkUsuario, cpf , cargo) VALUES (default, '${idUsuario}', '${cpf}', '${cargo}');
+        INSERT INTO Funcionario (idFuncionario, fkUsuario, cpf, fkEmpresa, cargo) VALUES (default, '${idUsuario}', '${cpf}', '${idEmpresa}', '${cargo}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    var instrucaoSql2 = `UPDATE Usuario SET fkEmpresa = '${idEmpresa}' WHERE idUsuario = '${idUsuario}'`;
+    await database.executar(instrucaoSql2);
+    
     return database.executar(instrucaoSql);
 }
 

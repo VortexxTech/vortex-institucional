@@ -344,17 +344,18 @@ async function listarUsuarios() {
     listaUsuarios.map((item) => {
         listaUsuariosFormatados += `
         <div class="user_item" id=${item.idUsuario}>
-        <span class="user_name">${item.nome}</span>
-        <div class="user_actions">
-        <button class="edit_btn">
-        <i class="fas fa-pencil-alt"></i> Editar
-        </button>
-        <button class="delete_btn">
-        <i class="fas fa-trash-alt"></i> Excluir
-        </button>
+            <span class="user_name">${item.nome}</span>
+            <div class="user_actions">
+                <button class="edit_btn">
+                    <i class="fas fa-pencil-alt"></i> Editar
+                </button>
+                <button class="delete_btn">
+                    <i class="fas fa-trash-alt"></i> Excluir
+                </button>
+            </div>
         </div>
-        </div>
-        `
+        `;
+
     });
 
     user_list.innerHTML = listaUsuariosFormatados;
