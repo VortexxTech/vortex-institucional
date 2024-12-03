@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtrarBtn = document.getElementById('filtrarBtn');
     const filtrarBtn2 = document.getElementById('filtrarBtn2');
     const nomeCidade = document.getElementById('nome_cidade');
-    
+
+    validarFuncionario();
 
     const cidadesPorRegiao = {
         centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
@@ -178,6 +179,43 @@ function aparecer_pesquisa() {
     slc_infgerais.style.color = "#FFFFFF";
     slc_previsao.style.color = "#FFFFFF";
 
+}
+
+function validarFuncionario() {
+    var idUsuario = sessionStorage.getItem("ID_USUARIO");
+
+    fetch(`/funcionario/validar/${idUsuario}`, {
+        method: "GET",
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            console.log(resposta)
+            resposta.json().then(dados => {
+                console.log(dados)
+                if (dados.length > 0) {
+                    var cargo = dados[0].cargo;
+                    console.log(cargo)
+                    if (cargo == "Gerente") {
+                        document.getElementById("slc_previsao").style.display = "flex";
+                    } else {
+                        document.getElementById("slc_previsao").style.display = "none";
+                    }
+                } else {
+                    console.log("O usuário não está vinculado a nenhum funcionário ou não tem permissão.");
+                    document.getElementById("slc_previsao").style.display = "none";
+                }
+            });
+
+        } else {
+            console.log("Erro ao validar funcionário ou usuário!");
+            resposta.text().then(texto => {
+                console.error("Detalhes do erro:", texto);
+            });
+        }
+
+    }).catch(function (erro) {
+        console.error("Erro na requisição:", erro);
+    });
 }
 
 function aparecer_previsao() {
@@ -1101,7 +1139,7 @@ function verificarBairro() {
     function exibirPopup(mensagem) {
         mensagemDiv.textContent = mensagem;
         mensagemDiv.style.display = 'block';
-    
+
         setTimeout(() => {
             popup.style.display = 'none';
         }, 5000);

@@ -65,6 +65,9 @@ body{
     color: #909DB6;
 }
 
+#slc_previsao {
+    display: none;
+}
 
 #container_kpis{
     height: 20%;

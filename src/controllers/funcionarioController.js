@@ -107,7 +107,7 @@ function deletar(req, res) {
 }
 
 function validar(req, res) {
-    var idUsuario = req.params.idUsuarioServer;
+    var idUsuario = req.params.id;
 
     if (idUsuario == undefined) {
         res.status(400).send("Seu usuário está indefinida!");
@@ -120,7 +120,7 @@ function validar(req, res) {
                     console.log(`Resultados: ${JSON.stringify(resultadoValidar)}`);
 
                     if (resultadoValidar.length == 1) {
-                        res.status(200).send(resultadoAutenticar);
+                        res.status(200).send(resultadoValidar);
 
                         res.status(200).json({
                             id: resultadoValidar[0].idUsuario,
