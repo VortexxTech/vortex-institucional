@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtrarBtn = document.getElementById('filtrarBtn');
     const filtrarBtn2 = document.getElementById('filtrarBtn2');
     const nomeCidade = document.getElementById('nome_cidade');
-    configurarDropdownBairros();
+    
 
     const cidadesPorRegiao = {
         centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
