@@ -29,6 +29,7 @@ async function listarDadosEmpresa() {
     listaDadosEmpresa.map((item) => {
         dadosEmpresaFormatados += `
         <div class="user_item" id=${item.idEmpresa}>
+        <span class="user_id_empresa">${item.idEmpresa}</span>
         <span class="user_name">${item.nome}</span>
         <div class="user_actions">
         <button class="edit_btn">
@@ -86,7 +87,7 @@ async function listarDadosEmpresa() {
     
     function editModal(type, button) {
         const contentModal = modal.firstElementChild.lastElementChild;
-        const nomeEmpresa = button.parentElement.parentElement.firstElementChild.textContent;
+        const nomeEmpresa = button.parentElement.parentElement.children[1].textContent;
     
         const idEmpresa = button.parentElement.parentElement.getAttribute("id");
     
@@ -187,6 +188,7 @@ async function listarFuncionarios() {
     listaFuncionarios.map((item) => {
         listaFuncionariosFormatados += `
         <div class="user_item" id=${item.idFuncionario}>
+            <span class="user_id_funcionario">${item.idFuncionario}</span>
             <span class="user_name">${item.nome}</span>
             <span class="user_cargo">${item.cargo}</span>
         <div class="user_actions">
@@ -244,8 +246,8 @@ async function listarFuncionarios() {
     
     function editModal(type, button) {
         const contentModal = modal.firstElementChild.lastElementChild;
-        const nomeFuncionario = button.parentElement.parentElement.firstElementChild.textContent;
-        const cargoFuncionario = button.parentElement.parentElement.children[1].textContent;
+        const nomeFuncionario = button.parentElement.parentElement.children[1].textContent;
+        const cargoFuncionario = button.parentElement.parentElement.children[2].textContent;
     
         const idFuncionario = button.parentElement.parentElement.getAttribute("id");
     
@@ -344,6 +346,7 @@ async function listarUsuarios() {
     listaUsuarios.map((item) => {
         listaUsuariosFormatados += `
         <div class="user_item" id=${item.idUsuario}>
+            <span class="user_id_usuario">${item.idUsuario}</span>
             <span class="user_name">${item.nome}</span>
             <div class="user_actions">
                 <button class="edit_btn">
@@ -401,7 +404,7 @@ async function listarUsuarios() {
     
     function editModal(type, button) {
         const contentModal = modal.firstElementChild.lastElementChild;
-        const nomeUsuario = button.parentElement.parentElement.firstElementChild.textContent;
+        const nomeUsuario = button.parentElement.parentElement.children[1].textContent;
     
         const idUsuario = button.parentElement.parentElement.getAttribute("id");
     

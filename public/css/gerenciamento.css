@@ -99,7 +99,10 @@ body{
 
 .user_name,
 .user_cargo,
-.user_carrer{
+.user_carrer,
+.user_id_empresa,
+.user_id_usuario,
+.user_id_funcionario{
     color: #000000;
 }
 
