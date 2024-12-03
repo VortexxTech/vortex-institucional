@@ -3,17 +3,20 @@ var funcionarioModel = require("../models/funcionarioModel");
 function cadastrarFunc(req, res) {
     var idUsuario = req.body.idUsuarioServer;
     var cpf = req.body.cpfServer;
+    var idEmpresa = req.body.idEmpresaServer;
     var cargo = req.body.cargoServer;
 
     if (idUsuario == undefined) {
         res.status(400).send("O id de usuario desse funcionario está indefinido!");
     } else if (cpf == undefined) {
         res.status(400).send("O cpf está indefinido!");
+    } else if(idEmpresa == undefined) {
+        res.status(400).send("O id da empresa está indefinido!");
     } else if (cargo == undefined) {
         res.status(400).send("O cargo está indefinido");
     } else {
 
-        funcionarioModel.cadastrarFunc(idUsuario, cpf, cargo)
+        funcionarioModel.cadastrarFunc(idUsuario, cpf, idEmpresa, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -51,20 +54,14 @@ function listar(req, res) {
 
 function atualizar(req, res) {
     var id = req.params.id;
-    var idUsuario = req.body.idUsuarioServer;
-    var cpf = req.body.cpfServer;
     var cargo = req.body.cargoServer;
 
     if (id == undefined) {
         res.status(400).send("O id do funcionario está indefinido!");
-    } else if (idUsuario == undefined) {
-        res.status(400).send("O id de usuario desse funcionario está indefinido!");
-    } else if (cpf == undefined) {
-        res.status(400).send("O cpf do funcionario está indefinido!");
     } else if (cargo == undefined) {
         res.status(400).send("O cargo do funcionario está indefinido!");
     } else {
-        funcionarioModel.atualizar(id, idUsuario, cpf ,cargo)
+        funcionarioModel.atualizar(id, cargo)
             .then(
                 function (resultado) {
                     res.json(resultado);

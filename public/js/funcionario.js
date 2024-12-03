@@ -1,5 +1,6 @@
-var input_idUsuario = document.querySelector("#ipt_idUsuario");
+var input_idUsuario = document.querySelector("#ipt_id_usuario");
 var input_cpf = document.querySelector("#ipt_cpf");
+var input_idEmpresa = document.querySelector("#ipt_id_empresa");
 var input_cargo = document.querySelector("#ipt_cargo");
 var btn_login = document.querySelector(".btn_login");
 
@@ -7,6 +8,7 @@ var btn_login = document.querySelector(".btn_login");
 function cadastroFunc() {
   var idUsuario = input_idUsuario.value;
   var cpf = input_cpf.value;
+  var idEmpresa = input_idEmpresa.value;
   var cargo = input_cargo.value;
   var numeros = "0123456789"
   var validacao_numero = false;
@@ -35,7 +37,6 @@ function cadastroFunc() {
     alert("cpf inválido! O cpf deve conter pelo menos 12 carateres, sendo pelo menos 1 número e 1 caractere especial");
   } else {
 
-
     fetch("/funcionario/cadastrarFunc", {
       method: "POST",
       headers: {
@@ -44,6 +45,7 @@ function cadastroFunc() {
       body: JSON.stringify({
         idUsuarioServer: idUsuario,
         cpfServer: cpf,
+        idEmpresaServer: idEmpresa,
         cargoServer: cargo
       }),
     })

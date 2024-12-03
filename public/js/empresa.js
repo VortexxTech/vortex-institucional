@@ -80,10 +80,10 @@ function registrarEmp() {
 }
 
 function login() {
-  var cnpj = input_cpnj.value;
+  const cnpj = document.querySelector("#ipt_cnpj").value;
   var senha = input_senha.value;
 
-  fetch("/empresa/autenticar", {
+  fetch("/empresa/autenticarEmp", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

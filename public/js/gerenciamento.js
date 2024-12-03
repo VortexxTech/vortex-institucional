@@ -29,6 +29,7 @@ async function listarDadosEmpresa() {
     listaDadosEmpresa.map((item) => {
         dadosEmpresaFormatados += `
         <div class="user_item" id=${item.idEmpresa}>
+        <span class="user_id_empresa">${item.idEmpresa}</span>
         <span class="user_name">${item.nome}</span>
         <div class="user_actions">
         <button class="edit_btn">
@@ -42,10 +43,10 @@ async function listarDadosEmpresa() {
         `
     });
     
-    listDadosEmpresa.innerHTML = dadosEmpresaFormatados;
+    empresa_list.innerHTML = dadosEmpresaFormatados;
     
-    const btnEdit = document.querySelector(".edit_btn");
-    const btnDelete = document.querySelector(".delete_btn");
+    const btnEdit = document.querySelectorAll(".edit_btn");
+    const btnDelete = document.querySelectorAll(".delete_btn");
     const btnCloseModal = document.querySelector("#close_modal");
     const overlay = document.querySelector(".overlay");
     const modal = document.querySelector(".modal");
@@ -66,22 +67,27 @@ async function listarDadosEmpresa() {
         overlay.classList.add("close");
     }
 
-    btnEdit.addEventListener("click", (e) => {
-        editModal("edit", e.currentTarget);
-        showModal();
-    });
+    btnEdit.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            editModal("edit", e.currentTarget);
+            showModal();
+        });
+    })
+        
     
-    btnDelete.addEventListener("click", (e) => {
-        editModal("delete", e.currentTarget);
-        showModal();
-    });
+    btnDelete.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            editModal("delete", e.currentTarget);
+            showModal();
+        });
+    })
     
     btnCloseModal.addEventListener("click", closeModal);
     overlay.addEventListener("click", closeModal);
     
     function editModal(type, button) {
         const contentModal = modal.firstElementChild.lastElementChild;
-        const nomeEmpresa = button.parentElement.parentElement.firstElementChild.textContent;
+        const nomeEmpresa = button.parentElement.parentElement.children[1].textContent;
     
         const idEmpresa = button.parentElement.parentElement.getAttribute("id");
     
@@ -182,7 +188,9 @@ async function listarFuncionarios() {
     listaFuncionarios.map((item) => {
         listaFuncionariosFormatados += `
         <div class="user_item" id=${item.idFuncionario}>
-        <span class="user_name">${item.nome}</span>
+            <span class="user_id_funcionario">${item.idFuncionario}</span>
+            <span class="user_name">${item.nome}</span>
+            <span class="user_cargo">${item.cargo}</span>
         <div class="user_actions">
         <button class="edit_btn">
         <i class="fas fa-pencil-alt"></i> Editar
@@ -195,7 +203,7 @@ async function listarFuncionarios() {
         `
     });
 
-    listFuncionarios.innerHTML = listaFuncionariosFormatados;
+    func_list.innerHTML = listaFuncionariosFormatados;
     
     const btnEdit = document.querySelectorAll(".edit_btn");
     const btnDelete = document.querySelectorAll(".delete_btn");
@@ -219,22 +227,27 @@ async function listarFuncionarios() {
         overlay.classList.add("close");
     }
 
-    btnEdit[1].addEventListener("click", (e) => {
-        editModal("edit", e.currentTarget);
-        showModal();
-    });
+    btnEdit.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            editModal("edit", e.currentTarget);
+            showModal();
+        });
+    })
     
-    btnDelete[1].addEventListener("click", (e) => {
-        editModal("delete", e.currentTarget);
-        showModal();
-    });
+    btnDelete.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            editModal("delete", e.currentTarget);
+            showModal();
+        });
+    })
     
     btnCloseModal.addEventListener("click", closeModal);
     overlay.addEventListener("click", closeModal);
     
     function editModal(type, button) {
         const contentModal = modal.firstElementChild.lastElementChild;
-        const nomeFuncionario = button.parentElement.parentElement.firstElementChild.textContent;
+        const nomeFuncionario = button.parentElement.parentElement.children[1].textContent;
+        const cargoFuncionario = button.parentElement.parentElement.children[2].textContent;
     
         const idFuncionario = button.parentElement.parentElement.getAttribute("id");
     
@@ -242,18 +255,18 @@ async function listarFuncionarios() {
             const editModal = `
                 <h2>Editar funcionario:</h2>
                 <div>
-                    <label for="name">
-                    Nome do funcionario:
+                    <label for="cargo">
+                    Cargo do funcionario:
                     </label>
-                    <input type="text" id="name">
+                    <input type="text" id="cargo">
                 </div>
                 <button class="btn-confirm edit_user">Editar</button>
             `;
     
             contentModal.innerHTML = editModal;
     
-            const inputName = document.querySelector("#name");
-            inputName.value = nomeFuncionario;
+            const inputCargo = document.querySelector("#cargo");
+            inputCargo.value = cargoFuncionario.trim();
     
             const btnConfirm = document.querySelector(".btn-confirm");
             btnConfirm.addEventListener("click", (e) => verifyButton(e.currentTarget, idFuncionario));
@@ -283,7 +296,7 @@ async function listarFuncionarios() {
     }
     
     async function editFuncionario(id) {
-        const inputName = document.querySelector("#name");
+        const inputCargo = document.querySelector("#cargo");
     
         const res = await fetch(`${url}/atualizar/${id}`, {
             method: 'PATCH',
@@ -291,7 +304,7 @@ async function listarFuncionarios() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                nomeServer: inputName.value
+                cargoServer: inputCargo.value
             })
         });
     
@@ -311,8 +324,6 @@ async function listarFuncionarios() {
             }
         });
         const data = await res.json();
-    
-        console.log(data);
     }
 }
 
@@ -335,23 +346,24 @@ async function listarUsuarios() {
     listaUsuarios.map((item) => {
         listaUsuariosFormatados += `
         <div class="user_item" id=${item.idUsuario}>
-        <span class="user_name">${item.nome}</span>
-        <div class="user_actions">
-        <button class="edit_btn">
-        <i class="fas fa-pencil-alt"></i> Editar
-        </button>
-        <button class="delete_btn">
-        <i class="fas fa-trash-alt"></i> Excluir
-        </button>
+            <span class="user_id_usuario">${item.idUsuario}</span>
+            <span class="user_name">${item.nome}</span>
+            <div class="user_actions">
+                <button class="edit_btn">
+                    <i class="fas fa-pencil-alt"></i> Editar
+                </button>
+                <button class="delete_btn">
+                    <i class="fas fa-trash-alt"></i> Excluir
+                </button>
+            </div>
         </div>
-        </div>
-        `
+        `;
+
     });
 
-    listUsuarios.innerHTML = listaUsuariosFormatados;
+    user_list.innerHTML = listaUsuariosFormatados;
     
     const btnEdit = document.querySelectorAll(".edit_btn");
-    console.log(btnEdit)
     const btnDelete = document.querySelectorAll(".delete_btn");
     const btnCloseModal = document.querySelector("#close_modal");
     const overlay = document.querySelector(".overlay");
@@ -373,22 +385,26 @@ async function listarUsuarios() {
         overlay.classList.add("close");
     }
 
-    btnEdit[2].addEventListener("click", (e) => {
-        editModal("edit", e.currentTarget);
-        showModal();
-    });
+    btnEdit.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            editModal("edit", e.currentTarget);
+            showModal();
+        });
+    })
     
-    btnDelete[2].addEventListener("click", (e) => {
-        editModal("delete", e.currentTarget);
-        showModal();
-    });
+    btnDelete.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            editModal("delete", e.currentTarget);
+            showModal();
+        });
+    })
     
     btnCloseModal.addEventListener("click", closeModal);
     overlay.addEventListener("click", closeModal);
     
     function editModal(type, button) {
         const contentModal = modal.firstElementChild.lastElementChild;
-        const nomeUsuario = button.parentElement.parentElement.firstElementChild.textContent;
+        const nomeUsuario = button.parentElement.parentElement.children[1].textContent;
     
         const idUsuario = button.parentElement.parentElement.getAttribute("id");
     
