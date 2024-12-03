@@ -507,69 +507,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 fetch('/precoM2/buscarCapitaDemografica')
     .then(response => response.json())
-    .then(data => {
-        const bairros = data.map(item => item.bairro);
-        const densidades = data.map(item => item.densidadeDemografica); // Multiplicando por -1
-        const rendas = data.map(item => item.densidadeDemografica);
-
-        const ctx2 = document.getElementById('grafico2');
-        const grafico2 = new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: bairros,
-                datasets: [
-                    {
-                        label: 'Densidade demográfica (hab/km²)',
-                        data: densidades, // Valores negativos
-                        backgroundColor: '#909DB6'
-                    }
-                ]
-            },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function (value) {
-                                return Math.abs(value); // Mostrando valores absolutos
-                            },
-                            color: '#001F31'
-                        },
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: '#001F31'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#001F31',
-                            font: {
-                                size: 7
-                            }
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Principais Cidades em Densidade Demográfica',
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            }
-        });
-    })
-    .catch(error => {
-        console.error('Erro ao buscar dados para o gráfico:', error);
-    });
-
+    
 //grafico bairros com maior preço primeira sessão- segundo grafico
 const ctx3 = document.getElementById('grafico3');
 fetch('/precoM2/buscarRegioesComMaiorPreco')
