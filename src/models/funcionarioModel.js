@@ -38,9 +38,18 @@ function deletar(id) {
     return database.executar(instrucaoSql);
 }
 
+function validar(idUsuario) {
+    console.log("ACESSEI O FUNCIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar():");
+
+    var instrucaoSql = `SELECT idFuncionario, fkUsuario, cargo, FROM Funcionario JOIN Usuario ON fkUsuario = ${idUsuario};`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     cadastrarFunc,
     listar,
     atualizar,
-    deletar
+    deletar,
+    validar
 };

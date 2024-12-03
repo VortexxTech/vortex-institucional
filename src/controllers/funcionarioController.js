@@ -5,7 +5,6 @@ function cadastrarFunc(req, res) {
     var cpf = req.body.cpfServer;
     var cargo = req.body.cargoServer;
 
-
     if (idUsuario == undefined) {
         res.status(400).send("O id de usuario desse funcionario está indefinido!");
     } else if (cpf == undefined) {
@@ -51,7 +50,7 @@ function listar(req, res) {
 }
 
 function atualizar(req, res) {
-    var id = req.body.id;
+    var id = req.params.id;
     var idUsuario = req.body.idUsuarioServer;
     var cpf = req.body.cpfServer;
     var cargo = req.body.cargoServer;
@@ -84,7 +83,7 @@ function atualizar(req, res) {
 }
 
 function deletar(req, res) {
-    var id = req.body.id;
+    var id = req.params.id
 
     if (id == undefined) {
         res.status(400).send("O id do funcionário está indefinido!");
@@ -107,9 +106,49 @@ function deletar(req, res) {
     }
 }
 
+function validar(req, res) {
+    var idUsuario = req.params.idUsuarioServer;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("Seu usuário está indefinida!");
+    } else {
+
+        funcionarioModel.validar(idUsuario)
+            .then(
+                function (resultadoValidar) {
+                    console.log(`\nResultados encontrados: ${resultadoValidar.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoValidar)}`);
+
+                    if (resultadoValidar.length == 1) {
+                        res.status(200).send(resultadoAutenticar);
+
+                        res.status(200).json({
+                            id: resultadoValidar[0].idUsuario,
+                            cargo: resultadoValidar[0].cargo
+                        });
+
+
+
+                    } else if (resultadoValidar.length == 0) {
+                        res.status(403).send("Usuário e/ou cargo inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um funcionario com o mesmo usuario!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar a validação! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     cadastrarFunc,
     listar,
     atualizar,
-    deletar
+    deletar,
+    validar
 }

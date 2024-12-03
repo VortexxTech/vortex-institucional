@@ -19,4 +19,8 @@ router.delete("/deletar/:id", function (req, res) {
     funcionarioController.deletar(req, res)
 })
 
+router.get("/validar/:id", function (req, res){
+    funcionarioController.validar(req, res)
+})
+
 module.exports = router;
