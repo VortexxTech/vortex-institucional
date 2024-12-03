@@ -2,24 +2,9 @@ var database = require("../database/config");
 
 function buscarZonasComMaiorPreco(){
     var instrucaoSql = `
-SELECT 
-    valorMesAtual.zona,
-    ROUND((valorMesAtual.mediaValorM2 - valorMesAnterior.mediaValorM2) / valorMesAnterior.mediaValorM2 * 100, 2) AS percentualValorizacao
-FROM 
-    (SELECT 
-         zona,
-         AVG(valorM2) AS mediaValorM2
-     FROM DadosInseridos
-     WHERE cidade = 'SP' AND DATE_FORMAT(dtInsercao, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
-     GROUP BY zona) AS valorMesAtual
-JOIN 
-    (SELECT 
-         zona,
-         AVG(valorM2) AS mediaValorM2
-     FROM DadosInseridos
-     WHERE cidade = 'SP' AND DATE_FORMAT(dtInsercao, '%Y-%m') = DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH, '%Y-%m')
-     GROUP BY zona) AS valorMesAnterior
-ON valorMesAtual.zona = valorMesAnterior.zona
+SELECT zona, avg(valorM2) AS percentualValorizacao
+FROM DadosInseridos
+GROUP BY zona
 ORDER BY percentualValorizacao DESC
 LIMIT 1;
     `;
@@ -32,11 +17,10 @@ LIMIT 1;
 
 function buscarRegioesComMaiorPreco(){
     var instrucaoSql = `
-        SELECT 
+      SELECT 
             bairro,
             AVG(valorM2) AS mediaValorM2
         FROM DadosInseridos
-        WHERE cidade = 'SP'
         GROUP BY bairro
         ORDER BY mediaValorM2 DESC
         LIMIT 6;
@@ -48,33 +32,10 @@ function buscarRegioesComMaiorPreco(){
 
 function buscarValorizacaoCidadeRegiao(limite_meses) {
     var instrucaoSql = `
-SELECT 
-    valorMesAtual.zona,
-    valorMesAtual.bairro,
-    valorMesAtual.cidade,
-    ROUND((valorMesAtual.mediaValorM2 - valorMesAnterior.mediaValorM2) / valorMesAnterior.mediaValorM2 * 100, 2) AS percentualValorizacao
-FROM 
-    (SELECT 
-         zona,
-         bairro,
-         cidade,
-         AVG(valorM2) AS mediaValorM2
-     FROM DadosInseridos
-     WHERE cidade = 'SP' AND DATE_FORMAT(dtInsercao, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')
-     GROUP BY zona, bairro, cidade) AS valorMesAtual
-JOIN 
-    (SELECT 
-         zona,
-         bairro,
-         cidade,
-         AVG(valorM2) AS mediaValorM2
-     FROM DadosInseridos
-     WHERE cidade = 'SP' AND DATE_FORMAT(dtInsercao, '%Y-%m') = DATE_FORMAT(CURDATE() - INTERVAL 1 MONTH, '%Y-%m')
-     GROUP BY zona, bairro, cidade) AS valorMesAnterior
-ON valorMesAtual.zona = valorMesAnterior.zona 
-   AND valorMesAtual.bairro = valorMesAnterior.bairro 
-ORDER BY percentualValorizacao DESC
-LIMIT 1;
+    SELECT 
+    bairro,max(valorM2)  AS zona FROM 
+DadosInseridos GROUP BY bairro
+ORDER BY zona DESC LIMIT 1;
     `;
 
     console.log("Executando a instrução SQL para a valorização: \n" + instrucaoSql);
@@ -131,31 +92,26 @@ function buscarCapitaDemografica() {
     var instrucaoSql = `
 WITH NormalizedData AS (
     SELECT bairro, 
-           rendaPerCapita, 
+           valorM2,  -- Mantendo o valorM2 para uso
            densidadeDemografica, 
-           ((rendaPerCapita - MIN(rendaPerCapita) OVER ()) / 
-            (MAX(rendaPerCapita) OVER () - MIN(rendaPerCapita) OVER ())) AS renda_normalizada,
+           ((valorM2 - MIN(valorM2) OVER ()) / 
+            (MAX(valorM2) OVER () - MIN(valorM2) OVER ())) AS renda_normalizada,  -- Normalizando valorM2
            ((densidadeDemografica - MIN(densidadeDemografica) OVER ()) / 
-            (MAX(densidadeDemografica) OVER () - MIN(densidadeDemografica) OVER ())) AS densidade_normalizada,
-           (((rendaPerCapita - MIN(rendaPerCapita) OVER ()) / 
-             (MAX(rendaPerCapita) OVER () - MIN(rendaPerCapita) OVER ())) +
-            ((densidadeDemografica - MIN(densidadeDemografica) OVER ()) / 
-             (MAX(densidadeDemografica) OVER () - MIN(densidadeDemografica) OVER ()))) / 2 AS score_final
+            (MAX(densidadeDemografica) OVER () - MIN(densidadeDemografica) OVER ()) ) AS densidade_normalizada
     FROM DadosInseridos
 )
 SELECT bairro, 
-       rendaPerCapita, 
+       valorM2 AS rendaPerCapita,  -- Renomeando valorM2 para rendaPerCapita na saída
        densidadeDemografica, 
        renda_normalizada,
-       densidade_normalizada,
-       score_final
+       densidade_normalizada
 FROM (
-    SELECT *,
-           ROW_NUMBER() OVER (PARTITION BY bairro ORDER BY score_final DESC) AS rn
+    SELECT * ,
+           ROW_NUMBER() OVER (PARTITION BY bairro ORDER BY densidadeDemografica DESC) AS rn
     FROM NormalizedData
 ) subquery
 WHERE rn = 1
-ORDER BY score_final DESC
+ORDER BY densidadeDemografica DESC
 LIMIT 5;
     `;
 

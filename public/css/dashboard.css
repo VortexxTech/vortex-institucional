@@ -65,9 +65,9 @@ body{
     color: #909DB6;
 }
 
-#slc_previsao {
+/* #slc_previsao {
     display: none;
-}
+} */
 
 #container_kpis{
     height: 20%;
@@ -79,9 +79,8 @@ body{
 }
 
 #div_graficolinha{
-    height: 30%;
+    height: 40%;
     background-color: #909db6a9;
-    width: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -234,7 +233,7 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
 
 .graficos{
     height: 35vh;
-    width: 45%;
+    width: 90%;
     background-color: #FFFFFF;
     margin-top: 3%;
     justify-content: center;
@@ -251,7 +250,7 @@ box-shadow: 4px 4px 4px 4px    #909db6a9;
 
 .graficos_pesquisa {
     height: 45vh;
-    width: 30%;
+    width: 45%;
     background-color: #FFFFFF;
     margin-top: 3%;
     justify-content: center;

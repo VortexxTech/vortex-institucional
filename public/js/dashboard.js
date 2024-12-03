@@ -29,15 +29,59 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtrarBtn2 = document.getElementById('filtrarBtn2');
     const nomeCidade = document.getElementById('nome_cidade');
 
-    validarFuncionario();
+    // validarFuncionario();
 
     const cidadesPorRegiao = {
-        centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
-        norte: ['B', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
-        sul: ['Campo Belo', 'Campo Grande', 'Campo Limpo', 'Capão Redondo', 'Cidade Ademar', 'Cidade Dutra', 'Cursino', 'Grajaú', 'Ipiranga', 'Jabaquara', 'Jardim Ângela', 'Jardim São Luís', 'Moema', 'Saúde', 'Sacomã', 'Santo Amaro', 'Vila Andrade', 'Vila Mariana'],
-        oeste: ['Barra Funda', 'Butantã', 'Itaim Bibi', 'Jardim Paulista', 'Lapa', 'Morumbi', 'Perdizes', 'Pinheiros', 'Vila Leopoldina'],
-        leste: ['Água Rasa', 'Aricanduva', 'Artur Alvim', 'Belenzinho', 'Brás', 'Cangaíba', 'Cidade Líder', 'Cidade Tiradentes', 'Ermelino Matarazzo', 'Guaianases', 'Iguatemi', 'Itaim Paulista', 'Itaquera', 'Jardim Helena', 'José Bonifácio', 'Mooca', 'Pari', 'Penha', 'São Lucas', 'São Mateus', 'Sapopemba', 'Tatuapé', 'Vila Carrão', 'Vila Formosa', 'Vila Matilde', 'Vila Prudente'],
-        metropolitana: ['São Paulo', 'Barueri', 'Biritiba Mirim', 'Caieiras', 'Cajamar', 'Carapicuíba', 'Cotia', 'Diadema', 'Embu', 'Embu-Guaçu', 'Ferraz de Vasconcelos', 'Francisco Morato', 'Franco da Rocha', 'Guararema', 'Guarulhos', 'Itapecerica da Serra', 'Itapevi', 'Itaquaquecetuba', 'Jandira', 'Juquitiba', 'Mairiporã', 'Mauá', 'Mogi das Cruzes', 'Osasco', 'Pirapora do Bom Jesus', 'Poá', 'Ribeirão Pires', 'Rio Grande da Serra', 'Salesópolis', 'Santa Isabel', 'Santana do Parnaíba', 'Santo André', 'São Bernardo do Campo', 'São Caetano do Sul', 'São Lourenço da Serra', 'Suzano', 'Taboão da Serra', 'Vargem Grande Paulista'],
+        centro: [
+            'Bela Vista',
+            'Bom Retiro',
+            'Cambuci',
+            'Consolação',
+            'Higienópolis',
+            'Liberdade',
+            'República',
+            'Santa Cecília'
+          ],
+          norte: [
+            'Casa Verde',
+            'Freguesia do Ó / Brasilândia',
+            'Jaçanã / Tremembé',
+            'Perus',
+            'Santana / Tucuruvi',
+            'Vila Maria / Vila Guilherme'
+          ],
+          sul: [
+            'Campo Limpo',
+            'Capela do Socorro',
+            'Cidade Ademar',
+            'Grajaú',
+            'Jabaquara',
+            'Jardim Ângela',
+            'M’Boi Mirim',
+            'Parelheiros',
+            'Santo Amaro',
+            'Vila Andrade'
+          ],
+          oeste: [
+            'Butantã',
+            'Lapa',
+            'Pinheiros',
+            'Pirituba / Jaraguá',
+            'Raposo Tavares'
+          ],
+          leste: [
+            'Aricanduva / Vila Formosa',
+            'Cidade Tiradentes',
+            'Ermelino Matarazzo',
+            'Guaianases',
+            'Itaim Paulista',
+            'Itaquera',
+            'Penha',
+            'São Mateus',
+            'São Miguel Paulista',
+            'Sapopemba',
+            'Vila Prudente'
+          ]
     };
 
     zonaRegiaoPesquisa.addEventListener('change', function () {
@@ -77,12 +121,57 @@ document.addEventListener('DOMContentLoaded', function () {
     const zonaRegiaoPrevista = document.getElementById('zona-regiao-prevista');
     const regiaoCidadePrevista = document.getElementById('regiao-bairro-prevista');
     const cidadesPorRegiao = {
-        centro: ['A', 'Bom Retiro', 'Cambuci', 'Consolação', 'Sé', 'Higienópolis', 'Liberdade', 'República', 'Santa Cecília'],
-        norte: ['B', 'Casa Verde', 'Freguesia do Ó', 'Jaraguá', 'Jaçanã', 'Limão', 'Mandaqui', 'Santana', 'Tremembé', 'Tucuruvi', 'Vila Guilherme', 'Vila Maria', 'Vila Medeiros', 'Vila Nova Cachoeirinha'],
-        sul: ['Campo Belo', 'Campo Grande', 'Campo Limpo', 'Capão Redondo', 'Cidade Ademar', 'Cidade Dutra', 'Cursino', 'Grajaú', 'Ipiranga', 'Jabaquara', 'Jardim Ângela', 'Jardim São Luís', 'Moema', 'Saúde', 'Sacomã', 'Santo Amaro', 'Vila Andrade', 'Vila Mariana'],
-        oeste: ['Barra Funda', 'Butantã', 'Itaim Bibi', 'Jardim Paulista', 'Lapa', 'Morumbi', 'Perdizes', 'Pinheiros', 'Vila Leopoldina'],
-        leste: ['Água Rasa', 'Aricanduva', 'Artur Alvim', 'Belenzinho', 'Brás', 'Cangaíba', 'Cidade Líder', 'Cidade Tiradentes', 'Ermelino Matarazzo', 'Guaianases', 'Iguatemi', 'Itaim Paulista', 'Itaquera', 'Jardim Helena', 'José Bonifácio', 'Mooca', 'Pari', 'Penha', 'São Lucas', 'São Mateus', 'Sapopemba', 'Tatuapé', 'Vila Carrão', 'Vila Formosa', 'Vila Matilde', 'Vila Prudente'],
-        metropolitana: ['São Paulo', 'Barueri', 'Biritiba Mirim', 'Caieiras', 'Cajamar', 'Carapicuíba', 'Cotia', 'Diadema', 'Embu', 'Embu-Guaçu', 'Ferraz de Vasconcelos', 'Francisco Morato', 'Franco da Rocha', 'Guararema', 'Guarulhos', 'Itapecerica da Serra', 'Itapevi', 'Itaquaquecetuba', 'Jandira', 'Juquitiba', 'Mairiporã', 'Mauá', 'Mogi das Cruzes', 'Osasco', 'Pirapora do Bom Jesus', 'Poá', 'Ribeirão Pires', 'Rio Grande da Serra', 'Salesópolis', 'Santa Isabel', 'Santana do Parnaíba', 'Santo André', 'São Bernardo do Campo', 'São Caetano do Sul', 'São Lourenço da Serra', 'Suzano', 'Taboão da Serra', 'Vargem Grande Paulista'],
+       centro: [
+    'Bela Vista',
+    'Bom Retiro',
+    'Cambuci',
+    'Consolação',
+    'Higienópolis',
+    'Liberdade',
+    'República',
+    'Santa Cecília'
+  ],
+  norte: [
+    'Casa Verde',
+    'Freguesia do Ó / Brasilândia',
+    'Jaçanã / Tremembé',
+    'Perus',
+    'Santana / Tucuruvi',
+    'Vila Maria / Vila Guilherme'
+  ],
+  sul: [
+    'Campo Limpo',
+    'Capela do Socorro',
+    'Cidade Ademar',
+    'Grajaú',
+    'Jabaquara',
+    'Jardim Ângela',
+    'M’Boi Mirim',
+    'Parelheiros',
+    'Santo Amaro',
+    'Vila Andrade'
+  ],
+  oeste: [
+    'Butantã',
+    'Lapa',
+    'Pinheiros',
+    'Pirituba / Jaraguá',
+    'Raposo Tavares'
+  ],
+  leste: [
+    'Aricanduva / Vila Formosa',
+    'Cidade Tiradentes',
+    'Ermelino Matarazzo',
+    'Guaianases',
+    'Itaim Paulista',
+    'Itaquera',
+    'Penha',
+    'São Mateus',
+    'São Miguel Paulista',
+    'Sapopemba',
+    'Vila Prudente'
+  ]
+
     };
 
     zonaRegiaoPrevista.addEventListener('change', function () {
@@ -306,7 +395,6 @@ function obterValorizacao() {
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.statusText}`);
             }
-
             // Verifica se a resposta tem conteúdo
             return response.text().then(function (text) {
                 if (text) {
@@ -321,12 +409,10 @@ function obterValorizacao() {
 
             const bairro = resposta.bairro;
             const zona = resposta.zona;
-            const valorizacao = resposta.percentualValorizacao;
 
             // Preenchendo as KPIs
 
             document.querySelector('.texto_kpi').textContent = `${bairro} / ${zona}`;
-            document.getElementById('valorizacao-kpi').textContent = `${valorizacao}%`;
         })
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados para KPI: ${error.message}`);
@@ -347,8 +433,7 @@ function obterValorizacaoZona() {
                 const valorizacao = resposta.percentualValorizacao;
 
                 // Preenchendo as KPIs
-                document.querySelector('.titulo_kpi').textContent = `Zona com valorização mais alta do m² no mês(R$):`;
-                document.getElementById('valorizacao-zona').textContent = `${zona} / ${valorizacao}%`;
+                document.getElementById('valorizacao-zona').textContent = `${zona} / ${valorizacao}(R$)`;
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -424,8 +509,8 @@ fetch('/precoM2/buscarCapitaDemografica')
     .then(response => response.json())
     .then(data => {
         const bairros = data.map(item => item.bairro);
-        const densidades = data.map(item => -item.densidadeDemografica); // Multiplicando por -1
-        const rendas = data.map(item => item.rendaPerCapita);
+        const densidades = data.map(item => item.densidadeDemografica); // Multiplicando por -1
+        const rendas = data.map(item => item.densidadeDemografica);
 
         const ctx2 = document.getElementById('grafico2');
         const grafico2 = new Chart(ctx2, {
@@ -437,11 +522,6 @@ fetch('/precoM2/buscarCapitaDemografica')
                         label: 'Densidade demográfica (hab/km²)',
                         data: densidades, // Valores negativos
                         backgroundColor: '#909DB6'
-                    },
-                    {
-                        label: 'Renda per Capita',
-                        data: rendas,
-                        backgroundColor: '#001F31'
                     }
                 ]
             },
@@ -477,7 +557,7 @@ fetch('/precoM2/buscarCapitaDemografica')
                     },
                     title: {
                         display: true,
-                        text: 'Principais Cidades em Densidade Demográfica e Renda Per Capita Juntas',
+                        text: 'Principais Cidades em Densidade Demográfica',
                         font: {
                             size: 12
                         }
@@ -654,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 grafico5.update();
                             } else {
                                 grafico5 = new Chart(ctx5, {
-                                    type: 'line',
+                                    type: 'bar',
                                     data: {
                                         labels: labels,
                                         datasets: [{
@@ -671,7 +751,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                             easing: 'easeOutQuad',  // Tipo de animação
                                             onComplete: function () {
                                                 console.log('Animação Completa');
-                                            }
+                                            }   
                                         },
                                         scales: {
                                             y: {
@@ -691,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                             },
                                             title: {
                                                 display: true,
-                                                text: 'Variação mensal do preço do m² nos últimos 4 meses',
+                                                text: 'Preço do m² na região',
                                                 font: { size: 12 },
                                                 padding: { top: 10, bottom: 10 }
                                             }
@@ -757,7 +837,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             datasets: [{
                                 label: '',
                                 data: [3443, data.rendaPerCapita],
-                                backgroundColor: ['#909DB6', '#001F31']
+                                backgroundColor: ['#909DB6', '#001F31'],
+                                minBarLength: 15,
                             }]
                         },
                         options: {
@@ -863,8 +944,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const kpiTitulo = document.querySelector('.titulo_kpi');
                 const kpiTexto = document.querySelector('.texto_kpi');
 
-                kpiTitulo.innerHTML = `Densidade demográfica do bairro (Hab/Km²) (Dados não disponíveis):`;
-                kpiTexto.innerHTML = 'N/A';
+         
             });
     }
 
