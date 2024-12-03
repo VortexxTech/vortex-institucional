@@ -98,6 +98,7 @@ body{
 }
 
 .user_name,
+.user_cargo,
 .user_carrer{
     color: #000000;
 }

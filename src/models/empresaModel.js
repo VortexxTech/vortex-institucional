@@ -25,16 +25,11 @@ function listar() {
     return database.executar(instrucaoSql);
 }
 
-function atualizar(id, nome, cnpj, cep, cidade, bairro, numero) {
-    console.log("ACESSEI A EMPRESA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar():", nome, cnpj, cep, cidade, bairro, numero);
+function atualizar(id, nome) {
+    console.log("ACESSEI A EMPRESA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar():", nome);
 
     var instrucaoSql = `UPDATE Empresa SET 
-    nome = "${nome}", 
-    cnpj = "${cnpj}", 
-    cep = "${cep}", 
-    cidade = "${cidade}", 
-    bairro = "${bairro}", 
-    numero = "${numero}" 
+    nome = "${nome}"
     WHERE idEmpresa = ${id};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

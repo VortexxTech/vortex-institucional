@@ -107,28 +107,13 @@ function listar(req, res) {
 function atualizar(req, res) {
     var id = req.params.id;
     var nome = req.body.nomeServer;
-    var cnpj = req.body.cnpjServer;
-    var cep = req.body.cepServer;
-    var cidade = req.body.cidadeServer;
-    var bairro = req.body.bairroServer;
-    var numero = req.body.numeroServer;
 
     if (id == undefined) {
         res.status(400).send("O id da empresa está indefinido!");
     } else if (nome == undefined) {
         res.status(400).send("O nome da empresa está indefinido!");
-    } else if (cnpj == undefined) {
-        res.status(400).send("O cnpj da empresa está indefinido!");
-    } else if (cep == undefined) {
-        res.status(400).send("O cep da empresa está indefinido!");
-    } else if (cidade == undefined) {
-        res.status(400).send("A cidade da empresa está indefinido!");
-    } else if (bairro == undefined) {
-        res.status(400).send("O bairro da empresa está indefinido!");
-    } else if (numero == undefined) {
-        res.status(400).send("O numero da empresa está indefinido!");
     } else {
-        empresaModel.atualizar(id, nome, cnpj, cep, cidade, bairro, numero)
+        empresaModel.atualizar(id, nome)
             .then(
                 function (resultado) {
                     res.json(resultado);

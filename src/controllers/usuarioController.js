@@ -98,19 +98,13 @@ function listar(req, res) {
 function atualizar(req, res) {
     var id = req.params.id;
     var nome = req.body.nomeServer;
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
 
     if (id == undefined) {
         res.status(400).send("O id do usuario está indefinido!");
     } else if (nome == undefined) {
         res.status(400).send("O nome do usuario está indefinido!");
-    } else if (email == undefined) {
-        res.status(400).send("O email do usuario está indefinido!");
-    } else if (senha == undefined) {
-        res.status(400).send("A nome do usuario está indefinido!");
     } else {
-        usuarioModel.atualizar(id, nome, email, senha)
+        usuarioModel.atualizar(id, nome)
             .then(
                 function (resultado) {
                     res.json(resultado);

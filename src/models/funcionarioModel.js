@@ -18,12 +18,10 @@ function listar() {
     return database.executar(instrucaoSql);
 }
 
-function atualizar(id, idUsuario, cpf, cargo) {
-    console.log("ACESSEI O FUNCIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar():",cpf, cargo);
+function atualizar(id, cargo) {
+    console.log("ACESSEI O FUNCIONARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizar():", id, cargo);
 
     var instrucaoSql = `UPDATE Funcionario SET
-    idUsuario = "${idUsuario}",
-    cpf = "${cpf}",
     cargo = "${cargo}"
     WHERE idFuncionario = ${id};`;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
